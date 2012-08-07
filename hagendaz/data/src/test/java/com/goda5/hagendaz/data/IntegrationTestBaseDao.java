@@ -7,7 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.goda5.hagendaz.common.domain.IntegrationTestBase;
 
-@ContextConfiguration(locations = { "classpath:/META-INF/spring/data.xml" })
+@ContextConfiguration(locations = { "classpath:data.xml" })
 public abstract class IntegrationTestBaseDao extends IntegrationTestBase {
 	@Inject
 	@Override

@@ -33,4 +33,7 @@
 		timeToLiveSeconds="300" overflowToDisk="false"
 		memoryStoreEvictionPolicy="FIFO" />
 
+	<cache name="UserService" maxElementsInMemory="1000"
+		timeToLiveSeconds="300" overflowToDisk="false"
+		memoryStoreEvictionPolicy="FIFO" />
 </ehcache>

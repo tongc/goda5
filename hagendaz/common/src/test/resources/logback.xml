@@ -27,4 +27,8 @@
 	<logger name="org.hibernate.type" level="DEBUG" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
+	
+	<logger name="org.springframework.cache" level="TRACE" additivity="false">
+		<appender-ref ref="STDOUT" />
+	</logger>
 </configuration>

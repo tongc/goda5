@@ -5,11 +5,21 @@ import javax.persistence.PersistenceContext;
 
 import com.goda5.hagendaz.common.domain.BaseEntity;
 
-public class AbstractDao <T extends BaseEntity> {
+public abstract class AbstractDao <T extends BaseEntity> {
 	@PersistenceContext
-	private EntityManager em;
+	protected EntityManager em;
 	
-	protected void save(T object) {
+	public void save(T object) {
 		em.persist(object);
 	}
+	
+	public T find(long id) {
+		return em.find(getPersistentClass(), id);
+	}
+	
+	public long count() {
+		return em.createQuery("select count(c) from " + getPersistentClass().getName() + " c", Long.class).getSingleResult();
+	}
+	
+	protected abstract Class<T> getPersistentClass();
 }
