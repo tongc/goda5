@@ -38,7 +38,7 @@ public class SerializationTest {
 		
 		Assert.assertEquals(object.getClass(), User.class);
 		Assert.assertEquals(((User)object).getUsername(), USERNAME);
-		Assert.assertEquals(((User)object).getId(), 0L);
+		Assert.assertEquals(((User)object).getId(), new Long(0L));
 		
 		tempFile.delete();
 	}

@@ -5,7 +5,7 @@ import javax.sql.DataSource;
 
 import org.springframework.test.context.ContextConfiguration;
 
-import com.goda5.hagendaz.common.domain.IntegrationTestBase;
+import com.goda5.hagendaz.common.IntegrationTestBase;
 
 @ContextConfiguration(locations = { "classpath:data.xml" })
 public abstract class IntegrationTestBaseDao extends IntegrationTestBase {

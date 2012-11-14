@@ -16,12 +16,15 @@ public class AccountDaoITCase extends IntegrationTestBaseDao {
 	private AccountDao dao;
 	
 	@Test
-	public void testSaveUser() {
+	public void testSaveUser() throws InterruptedException {
+		Thread.sleep(10000);
 		Account account = new Account();
 		Money money = Money.of(CurrencyUnit.USD, new BigDecimal(10.00));
 		account.setBalances(money);
 		dao.save(account);
 		
 		System.out.println(dao.find(account.getId()));
+		
+		Thread.sleep(110000);
 	}
 }

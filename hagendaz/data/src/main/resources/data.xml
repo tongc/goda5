@@ -19,6 +19,17 @@
             http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd">
 
 	<import resource="classpath*:common.xml" />
+	
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>file://${GODA_HOME}/database.properties</value>
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+	</bean>
+	
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
