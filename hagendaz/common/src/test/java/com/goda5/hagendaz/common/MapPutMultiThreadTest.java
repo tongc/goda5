@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang.math.RandomUtils;
 import org.testng.annotations.Test;
 
-import com.goda5.hagendaz.common.domain.CustomMapService;
+import com.goda5.hagendaz.common.domain.other.CustomMapService;
 
 public class MapPutMultiThreadTest {
 	CustomMapService cms = new CustomMapService();

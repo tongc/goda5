@@ -1,4 +1,4 @@
-package com.goda5.hagendaz.common.domain;
+package com.goda5.hagendaz.common.domain.other;
 
 import java.util.HashMap;
 

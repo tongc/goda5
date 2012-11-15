@@ -3,7 +3,7 @@ package com.goda5.hagendaz.common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
 
-import com.goda5.hagendaz.common.domain.TEService;
+import com.goda5.hagendaz.common.domain.other.TEService;
 
 public class TETest extends IntegrationTestBase {
 	@Autowired

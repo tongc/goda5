@@ -8,8 +8,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import com.goda5.hagendaz.common.domain.Message;
-import com.goda5.hagendaz.common.domain.Node;
+import com.goda5.hagendaz.common.domain.other.Message;
+import com.goda5.hagendaz.common.domain.other.Node;
 
 public class TransactionNetwork {
 

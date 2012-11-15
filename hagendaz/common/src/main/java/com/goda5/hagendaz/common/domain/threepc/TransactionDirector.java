@@ -10,10 +10,10 @@ import java.util.concurrent.Future;
 
 import org.apache.commons.lang.math.RandomUtils;
 
-import com.goda5.hagendaz.common.domain.Message;
-import com.goda5.hagendaz.common.domain.Node;
-import com.goda5.hagendaz.common.domain.Role;
-import com.goda5.hagendaz.common.domain.UnitOfWork;
+import com.goda5.hagendaz.common.domain.other.Message;
+import com.goda5.hagendaz.common.domain.other.Node;
+import com.goda5.hagendaz.common.domain.other.Role;
+import com.goda5.hagendaz.common.domain.other.UnitOfWork;
 
 public class TransactionDirector {
 	private TransactionNetwork network = new TransactionNetwork();

@@ -1,5 +1,6 @@
 package com.goda5.hagendaz.common.domain;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -7,6 +8,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
 
 @Entity
+@Cacheable
 public class User extends BaseEntity {
 	/**
 	 * 
