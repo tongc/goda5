@@ -139,6 +139,6 @@ public class TwoPhaseCommitTest {
 		System.out.println(p3.getTransactionStatus(t1));
 		
 		
-		Thread.sleep(300000);
+		Thread.sleep(3000);
 	}
 }

@@ -1,14 +1,17 @@
 package com.goda5.hagendaz.data;
 
 import javax.inject.Inject;
+
 import javax.sql.DataSource;
 
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 
-import com.goda5.hagendaz.common.IntegrationTestBase;
 
+@ActiveProfiles("local")
 @ContextConfiguration(locations = { "classpath:data.xml" })
-public abstract class IntegrationTestBaseDao extends IntegrationTestBase {
+public abstract class IntegrationTestBaseDao extends AbstractTransactionalTestNGSpringContextTests {
 	@Inject
 	@Override
 	public void setDataSource(final DataSource dataSource) {

@@ -20,6 +20,7 @@ public class SerializationTest {
 	@Test
 	public void testSerializeDeserializeUser() throws FileNotFoundException, IOException, ClassNotFoundException {
 		User user = new User();
+		user.setId(0L);
 		user.setUsername(USERNAME);
 		
 		//Serialise

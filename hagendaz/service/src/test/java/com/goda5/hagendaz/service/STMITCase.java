@@ -1,23 +1,24 @@
-package com.goda5.hagendaz.common;
+package com.goda5.hagendaz.service;
 
 import java.util.Date;
 
 import org.multiverse.api.references.TxnInteger;
 import org.multiverse.api.references.TxnRef;
+import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static org.multiverse.api.StmUtils.*;
 
-public class STMTest {
+public class STMITCase extends IntegrationTestBaseService {
 	private TxnRef<Date> lastUpdate;
     private TxnInteger balance;
     
-    public STMTest() {
+    public STMITCase() {
     	
     }
     
-    public STMTest(int balance){
+    public STMITCase(int balance){
         this.lastUpdate = newTxnRef(new Date());
         this.balance = newTxnInteger(balance);
     }
@@ -36,10 +37,15 @@ public class STMTest {
     }
     
     @Test
+    @Transactional
     public void testIncBalance() {
-    	STMTest test = new STMTest(100);
-    	test.incBalance(50, new Date());
-    	System.out.println(test.balance);
-    	//Assert.assertEquals(test.balance.get(), 150);
+    	final STMITCase test = new STMITCase(100);
+    	atomic(new Runnable(){
+            public void run(){
+		    	test.incBalance(50, new Date());
+		    	System.out.println(test.balance);
+		    	Assert.assertEquals(test.balance.get(), 150);
+            }
+        });
     }
 }

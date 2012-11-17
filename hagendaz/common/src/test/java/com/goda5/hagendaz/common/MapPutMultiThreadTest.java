@@ -16,18 +16,21 @@ public class MapPutMultiThreadTest {
 	CustomMapService cms = new CustomMapService();
 	
 	@Test
-	public void testPut() throws InterruptedException {
+	public void put() throws InterruptedException {
 		ExecutorService es = Executors.newFixedThreadPool(10);
 		
 		Callable<Object> c = new Callable<Object>() {
 			@Override
 			public Object call() throws Exception {
-				while(true) {
+				int i = 0;
+				while(i<1000) {
 					Integer random = RandomUtils.nextInt(5);
 					cms.putIfAbsent(random, "");
 					//System.out.println(Thread.currentThread().getName() + cms.getMap());
 					cms.remove(random);
+					i++;
 				}
+				return null;
 			}
 		};
 		
@@ -36,7 +39,7 @@ public class MapPutMultiThreadTest {
 			calls.add(c);
 		}
 		es.invokeAll(calls);
-		es.awaitTermination(60, TimeUnit.SECONDS);
+		es.awaitTermination(5, TimeUnit.SECONDS);
 		es.shutdown();
 	}
 }

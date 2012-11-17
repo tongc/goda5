@@ -1,23 +1,25 @@
 package com.goda5.hagendaz.data.dao;
 
-import java.awt.Button;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.UnknownHostException;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import scala.actors.threadpool.ExecutorService;
+import scala.actors.threadpool.Executors;
 
 import com.goda5.hagendaz.common.domain.User;
 import com.goda5.hagendaz.data.IntegrationTestBaseDao;
@@ -50,24 +52,53 @@ public class UserDaoITCase extends IntegrationTestBaseDao {
 	}
 
 	@Test
-	public void testNetwork() throws UnknownHostException, IOException {
+	public void testNetwork() throws UnknownHostException, IOException, InterruptedException {
+		ExecutorService es = Executors.newFixedThreadPool(1);
+		es.execute(new Runnable() {
+			@Override
+			public void run() {
+				Socket s = null;
+				try {
+					Thread.sleep(1000);
+					s = new Socket("localhost", 4999);
+				} catch (UnknownHostException e1) {
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				try {
+					BufferedReader in = new BufferedReader(
+		                    new InputStreamReader(
+		                    s.getInputStream()));
+			        boolean inputLine;
+			        System.out.println("try read server");
+			        while(inputLine = in.readLine()!=null) {
+			        	System.out.println("value:" + inputLine);
+			        }
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
 		ServerSocket serverSocket = new ServerSocket(4999);
 		while(true) {
+			System.out.println("waiting connection...");
 			Socket s = serverSocket.accept();
+			System.out.println("connected");
 			PrintWriter out = new PrintWriter(s.getOutputStream(), true);
-	        BufferedReader in = new BufferedReader(
-	                    new InputStreamReader(
-	                    s.getInputStream()));
-
-	        String inputLine;
+	        System.out.println("pumping to client");
+	        Thread.sleep(1000);
 	        out.print("OK");
 	        out.print("OK");
 	        out.print("OK");
 	        out.print("OK");
 	        out.print("OK");
-	        while ((inputLine = in.readLine()) != null) {
-	        	System.out.println(inputLine);
-	        }
+	        break;
 		}
+		
+		Thread.sleep(3000);
 	}
 }

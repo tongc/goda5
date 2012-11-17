@@ -17,7 +17,7 @@ public class AccountDaoITCase extends IntegrationTestBaseDao {
 	
 	@Test
 	public void testSaveUser() throws InterruptedException {
-		Thread.sleep(10000);
+		Thread.sleep(1000);
 		Account account = new Account();
 		Money money = Money.of(CurrencyUnit.USD, new BigDecimal(10.00));
 		account.setBalances(money);
@@ -25,6 +25,6 @@ public class AccountDaoITCase extends IntegrationTestBaseDao {
 		
 		System.out.println(dao.find(account.getId()));
 		
-		Thread.sleep(110000);
+		Thread.sleep(1000);
 	}
 }
