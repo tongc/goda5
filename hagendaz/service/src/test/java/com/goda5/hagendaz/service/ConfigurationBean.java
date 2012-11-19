@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
-import com.goda5.hagendaz.common.TestConf;
+import com.goda5.hagendaz.common.util.TestConf;
 import com.goda5.hagendaz.data.dao.AccountDao;
 import com.goda5.hagendaz.data.dao.UserDao;
 

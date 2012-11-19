@@ -1,7 +1,6 @@
 package com.goda5.hagendaz.data;
 
 import javax.inject.Inject;
-
 import javax.sql.DataSource;
 
 import org.springframework.test.context.ActiveProfiles;

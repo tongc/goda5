@@ -1,4 +1,4 @@
-package com.goda5.hagendaz.common;
+package com.goda5.hagendaz.common.util;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

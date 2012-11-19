@@ -13,14 +13,19 @@ import com.goda5.hagendaz.data.dao.UserDao;
 public class UserService {
 	@Inject
 	private UserDao dao;
-	
+
 	@CacheEvict(value = "UserService", allEntries=true)
-	public void saveUser(User user) {
+	public void saveUser(final User user) {
 		dao.save(user);
 	}
-	
+
 	@Cacheable(value = "UserService", key="{#root.methodName}")
 	public long getUserCount() {
 		return dao.count();
+	}
+
+	@Cacheable(value = "UserService", key="{#root.methodName}")
+	public User findUser(final Long userId) {
+		return dao.find(userId);
 	}
 }
