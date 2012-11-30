@@ -1,4 +1,4 @@
-package com.goda5.hagendaz.common.domain;
+package com.goda5.hagendaz.common;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import com.goda5.hagendaz.common.domain.User;
 
 public class SerializationTest {
 	Logger logger = LoggerFactory.getLogger(SerializationTest.class);

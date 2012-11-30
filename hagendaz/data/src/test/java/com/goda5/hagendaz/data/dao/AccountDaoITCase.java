@@ -1,11 +1,7 @@
 package com.goda5.hagendaz.data.dao;
 
-import java.math.BigDecimal;
-
 import javax.inject.Inject;
 
-import org.joda.money.CurrencyUnit;
-import org.joda.money.Money;
 import org.testng.annotations.Test;
 
 import com.goda5.hagendaz.common.domain.Account;
@@ -14,17 +10,16 @@ import com.goda5.hagendaz.data.IntegrationTestBaseDao;
 public class AccountDaoITCase extends IntegrationTestBaseDao {
 	@Inject
 	private AccountDao dao;
-	
+
 	@Test
 	public void testSaveUser() throws InterruptedException {
 		Thread.sleep(1000);
-		Account account = new Account();
-		Money money = Money.of(CurrencyUnit.USD, new BigDecimal(10.00));
-		account.setBalances(money);
+		final Account account = new Account();
+		account.setBalances("10.00");
 		dao.save(account);
-		
+
 		System.out.println(dao.find(account.getId()));
-		
+
 		Thread.sleep(1000);
 	}
 }
