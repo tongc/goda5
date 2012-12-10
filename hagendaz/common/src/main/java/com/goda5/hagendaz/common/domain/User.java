@@ -11,17 +11,17 @@ import org.joda.time.LocalDateTime;
 @Cacheable
 public class User extends BaseEntity {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	@Column
+	@Column(unique=true)
 	private String username;
-	
+
 	@Column
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime regDate;
 
-	public void setUsername(String username) {
+	public void setUsername(final String username) {
 		this.username = username;
 	}
 
@@ -29,7 +29,7 @@ public class User extends BaseEntity {
 		return username;
 	}
 
-	public void setRegDate(LocalDateTime regDate) {
+	public void setRegDate(final LocalDateTime regDate) {
 		this.regDate = regDate;
 	}
 
