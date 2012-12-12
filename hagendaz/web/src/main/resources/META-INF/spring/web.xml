@@ -18,6 +18,7 @@
             http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
 	<import resource="classpath*:service.xml" />
+	<import resource="classpath*:service-ws.xml" />
 
 	<!-- Turns on support for mapping requests to Spring MVC @Controller methods 
 		Also registers default Formatters and Validators for use across all @Controllers -->
