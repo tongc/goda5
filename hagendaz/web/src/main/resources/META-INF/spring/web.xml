@@ -30,6 +30,7 @@
 				<props>
 					<!-- cache for one month -->
 					<prop key="/addUserCached/**">10000</prop>
+					<prop key="/home">10</prop>
 					<!-- don't set cache headers -->
 					<prop key="/cache/agnostic/**">-1</prop>
 				</props>
