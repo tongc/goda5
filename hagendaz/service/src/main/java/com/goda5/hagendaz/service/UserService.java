@@ -27,7 +27,7 @@ public class UserService {
 		return dao.count();
 	}
 
-	@Cacheable(value = "UserService", key="{#root.methodName}")
+	@Cacheable(value = "UserService", key="{#root.methodName + #userId}")
 	@Transactional(readOnly=true)
 	public User findUser(final Long userId) {
 		return dao.find(userId);

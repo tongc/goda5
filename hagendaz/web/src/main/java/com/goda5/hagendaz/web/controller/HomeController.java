@@ -39,4 +39,11 @@ public class HomeController extends BaseController {
 	public ModelAndView addUserCached(@PathVariable final String username) {
 		return addUser(username);
 	}
+
+	@RequestMapping("/findUser/{userid}")
+	public ModelAndView findUser(@PathVariable final Long userid) {
+		final ModelAndView mv = new ModelAndView("userStatus");
+		mv.addObject("userId", userService.findUser(userid).getId());
+		return mv;
+	}
 }

@@ -1,4 +1,4 @@
-package com.goda5.hagendaz.service.ws;
+package com.goda5.hagendaz.service;
 
 import javax.inject.Inject;
 import javax.jws.WebService;
@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.goda5.hagendaz.common.domain.User;
 import com.goda5.hagendaz.common.domain.UserStatus;
-import com.goda5.hagendaz.service.UserService;
 
 @Service("userStatusReporterImpl")
 @WebService(endpointInterface = "com.goda5.hagendaz.service.ws.UserStatusReporter")
-public class UserStatusReporterImpl implements UserStatusReporter {
+public class UserStatusReporterImpl implements com.goda5.hagendaz.service.rs.UserStatusReporter, com.goda5.hagendaz.service.ws.UserStatusReporter {
 
 	@Inject
 	private UserService userService;
@@ -21,6 +20,7 @@ public class UserStatusReporterImpl implements UserStatusReporter {
 		final UserStatus us = new UserStatus();
 		final User user = userService.findUser(userId);
 		us.setUserID(user.getId());
+		System.out.println(user.getId() + ":" + userId);
 		return us;
 	}
 }
