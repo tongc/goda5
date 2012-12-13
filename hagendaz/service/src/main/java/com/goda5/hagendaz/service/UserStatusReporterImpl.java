@@ -20,7 +20,6 @@ public class UserStatusReporterImpl implements com.goda5.hagendaz.service.rs.Use
 		final UserStatus us = new UserStatus();
 		final User user = userService.findUser(userId);
 		us.setUserID(user.getId());
-		System.out.println(user.getId() + ":" + userId);
 		return us;
 	}
 }
