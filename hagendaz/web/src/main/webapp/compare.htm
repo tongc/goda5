@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="scripts/jquery.js"></script>
+<script src="scripts/jquerymx-3.2.custom.js"></script>
+</head>
+<body>
+
+	<form>
+		<fieldset>
+			<ul>
+				<li><label for="email1">Email1</label> <input type="text"
+					id="email1" name="email1" /></li>
+				<li><label for="email2">Email2</label> <input type="text"
+					id="email2" name="email2" /></li>
+				<li><label for="email3">Email3</label> <input type="text"
+					id="email3" name="email3" /></li>
+			</ul>
+		</fieldset>
+	</form>
+	
+	<div id="results">
+		results:
+	</div>
+	
+	<script>
+		$("#results").append($('#email1').compare($('#email2')));
+		$("#results").append($('#email2').compare($('#email2')));
+		$("#results").append($('#email2').compare($('#email1')));
+		$("#results").append($('#email2').compare($('#email3')));
+	</script>
+</body>
+</html>
