@@ -1,0 +1,1954 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="HotelServicesImplService" targetNamespace="http://v3.hotel.wsapi.ean.com/" xmlns:ns1="http://cxf.apache.org/bindings/xformat" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://v3.hotel.wsapi.ean.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://v3.hotel.wsapi.ean.com/" xmlns:tns="http://v3.hotel.wsapi.ean.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="AlternatePropertyListRequest" type="tns:AlternatePropertyListRequest" />
+  <xs:element name="AlternatePropertyListResponse" type="tns:AlternatePropertyListResponse" />
+  <xs:element name="BaseRateInfo" type="tns:baseRateInfo" />
+  <xs:element name="BaseRequest" type="tns:BaseRequest" />
+  <xs:element name="BaseResponse" type="tns:BaseResponse" />
+  <xs:element name="Discounts" type="tns:baseRateInfoDiscounts" />
+  <xs:element name="EanWsError" type="tns:EanWsError" />
+  <xs:element name="HotelBaseRequest" type="tns:HotelBaseRequest" />
+  <xs:element name="HotelInformationRequest" type="tns:HotelInformationRequest" />
+  <xs:element name="HotelInformationResponse" type="tns:HotelInformationResponse" />
+  <xs:element name="HotelItineraryRequest" type="tns:HotelItineraryRequest" />
+  <xs:element name="HotelItineraryResponse" type="tns:HotelItineraryResponse" />
+  <xs:element name="HotelListRequest" type="tns:HotelListRequest" />
+  <xs:element name="HotelListResponse" type="tns:HotelListResponse" />
+  <xs:element name="HotelPaymentRequest" nillable="true" type="xs:anyType" />
+  <xs:element name="HotelPaymentResponse" type="tns:HotelPaymentResponse" />
+  <xs:element name="HotelRateRulesRequest" type="tns:HotelRateRulesRequest" />
+  <xs:element name="HotelRateRulesResponse" type="tns:HotelRateRulesResponse" />
+  <xs:element name="HotelRoomAvailabilityRequest" type="tns:HotelRoomAvailabilityRequest" />
+  <xs:element name="HotelRoomAvailabilityResponse" type="tns:HotelRoomAvailabilityResponse" />
+  <xs:element name="HotelRoomCancellationRequest" type="tns:HotelRoomCancellationRequest" />
+  <xs:element name="HotelRoomCancellationResponse" type="tns:HotelRoomCancellationResponse" />
+  <xs:element name="HotelRoomImageResponse" type="tns:HotelRoomImageResponse" />
+  <xs:element name="HotelRoomPhotoRequest" type="tns:HotelRoomImageRequest" />
+  <xs:element name="HotelRoomReservationRequest" type="tns:HotelRoomReservationRequest" />
+  <xs:element name="HotelRoomReservationResponse" type="tns:HotelRoomReservationResponse" />
+  <xs:element name="ListWithSizeAttribute" type="tns:listWithSizeAttribute" />
+  <xs:element name="LocationInfoRequest" type="tns:LocationInfoRequest" />
+  <xs:element name="LocationInfoResponse" type="tns:LocationInfoResponse" />
+  <xs:element name="NightlyRatesPerRoom" type="tns:baseRateInfoNightlyRatesPerRoom" />
+  <xs:element name="PingRequest" type="tns:PingRequest" />
+  <xs:element name="PingResponse" type="tns:PingResponse" />
+  <xs:element name="Surcharges" type="tns:baseRateInfoSurcharges" />
+  <xs:complexType abstract="true" name="BaseRequest">
+    <xs:sequence>
+      <xs:element name="apiKey" type="xs:string" />
+      <xs:element name="cid" type="xs:long" />
+      <xs:element name="customerIpAddress" type="xs:string" />
+      <xs:element minOccurs="0" name="customerSessionId" type="xs:string" />
+      <xs:element name="customerUserAgent" type="xs:string" />
+      <xs:element minOccurs="0" name="locale" type="tns:LocaleType" />
+      <xs:element minOccurs="0" name="currencyCode" type="xs:string" />
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="additionalData" type="tns:mapEntry" />
+      <xs:element minOccurs="0" name="sig" type="xs:string" />
+      <xs:element minOccurs="0" name="debug" type="xs:boolean" />
+      <xs:element minOccurs="0" name="test" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="mapEntry">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="key" type="xs:string" />
+      <xs:element minOccurs="0" name="value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType abstract="true" name="HotelBaseRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="minorRev" type="tns:HotelMinorRevType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="HotelRoomImageRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:HotelBaseRequest">
+        <xs:sequence>
+          <xs:element name="hotelId" type="xs:long" />
+          <xs:element minOccurs="0" name="roomTypeId" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="BaseResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EanWsError" type="tns:EanWsError" />
+      <xs:element minOccurs="0" name="customerSessionId" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EanWsError">
+    <xs:sequence>
+      <xs:element name="itineraryId" type="xs:long" />
+      <xs:element minOccurs="0" name="handling" type="tns:errorHandling" />
+      <xs:element minOccurs="0" name="category" type="tns:errorCategory" />
+      <xs:element name="exceptionConditionId" type="xs:int" />
+      <xs:element minOccurs="0" name="ErrorAttributes" type="tns:ErrorAttributes" />
+      <xs:element minOccurs="0" name="presentationMessage" type="xs:string" />
+      <xs:element minOccurs="0" name="verboseMessage" type="xs:string" />
+      <xs:element minOccurs="0" name="ServerInfo" type="tns:ServerInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ErrorAttributes">
+    <xs:sequence>
+      <xs:element name="errorAttributesMap">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element minOccurs="0" name="key" type="tns:errorAttribute" />
+                  <xs:element minOccurs="0" name="value" type="xs:string" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ServerInfo">
+    <xs:all />
+    <xs:attribute name="instance" type="xs:string" />
+    <xs:attribute name="timestamp" type="xs:long" />
+    <xs:attribute name="serverTime" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="HotelRoomImageResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseResponse">
+        <xs:sequence>
+          <xs:element name="RoomImages" type="tns:RoomImages" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RoomImages">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="RoomImage" type="tns:RoomImage" />
+    </xs:sequence>
+    <xs:attribute name="size" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="RoomImage">
+    <xs:sequence>
+      <xs:element name="roomTypeCode" type="xs:string" />
+      <xs:element name="url" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HotelListRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:HotelBaseRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="address" type="xs:string" />
+          <xs:element minOccurs="0" name="city" type="xs:string" />
+          <xs:element minOccurs="0" name="stateProvinceCode" type="xs:string" />
+          <xs:element minOccurs="0" name="postalCode" type="xs:string" />
+          <xs:element minOccurs="0" name="countryCode" type="xs:string" />
+          <xs:element minOccurs="0" name="destinationId" type="xs:string" />
+          <xs:element minOccurs="0" name="destinationString" type="xs:string" />
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="hotelIdList" type="xs:long" />
+          <xs:element minOccurs="0" name="latitude" type="xs:float" />
+          <xs:element minOccurs="0" name="longitude" type="xs:float" />
+          <xs:element minOccurs="0" name="searchRadius" type="xs:int" />
+          <xs:element minOccurs="0" name="searchRadiusUnit" type="tns:SearchRadiusUnitType" />
+          <xs:element minOccurs="0" name="sort" type="tns:SortType" />
+          <xs:element minOccurs="0" name="propertyName" type="xs:string" />
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="amenities" type="xs:int" />
+          <xs:element minOccurs="0" name="minStarRating" type="xs:float" />
+          <xs:element minOccurs="0" name="maxStarRating" type="xs:float" />
+          <xs:element minOccurs="0" name="minTripAdvisorRating" type="xs:float" />
+          <xs:element minOccurs="0" name="maxTripAdvisorRating" type="xs:float" />
+          <xs:element minOccurs="0" name="minRate" type="xs:int" />
+          <xs:element minOccurs="0" name="maxRate" type="xs:int" />
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="propertyCategory" type="tns:PropertyCategory" />
+          <xs:element minOccurs="0" name="supplierType" type="xs:string" />
+          <xs:element minOccurs="0" name="numberOfBedRooms" type="xs:int" />
+          <xs:element minOccurs="0" name="numberOfResults" type="xs:int" />
+          <xs:element minOccurs="0" name="maxRatePlanCount" type="xs:int" />
+          <xs:element minOccurs="0" name="arrivalDate" type="xs:string" />
+          <xs:element minOccurs="0" name="departureDate" type="xs:string" />
+          <xs:element minOccurs="0" name="RoomGroup" type="tns:RoomGroup" />
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="rateType" type="tns:RatePlanType" />
+          <xs:element minOccurs="0" name="cacheLocation" type="xs:string" />
+          <xs:element minOccurs="0" name="cacheKey" type="xs:string" />
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="options" type="tns:hotelListOption" />
+          <xs:element minOccurs="0" name="multiRoomAvail" type="tns:MultiRoomAvailType" />
+          <xs:element minOccurs="0" name="merchantScoringSource" type="xs:string" />
+          <xs:element minOccurs="0" name="scoringAlgorithmId" type="xs:int" />
+          <xs:element minOccurs="0" name="ignoreMmOverrides" type="xs:boolean" />
+          <xs:element minOccurs="0" name="supplierCacheTolerance" type="tns:SupplierCacheTolerance" />
+          <xs:element minOccurs="0" name="datelessSupplierSort" type="xs:boolean" />
+          <xs:element minOccurs="0" name="includeDetails" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RoomGroup">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="Room" type="tns:Room" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Room">
+    <xs:sequence>
+      <xs:element name="numberOfAdults" type="xs:int" />
+      <xs:element minOccurs="0" name="numberOfChildren" type="xs:int" />
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="childAges" type="xs:int" />
+      <xs:element minOccurs="0" name="firstName" type="xs:string" />
+      <xs:element minOccurs="0" name="lastName" type="xs:string" />
+      <xs:element minOccurs="0" name="bedTypeId" type="xs:string" />
+      <xs:element minOccurs="0" name="bedTypeDescription" type="xs:string" />
+      <xs:element minOccurs="0" name="numberOfBeds" type="xs:int" />
+      <xs:element minOccurs="0" name="smokingPreference" type="tns:SmokingPreference" />
+      <xs:element minOccurs="0" name="roomTypeCode" type="xs:string" />
+      <xs:element minOccurs="0" name="rateCode" type="xs:string" />
+      <xs:element minOccurs="0" name="rateKey" type="xs:string" />
+      <xs:element minOccurs="0" name="roomDescription" type="xs:string" />
+      <xs:element minOccurs="0" name="chargeableRate" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HotelListResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="numberOfRoomsRequested" type="xs:int" />
+          <xs:element minOccurs="0" name="moreResultsAvailable" type="xs:boolean" />
+          <xs:element minOccurs="0" name="cacheKey" type="xs:string" />
+          <xs:element minOccurs="0" name="cacheLocation" type="xs:string" />
+          <xs:element minOccurs="0" name="cachedSupplierResponse" type="tns:CachedSupplierResponse" />
+          <xs:element minOccurs="0" name="HotelList" type="tns:HotelList" />
+          <xs:element minOccurs="0" name="LocationInfos" type="tns:LocationInfos" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CachedSupplierResponse">
+    <xs:all />
+    <xs:attribute name="supplierCacheTolerance" type="tns:SupplierCacheTolerance" />
+    <xs:attribute name="cachedTime" type="xs:long" />
+    <xs:attribute name="cacheEntryHitNum" type="xs:int" />
+    <xs:attribute name="cacheEntryMissNum" type="xs:int" />
+    <xs:attribute name="cacheEntryExpiredNum" type="xs:int" />
+    <xs:attribute name="cacheRetrievalTime" type="xs:long" />
+    <xs:attribute name="supplierRequestNum" type="xs:int" />
+    <xs:attribute name="supplierResponseNum" type="xs:int" />
+    <xs:attribute name="supplierResponseTime" type="xs:long" />
+    <xs:attribute name="candidatePreptime" type="xs:long" />
+    <xs:attribute name="otherOverheadTime" type="xs:long" />
+    <xs:attribute name="tpidUsed" type="xs:int" />
+    <xs:attribute name="matchedCurrency" type="xs:boolean" />
+    <xs:attribute name="matchedLocale" type="xs:boolean" />
+    <xs:attribute name="extrapolatedCurrency" type="xs:boolean" />
+    <xs:attribute name="extrapolatedLocale" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="HotelList">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="HotelSummary" type="tns:HotelSummary" />
+    </xs:sequence>
+    <xs:attribute name="size" type="xs:int" use="required" />
+    <xs:attribute name="activePropertyCount" type="xs:int" />
+  </xs:complexType>
+  <xs:complexType name="HotelSummary">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="hotelId" type="xs:long" />
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+      <xs:element minOccurs="0" name="address1" type="xs:string" />
+      <xs:element minOccurs="0" name="address2" type="xs:string" />
+      <xs:element minOccurs="0" name="address3" type="xs:string" />
+      <xs:element minOccurs="0" name="phoneNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="city" type="xs:string" />
+      <xs:element minOccurs="0" name="stateProvinceCode" type="xs:string" />
+      <xs:element minOccurs="0" name="postalCode" type="xs:string" />
+      <xs:element minOccurs="0" name="countryCode" type="xs:string" />
+      <xs:element minOccurs="0" name="airportCode" type="xs:string" />
+      <xs:element minOccurs="0" name="supplierType" type="tns:SupplierType" />
+      <xs:element minOccurs="0" name="propertyCategory" type="tns:PropertyCategory" />
+      <xs:element minOccurs="0" name="hotelRating" type="xs:float" />
+      <xs:element minOccurs="0" name="confidenceRating" type="xs:int" />
+      <xs:element minOccurs="0" name="amenityMask" type="xs:long" />
+      <xs:element minOccurs="0" name="tripAdvisorRating" type="xs:float" />
+      <xs:element minOccurs="0" name="tripAdvisorReviewCount" type="xs:int" />
+      <xs:element minOccurs="0" name="tripAdvisorRatingUrl" type="xs:string" />
+      <xs:element minOccurs="0" name="locationDescription" type="xs:string" />
+      <xs:element minOccurs="0" name="shortDescription" type="xs:string" />
+      <xs:element minOccurs="0" name="highRate" type="xs:float" />
+      <xs:element minOccurs="0" name="lowRate" type="xs:float" />
+      <xs:element minOccurs="0" name="rateCurrencyCode" type="xs:string" />
+      <xs:element minOccurs="0" name="latitude" type="xs:float" />
+      <xs:element minOccurs="0" name="longitude" type="xs:float" />
+      <xs:element minOccurs="0" name="proximityDistance" type="xs:float" />
+      <xs:element minOccurs="0" name="proximityUnit" type="tns:SearchRadiusUnitType" />
+      <xs:element minOccurs="0" name="hotelInDestination" type="xs:boolean" />
+      <xs:element minOccurs="0" name="thumbNailUrl" type="xs:string" />
+      <xs:element minOccurs="0" name="deepLink" type="xs:string" />
+      <xs:element minOccurs="0" name="RoomRateDetailsList" type="tns:RoomRateDetailsList" />
+    </xs:sequence>
+    <xs:attribute name="order" type="xs:int" use="required" />
+    <xs:attribute name="ubsScore" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="RoomRateDetailsList">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="RoomRateDetails" type="tns:RoomRateDetails" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RoomRateDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="roomTypeCode" type="xs:string" />
+      <xs:element minOccurs="0" name="rateCode" type="xs:string" />
+      <xs:element minOccurs="0" name="maxRoomOccupancy" type="xs:int" />
+      <xs:element minOccurs="0" name="quotedRoomOccupancy" type="xs:int" />
+      <xs:element minOccurs="0" name="minGuestAge" type="xs:int" />
+      <xs:element minOccurs="0" name="roomDescription" type="xs:string" />
+      <xs:element minOccurs="0" name="promoId" type="xs:string" />
+      <xs:element minOccurs="0" name="promoDescription" type="xs:string" />
+      <xs:element minOccurs="0" name="promoDetailText" type="xs:string" />
+      <xs:element minOccurs="0" name="currentAllotment" type="xs:int" />
+      <xs:element minOccurs="0" name="propertyAvailable" type="xs:boolean" />
+      <xs:element minOccurs="0" name="propertyRestricted" type="xs:boolean" />
+      <xs:element minOccurs="0" name="expediaPropertyId" type="xs:string" />
+      <xs:element minOccurs="0" name="rateKey" type="xs:string" />
+      <xs:element minOccurs="0" name="rateType" type="xs:string" />
+      <xs:element minOccurs="0" name="nonRefundable" type="xs:boolean" />
+      <xs:element minOccurs="0" name="RateInfo" type="tns:HotelRateInfo" />
+      <xs:element minOccurs="0" name="RateInfos" type="tns:RateInfos" />
+      <xs:element minOccurs="0" name="ValueAdds" type="tns:ValueAdds" />
+      <xs:element minOccurs="0" name="BedTypes" type="tns:BedTypes" />
+      <xs:element minOccurs="0" name="smokingPreferences" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HotelRateInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="RoomGroup" type="tns:RoomGroup" />
+      <xs:element minOccurs="0" name="ChargeableRateInfo" type="tns:baseRateInfo" />
+      <xs:element minOccurs="0" name="ConvertedRateInfo" type="tns:baseRateInfo" />
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="confirmationNumbers" type="xs:string" />
+      <xs:element minOccurs="0" name="cancellationPolicy" type="xs:string" />
+      <xs:element minOccurs="0" name="CancelPolicyInfoList" type="tns:CancelPolicyInfoList" />
+      <xs:element minOccurs="0" name="nonRefundable" type="xs:boolean" />
+      <xs:element minOccurs="0" name="online" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ratePlanType" type="tns:RatePlanType" />
+      <xs:element minOccurs="0" name="HotelFees" type="tns:HotelFees" />
+      <xs:element minOccurs="0" name="rateType" type="tns:RatePlanType" />
+      <xs:element minOccurs="0" name="promoId" type="xs:string" />
+      <xs:element minOccurs="0" name="promoDescription" type="xs:string" />
+      <xs:element minOccurs="0" name="promoDetailText" type="xs:string" />
+      <xs:element minOccurs="0" name="promoType" type="tns:PromoType" />
+      <xs:element minOccurs="0" name="currentAllotment" type="xs:int" />
+      <xs:element minOccurs="0" name="guaranteeRequired" type="xs:boolean" />
+      <xs:element minOccurs="0" name="depositRequired" type="xs:boolean" />
+      <xs:element minOccurs="0" name="taxRate" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="priceBreakdown" type="xs:boolean" />
+    <xs:attribute name="promo" type="xs:boolean" />
+    <xs:attribute name="rateChange" type="xs:boolean" />
+    <xs:attribute name="pkgSavingsPercent" type="xs:string" />
+    <xs:attribute name="pkgSavingsAmount" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="baseRateInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Discounts" type="tns:baseRateInfoDiscounts" />
+      <xs:element minOccurs="0" name="NightlyRatesPerRoom" type="tns:baseRateInfoNightlyRatesPerRoom" />
+      <xs:element minOccurs="0" name="promoDescription" type="xs:string" />
+      <xs:element minOccurs="0" name="Surcharges" type="tns:baseRateInfoSurcharges" />
+    </xs:sequence>
+    <xs:attribute name="averageBaseRate" type="xs:float" />
+    <xs:attribute name="averageRate" type="xs:float" />
+    <xs:attribute name="commissionableUsdTotal" type="xs:float" />
+    <xs:attribute name="currencyCode" type="xs:string" />
+    <xs:attribute name="discountTotal" type="xs:float" />
+    <xs:attribute name="eanCompensationOffline" type="xs:decimal" />
+    <xs:attribute name="eanCompensationOnline" type="xs:decimal" />
+    <xs:attribute name="maxNightlyRate" type="xs:float" />
+    <xs:attribute name="nightlyRateTotal" type="xs:float" />
+    <xs:attribute name="grossProfitOffline" type="xs:decimal" />
+    <xs:attribute name="grossProfitOnline" type="xs:decimal" />
+    <xs:attribute name="surchargeTotal" type="xs:float" />
+    <xs:attribute name="total" type="xs:float" />
+  </xs:complexType>
+  <xs:complexType name="baseRateInfoDiscounts">
+    <xs:complexContent>
+      <xs:extension base="tns:listWithSizeAttribute">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Discount" type="tns:Discount" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="listWithSizeAttribute">
+    <xs:sequence />
+    <xs:attribute name="size" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="Discount">
+    <xs:sequence />
+    <xs:attribute name="type" type="tns:DiscountType" />
+    <xs:attribute name="amount" type="xs:float" />
+  </xs:complexType>
+  <xs:complexType name="baseRateInfoNightlyRatesPerRoom">
+    <xs:complexContent>
+      <xs:extension base="tns:listWithSizeAttribute">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="NightlyRate" type="tns:NightlyRate" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="NightlyRate">
+    <xs:sequence />
+    <xs:attribute name="baseRate" type="xs:float" />
+    <xs:attribute name="rate" type="xs:float" />
+    <xs:attribute name="promo" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="baseRateInfoSurcharges">
+    <xs:complexContent>
+      <xs:extension base="tns:listWithSizeAttribute">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Surcharge" type="tns:Surcharge" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Surcharge">
+    <xs:sequence />
+    <xs:attribute name="type" type="tns:SurchargeType" />
+    <xs:attribute name="amount" type="xs:float" />
+  </xs:complexType>
+  <xs:complexType name="CancelPolicyInfoList">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="CancelPolicyInfo" type="tns:CancelPolicyInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CancelPolicyInfo">
+    <xs:sequence>
+      <xs:element name="versionId" type="xs:int" />
+      <xs:element minOccurs="0" name="cancelTime" type="xs:string" />
+      <xs:element minOccurs="0" name="startWindowHours" type="xs:string" />
+      <xs:element name="nightCount" type="xs:int" />
+      <xs:element minOccurs="0" name="percent" type="xs:string" />
+      <xs:element minOccurs="0" name="amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="currencyCode" type="xs:string" />
+      <xs:element minOccurs="0" name="timeZoneDescription" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HotelFees">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="HotelFee" type="tns:HotelFee" />
+    </xs:sequence>
+    <xs:attribute name="size" type="xs:int" />
+  </xs:complexType>
+  <xs:complexType name="HotelFee">
+    <xs:sequence />
+    <xs:attribute name="description" type="xs:string" />
+    <xs:attribute name="amount" type="xs:decimal" />
+  </xs:complexType>
+  <xs:complexType name="RateInfos">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="RateInfo" type="tns:HotelRateInfo" />
+    </xs:sequence>
+    <xs:attribute name="size" type="xs:int" />
+  </xs:complexType>
+  <xs:complexType name="ValueAdds">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ValueAdd" type="tns:valueAdd" />
+    </xs:sequence>
+    <xs:attribute name="size" type="xs:int" />
+  </xs:complexType>
+  <xs:complexType name="valueAdd">
+    <xs:sequence>
+      <xs:element name="description" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="BedTypes">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="BedType" type="tns:bedType" />
+    </xs:sequence>
+    <xs:attribute name="size" type="xs:int" />
+  </xs:complexType>
+  <xs:complexType name="bedType">
+    <xs:sequence>
+      <xs:element name="description" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="LocationInfos">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="LocationInfo" type="tns:LocationInfo" />
+    </xs:sequence>
+    <xs:attribute name="size" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="LocationInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="destinationId" type="xs:string" />
+      <xs:element name="active" type="xs:boolean" />
+      <xs:element name="type" type="xs:int" />
+      <xs:element minOccurs="0" name="address" type="xs:string" />
+      <xs:element minOccurs="0" name="city" type="xs:string" />
+      <xs:element minOccurs="0" name="stateProvinceCode" type="xs:string" />
+      <xs:element minOccurs="0" name="postalCode" type="xs:string" />
+      <xs:element minOccurs="0" name="countryCode" type="xs:string" />
+      <xs:element minOccurs="0" name="countryName" type="xs:string" />
+      <xs:element minOccurs="0" name="code" type="xs:string" />
+      <xs:element minOccurs="0" name="description" type="xs:string" />
+      <xs:element name="geoAccuracy" type="xs:int" />
+      <xs:element name="locationInDestination" type="xs:boolean" />
+      <xs:element name="latitude" type="xs:float" />
+      <xs:element name="longitude" type="xs:float" />
+      <xs:element name="refLocationMileage" type="xs:float" />
+      <xs:element minOccurs="0" name="referenceLocationCode" type="xs:string" />
+      <xs:element name="activePropertyCount" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HotelRoomCancellationRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:HotelBaseRequest">
+        <xs:sequence>
+          <xs:element name="itineraryId" type="xs:long" />
+          <xs:element name="email" type="xs:string" />
+          <xs:element name="confirmationNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="reason" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="HotelRoomCancellationResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseResponse">
+        <xs:sequence>
+          <xs:element name="cancellationNumber" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="HotelRoomAvailabilityRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:HotelBaseRequest">
+        <xs:sequence>
+          <xs:element name="hotelId" type="xs:long" />
+          <xs:element name="arrivalDate" type="xs:string" />
+          <xs:element name="departureDate" type="xs:string" />
+          <xs:element minOccurs="0" name="numberOfBedRooms" type="xs:int" />
+          <xs:element minOccurs="0" name="supplierType" type="tns:SupplierType" />
+          <xs:element minOccurs="0" name="rateKey" type="xs:string" />
+          <xs:element name="RoomGroup" type="tns:RoomGroup" />
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="rateType" type="tns:RatePlanType" />
+          <xs:element minOccurs="0" name="rateCode" type="xs:string" />
+          <xs:element minOccurs="0" name="roomTypeCode" type="xs:string" />
+          <xs:element minOccurs="0" name="includeRoomImages" type="xs:boolean" />
+          <xs:element minOccurs="0" name="CouponData" type="tns:CouponData" />
+          <xs:element minOccurs="0" name="includeDetails" type="xs:boolean" />
+          <xs:element minOccurs="0" name="multiRoomAvail" type="tns:MultiRoomAvailType" />
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="options" type="tns:hotelAvailOption" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CouponData">
+    <xs:sequence>
+      <xs:element name="code" type="xs:string" />
+      <xs:element minOccurs="0" name="email" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HotelRoomAvailabilityResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseResponse">
+        <xs:sequence>
+          <xs:element name="hotelId" type="xs:long" />
+          <xs:element minOccurs="0" name="arrivalDate" type="xs:string" />
+          <xs:element minOccurs="0" name="departureDate" type="xs:string" />
+          <xs:element minOccurs="0" name="hotelName" type="xs:string" />
+          <xs:element minOccurs="0" name="hotelAddress" type="xs:string" />
+          <xs:element minOccurs="0" name="hotelCity" type="xs:string" />
+          <xs:element minOccurs="0" name="hotelStateProvince" type="xs:string" />
+          <xs:element minOccurs="0" name="hotelCountry" type="xs:string" />
+          <xs:element minOccurs="0" name="numberOfRoomsRequested" type="xs:int" />
+          <xs:element minOccurs="0" name="checkInInstructions" type="xs:string" />
+          <xs:element minOccurs="0" name="tripAdvisorRating" type="xs:string" />
+          <xs:element minOccurs="0" name="tripAdvisorReviewCount" type="xs:int" />
+          <xs:element minOccurs="0" name="tripAdvisorRatingUrl" type="xs:string" />
+          <xs:element minOccurs="0" name="rateKey" type="xs:string" />
+          <xs:element minOccurs="0" name="CouponInformationResponse" type="tns:CouponInformationResponse" />
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="HotelRoomResponse" type="tns:HotelRoomResponse" />
+          <xs:element minOccurs="0" name="HotelDetails" type="tns:HotelDetails" />
+          <xs:element minOccurs="0" name="PropertyAmenities" type="tns:PropertyAmenities" />
+          <xs:element minOccurs="0" name="HotelImages" type="tns:HotelImages" />
+        </xs:sequence>
+        <xs:attribute name="size" type="xs:int" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CouponInformationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="type" type="xs:string" />
+      <xs:element minOccurs="0" name="amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="summary" type="xs:string" />
+      <xs:element minOccurs="0" name="description" type="xs:string" />
+      <xs:element minOccurs="0" name="terms" type="xs:string" />
+      <xs:element minOccurs="0" name="ErrorList" type="tns:CouponErrors" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CouponErrors">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="Error" type="tns:Error" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Error">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="code" type="xs:string" />
+      <xs:element minOccurs="0" name="description" type="xs:string" />
+      <xs:element minOccurs="0" name="value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HotelRoomResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cancellationPolicy" type="xs:string" />
+      <xs:element minOccurs="0" name="policy" type="xs:string" />
+      <xs:element minOccurs="0" name="rateCode" type="xs:string" />
+      <xs:element minOccurs="0" name="rateKey" type="xs:string" />
+      <xs:element minOccurs="0" name="roomTypeCode" type="xs:string" />
+      <xs:element minOccurs="0" name="rateDescription" type="xs:string" />
+      <xs:element minOccurs="0" name="roomTypeDescription" type="xs:string" />
+      <xs:element minOccurs="0" name="RoomType" type="tns:RoomType" />
+      <xs:element minOccurs="0" name="supplierType" type="tns:SupplierType" />
+      <xs:element minOccurs="0" name="taxRate" type="xs:string" />
+      <xs:element minOccurs="0" name="otherInformation" type="xs:string" />
+      <xs:element minOccurs="0" name="rateChange" type="xs:boolean" />
+      <xs:element minOccurs="0" name="nonRefundable" type="xs:boolean" />
+      <xs:element minOccurs="0" name="guaranteeRequired" type="xs:boolean" />
+      <xs:element minOccurs="0" name="depositRequired" type="xs:boolean" />
+      <xs:element minOccurs="0" name="immediateChargeRequired" type="xs:boolean" />
+      <xs:element minOccurs="0" name="rateType" type="xs:string" />
+      <xs:element minOccurs="0" name="currentAllotment" type="xs:int" />
+      <xs:element minOccurs="0" name="propertyId" type="xs:string" />
+      <xs:element minOccurs="0" name="promoId" type="xs:string" />
+      <xs:element minOccurs="0" name="promoDescription" type="xs:string" />
+      <xs:element minOccurs="0" name="promoType" type="xs:string" />
+      <xs:element minOccurs="0" name="promoDetailText" type="xs:string" />
+      <xs:element minOccurs="0" name="BedTypes" type="tns:BedTypes" />
+      <xs:element minOccurs="0" name="CancelPolicyInfoList" type="tns:CancelPolicyInfoList" />
+      <xs:element minOccurs="0" name="smokingPreferences" type="xs:string" />
+      <xs:element name="rateOccupancyPerRoom" type="xs:int" />
+      <xs:element name="quotedOccupancy" type="xs:int" />
+      <xs:element name="minGuestAge" type="xs:int" />
+      <xs:element minOccurs="0" name="RateInfo" type="tns:HotelRateInfo" />
+      <xs:element minOccurs="0" name="RateInfos" type="tns:RateInfos" />
+      <xs:element minOccurs="0" name="ValueAdds" type="tns:ValueAdds" />
+      <xs:element minOccurs="0" name="deepLink" type="xs:string" />
+      <xs:element minOccurs="0" name="RoomImages" type="tns:RoomImages" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RoomType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="description" type="xs:string" />
+      <xs:element minOccurs="0" name="descriptionLong" type="xs:string" />
+      <xs:element minOccurs="0" name="roomAmenities" type="tns:RoomAmenities" />
+      <xs:element minOccurs="0" name="roomImages" type="tns:HotelImages" />
+    </xs:sequence>
+    <xs:attribute name="roomTypeId" type="xs:long" use="required" />
+    <xs:attribute name="roomCode" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="RoomAmenities">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="RoomAmenity" type="tns:RoomAmenity" />
+    </xs:sequence>
+    <xs:attribute name="size" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="RoomAmenity">
+    <xs:sequence>
+      <xs:element name="amenity" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="amenityId" type="xs:long" use="required" />
+  </xs:complexType>
+  <xs:complexType name="HotelImages">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="HotelImage" type="tns:HotelImage" />
+    </xs:sequence>
+    <xs:attribute name="size" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="HotelImage">
+    <xs:sequence>
+      <xs:element name="hotelImageId" type="xs:long" />
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+      <xs:element name="category" type="xs:int" />
+      <xs:element name="type" type="xs:int" />
+      <xs:element minOccurs="0" name="caption" type="xs:string" />
+      <xs:element minOccurs="0" name="url" type="xs:string" />
+      <xs:element minOccurs="0" name="thumbnailUrl" type="xs:string" />
+      <xs:element name="supplierId" type="xs:long" />
+      <xs:element name="width" type="xs:long" />
+      <xs:element name="height" type="xs:long" />
+      <xs:element name="byteSize" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HotelDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="nativeCurrencyCode" type="xs:string" />
+      <xs:element minOccurs="0" name="numberOfRooms" type="xs:int" />
+      <xs:element minOccurs="0" name="numberOfFloors" type="xs:int" />
+      <xs:element minOccurs="0" name="checkInTime" type="xs:string" />
+      <xs:element minOccurs="0" name="checkOutTime" type="xs:string" />
+      <xs:element minOccurs="0" name="extraPersonCharge" type="xs:float" />
+      <xs:element minOccurs="0" name="propertyInformation" type="xs:string" />
+      <xs:element minOccurs="0" name="areaInformation" type="xs:string" />
+      <xs:element minOccurs="0" name="propertyDescription" type="xs:string" />
+      <xs:element minOccurs="0" name="hotelPolicy" type="xs:string" />
+      <xs:element minOccurs="0" name="guaranteePolicy" type="xs:string" />
+      <xs:element minOccurs="0" name="depositPolicy" type="xs:string" />
+      <xs:element minOccurs="0" name="guaranteeCreditCardsAccepted" type="xs:string" />
+      <xs:element minOccurs="0" name="depositCreditCardsAccepted" type="xs:string" />
+      <xs:element minOccurs="0" name="roomInformation" type="xs:string" />
+      <xs:element minOccurs="0" name="drivingDirections" type="xs:string" />
+      <xs:element minOccurs="0" name="checkInInstructions" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PropertyAmenities">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="PropertyAmenity" type="tns:PropertyAmenity" />
+    </xs:sequence>
+    <xs:attribute name="size" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="PropertyAmenity">
+    <xs:sequence>
+      <xs:element name="amenityId" type="xs:long" />
+      <xs:element minOccurs="0" name="amenity" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LocationInfoRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:HotelBaseRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="address" type="xs:string" />
+          <xs:element minOccurs="0" name="city" type="xs:string" />
+          <xs:element minOccurs="0" name="stateProvinceCode" type="xs:string" />
+          <xs:element minOccurs="0" name="countryCode" type="xs:string" />
+          <xs:element minOccurs="0" name="postalCode" type="xs:string" />
+          <xs:element minOccurs="0" name="destinationString" type="xs:string" />
+          <xs:element minOccurs="0" name="destinationId" type="xs:string" />
+          <xs:element minOccurs="0" name="ignoreSearchWeight" type="xs:boolean" />
+          <xs:element minOccurs="0" name="useGeocoder" type="xs:boolean" />
+          <xs:element minOccurs="0" name="type" type="tns:LocationInfoType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LocationInfoResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="LocationInfos" type="tns:LocationInfos" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AlternatePropertyListRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:HotelBaseRequest">
+        <xs:sequence>
+          <xs:element name="originalHotelId" type="xs:long" />
+          <xs:element name="arrivalDate" type="xs:string" />
+          <xs:element name="departureDate" type="xs:string" />
+          <xs:element name="originalAverageNightlyRate" type="xs:float" />
+          <xs:element name="RoomGroup" type="tns:RoomGroup" />
+          <xs:element minOccurs="0" name="rateType" type="tns:RatePlanType" />
+          <xs:element minOccurs="0" name="priceType" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AlternatePropertyListResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arrivalDate" type="xs:string" />
+          <xs:element minOccurs="0" name="departureDate" type="xs:string" />
+          <xs:element minOccurs="0" name="originalHotelId" type="xs:long" />
+          <xs:element minOccurs="0" name="rateKey" type="xs:string" />
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="AlternateHotelResponse" type="tns:AlternateHotelResponse" />
+        </xs:sequence>
+        <xs:attribute name="size" type="xs:int" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AlternateHotelResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelInfo" type="tns:HotelInfo" />
+      <xs:element minOccurs="0" name="Amenities" type="tns:Amenities" />
+      <xs:element minOccurs="0" name="LowestRateInfo" type="tns:LowestRateInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HotelInfo">
+    <xs:sequence>
+      <xs:element name="hotelId" type="xs:long" />
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+      <xs:element minOccurs="0" name="address" type="xs:string" />
+      <xs:element minOccurs="0" name="city" type="xs:string" />
+      <xs:element minOccurs="0" name="stateProvinceCode" type="xs:string" />
+      <xs:element minOccurs="0" name="countryCode" type="xs:string" />
+      <xs:element minOccurs="0" name="postalCode" type="xs:string" />
+      <xs:element name="starRating" type="xs:float" />
+      <xs:element minOccurs="0" name="thumbnailUrl" type="xs:string" />
+      <xs:element minOccurs="0" name="locationDescription" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Amenities">
+    <xs:sequence>
+      <xs:element name="businessCenter" type="xs:boolean" />
+      <xs:element name="fitnessCenter" type="xs:boolean" />
+      <xs:element name="hotTubOnsite" type="xs:boolean" />
+      <xs:element name="interAccessAvailable" type="xs:boolean" />
+      <xs:element name="childrensActivities" type="xs:boolean" />
+      <xs:element name="kitchenOrKitchinette" type="xs:boolean" />
+      <xs:element name="petsAllowed" type="xs:boolean" />
+      <xs:element name="pool" type="xs:boolean" />
+      <xs:element name="restaurantOnsite" type="xs:boolean" />
+      <xs:element name="spaOnsite" type="xs:boolean" />
+      <xs:element name="whirlPoolBathAvailable" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LowestRateInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="NightlyRates" type="tns:NightlyRates" />
+      <xs:element minOccurs="0" name="rateCurrencyCode" type="xs:string" />
+      <xs:element minOccurs="0" name="roomDescription" type="xs:string" />
+      <xs:element minOccurs="0" name="promotion" type="xs:string" />
+      <xs:element minOccurs="0" name="rateCode" type="xs:string" />
+      <xs:element minOccurs="0" name="roomTypeCode" type="xs:string" />
+      <xs:element minOccurs="0" name="supplierType" type="tns:SupplierType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NightlyRates">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="nightlyRate" type="xs:float" />
+    </xs:sequence>
+    <xs:attribute name="size" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="HotelRoomReservationRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:HotelBaseRequest">
+        <xs:sequence>
+          <xs:element name="hotelId" type="xs:long" />
+          <xs:element name="arrivalDate" type="xs:string" />
+          <xs:element name="departureDate" type="xs:string" />
+          <xs:element name="supplierType" type="tns:SupplierType" />
+          <xs:element name="rateKey" type="xs:string" />
+          <xs:element name="roomTypeCode" type="xs:string" />
+          <xs:element minOccurs="0" name="roomDescription" type="xs:string" />
+          <xs:element name="rateCode" type="xs:string" />
+          <xs:element name="sendReservationEmail" type="xs:boolean" />
+          <xs:element minOccurs="0" name="frequentGuestNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="affiliateConfirmationId" type="xs:string" />
+          <xs:element minOccurs="0" name="affiliateCustomerId" type="xs:string" />
+          <xs:element minOccurs="0" name="itineraryId" type="xs:long" />
+          <xs:element name="chargeableRate" type="xs:float" />
+          <xs:element minOccurs="0" name="specialInformation" type="xs:string" />
+          <xs:element name="RoomGroup" type="tns:RoomGroup" />
+          <xs:element minOccurs="0" name="rateType" type="tns:RatePlanType" />
+          <xs:element name="ReservationInfo" type="tns:reservationInfo" />
+          <xs:element name="AddressInfo" type="tns:addressInfo" />
+          <xs:element minOccurs="0" name="CouponData" type="tns:CouponData" />
+          <xs:element minOccurs="0" name="MultiRoomRes" type="tns:MultiRoomResType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="reservationInfo">
+    <xs:sequence>
+      <xs:element name="email" type="xs:string" />
+      <xs:element name="firstName" type="xs:string" />
+      <xs:element name="lastName" type="xs:string" />
+      <xs:element name="homePhone" type="xs:string" />
+      <xs:element name="workPhone" type="xs:string" />
+      <xs:element minOccurs="0" name="extension" type="xs:string" />
+      <xs:element minOccurs="0" name="faxPhone" type="xs:string" />
+      <xs:element minOccurs="0" name="companyName" type="xs:string" />
+      <xs:element name="creditCardType" type="xs:string" />
+      <xs:element name="creditCardNumber" type="xs:string" />
+      <xs:element name="creditCardIdentifier" type="xs:string" />
+      <xs:element name="creditCardExpirationMonth" type="xs:string" />
+      <xs:element name="creditCardExpirationYear" type="xs:string" />
+      <xs:element minOccurs="0" name="creditCardStartDate" type="xs:string" />
+      <xs:element minOccurs="0" name="creditCardIssueNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="creditCardPasHttpUserAgent" type="xs:string" />
+      <xs:element minOccurs="0" name="creditCardPasHttpAccept" type="xs:string" />
+      <xs:element minOccurs="0" name="creditCardPasPaRes" type="xs:string" />
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="emailItineraryList" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="addressInfo">
+    <xs:sequence>
+      <xs:element name="address1" type="xs:string" />
+      <xs:element minOccurs="0" name="address2" type="xs:string" />
+      <xs:element minOccurs="0" name="address3" type="xs:string" />
+      <xs:element name="city" type="xs:string" />
+      <xs:element minOccurs="0" name="stateProvinceCode" type="xs:string" />
+      <xs:element name="countryCode" type="xs:string" />
+      <xs:element minOccurs="0" name="postalCode" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HotelRoomReservationResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="itineraryId" type="xs:long" />
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="confirmationNumbers" type="xs:string" />
+          <xs:element minOccurs="0" name="RateInfo" type="tns:HotelRateInfo" />
+          <xs:element minOccurs="0" name="processedWithConfirmation" type="xs:boolean" />
+          <xs:element minOccurs="0" name="errorText" type="xs:string" />
+          <xs:element minOccurs="0" name="hotelReplyText" type="xs:string" />
+          <xs:element minOccurs="0" name="supplierType" type="tns:SupplierType" />
+          <xs:element minOccurs="0" name="reservationStatusCode" type="xs:string" />
+          <xs:element minOccurs="0" name="existingItinerary" type="xs:boolean" />
+          <xs:element minOccurs="0" name="numberOfRoomsBooked" type="xs:int" />
+          <xs:element minOccurs="0" name="RoomGroup" type="tns:RoomGroup" />
+          <xs:element minOccurs="0" name="drivingDirections" type="xs:string" />
+          <xs:element minOccurs="0" name="checkInInstructions" type="xs:string" />
+          <xs:element minOccurs="0" name="arrivalDate" type="xs:string" />
+          <xs:element minOccurs="0" name="departureDate" type="xs:string" />
+          <xs:element minOccurs="0" name="hotelName" type="xs:string" />
+          <xs:element minOccurs="0" name="hotelAddress" type="xs:string" />
+          <xs:element minOccurs="0" name="hotelCity" type="xs:string" />
+          <xs:element minOccurs="0" name="hotelStateProvinceCode" type="xs:string" />
+          <xs:element minOccurs="0" name="hotelPostalCode" type="xs:string" />
+          <xs:element minOccurs="0" name="hotelCountryCode" type="xs:string" />
+          <xs:element minOccurs="0" name="roomDescription" type="xs:string" />
+          <xs:element minOccurs="0" name="tripAdvisorRating" type="xs:string" />
+          <xs:element minOccurs="0" name="tripAdvisorReviewCount" type="xs:int" />
+          <xs:element minOccurs="0" name="tripAdvisorRatingUrl" type="xs:string" />
+          <xs:element minOccurs="0" name="cancellationPolicy" type="xs:string" />
+          <xs:element minOccurs="0" name="CancelPolicyInfoList" type="tns:CancelPolicyInfoList" />
+          <xs:element minOccurs="0" name="nonRefundable" type="xs:boolean" />
+          <xs:element minOccurs="0" name="rateOccupancyPerRoom" type="xs:int" />
+          <xs:element minOccurs="0" name="CouponInformationResponse" type="tns:CouponInformationResponse" />
+          <xs:element minOccurs="0" name="RateInfos" type="tns:RateInfos" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="HotelRateRulesRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:HotelBaseRequest">
+        <xs:sequence>
+          <xs:element name="hotelId" type="xs:long" />
+          <xs:element name="arrivalDate" type="xs:string" />
+          <xs:element name="departureDate" type="xs:string" />
+          <xs:element name="supplierType" type="tns:SupplierType" />
+          <xs:element name="roomTypeCode" type="xs:string" />
+          <xs:element name="rateCode" type="xs:string" />
+          <xs:element name="RoomGroup" type="tns:RoomGroup" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="HotelRateRulesResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseResponse">
+        <xs:sequence>
+          <xs:element name="ratePlanText" type="xs:string" />
+          <xs:element minOccurs="0" name="nativeCurrencyCode" type="xs:string" />
+          <xs:element minOccurs="0" name="guaranteeMethods" type="xs:string" />
+          <xs:element minOccurs="0" name="depositText" type="xs:string" />
+          <xs:element minOccurs="0" name="cancellationPolicy" type="xs:string" />
+          <xs:element minOccurs="0" name="miscellaneous" type="xs:string" />
+          <xs:element minOccurs="0" name="extraChargeRollawayAdult" type="xs:string" />
+          <xs:element minOccurs="0" name="extraChargeRollawayChild" type="xs:string" />
+          <xs:element minOccurs="0" name="extraChargeCrib" type="xs:string" />
+          <xs:element minOccurs="0" name="extraChargeAdult" type="xs:string" />
+          <xs:element minOccurs="0" name="roomDescription" type="xs:string" />
+          <xs:element minOccurs="0" name="roomRate" type="xs:string" />
+          <xs:element minOccurs="0" name="totalRoomRate" type="xs:string" />
+          <xs:element minOccurs="0" name="RateChangeInfos" type="tns:RateChangeInfos" />
+          <xs:element minOccurs="0" name="RateRulesFreeFlows" type="tns:RateRulesFreeFlows" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RateChangeInfos">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="RateChangeInfo" type="tns:RateChangeInfo" />
+    </xs:sequence>
+    <xs:attribute name="size" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="RateChangeInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="beginDate" type="xs:string" />
+      <xs:element minOccurs="0" name="endDate" type="xs:string" />
+      <xs:element name="rate" type="xs:float" />
+      <xs:element minOccurs="0" name="rawRateChangeData" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RateRulesFreeFlows">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="rateRulesFreeFlow" type="tns:RateRulesFreeFlow" />
+    </xs:sequence>
+    <xs:attribute name="size" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="RateRulesFreeFlow">
+    <xs:sequence />
+    <xs:attribute name="text" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="HotelItineraryRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:HotelBaseRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="itineraryId" type="xs:long" />
+          <xs:element minOccurs="0" name="lastName" type="xs:string" />
+          <xs:element minOccurs="0" name="email" type="xs:string" />
+          <xs:element minOccurs="0" name="affiliateConfirmationId" type="xs:string" />
+          <xs:element minOccurs="0" name="affiliateCustomerId" type="xs:string" />
+          <xs:element minOccurs="0" name="creditCardNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="ItineraryQuery" type="tns:ItineraryQuery" />
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="confirmationExtras" type="xs:string" />
+          <xs:element minOccurs="0" name="supplierConfirmationNumber" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ItineraryQuery">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="creationDateStart" type="xs:string" />
+      <xs:element minOccurs="0" name="creationDateEnd" type="xs:string" />
+      <xs:element minOccurs="0" name="departureDateStart" type="xs:string" />
+      <xs:element minOccurs="0" name="departureDateEnd" type="xs:string" />
+      <xs:element minOccurs="0" name="includeChildAffiliates" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HotelItineraryResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="Itinerary" type="tns:Itinerary" />
+        </xs:sequence>
+        <xs:attribute name="size" type="xs:int" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Itinerary">
+    <xs:sequence>
+      <xs:element name="itineraryId" type="xs:long" />
+      <xs:element name="affiliateId" type="xs:long" />
+      <xs:element minOccurs="0" name="creationDate" type="xs:string" />
+      <xs:element minOccurs="0" name="creationTime" type="xs:string" />
+      <xs:element minOccurs="0" name="itineraryStartDate" type="xs:string" />
+      <xs:element minOccurs="0" name="itineraryEndDate" type="xs:string" />
+      <xs:element minOccurs="0" name="affiliateCustomerId" type="xs:string" />
+      <xs:element minOccurs="0" name="Customer" type="tns:Customer" />
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="HotelConfirmation" type="tns:HotelConfirmation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Customer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="email" type="xs:string" />
+      <xs:element minOccurs="0" name="firstName" type="xs:string" />
+      <xs:element minOccurs="0" name="lastName" type="xs:string" />
+      <xs:element minOccurs="0" name="homePhone" type="xs:string" />
+      <xs:element minOccurs="0" name="workPhone" type="xs:string" />
+      <xs:element minOccurs="0" name="extension" type="xs:string" />
+      <xs:element minOccurs="0" name="faxPhone" type="xs:string" />
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="CustomerAddresses" type="tns:CustomerAddress" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CustomerAddress">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="address1" type="xs:string" />
+      <xs:element minOccurs="0" name="address2" type="xs:string" />
+      <xs:element minOccurs="0" name="address3" type="xs:string" />
+      <xs:element minOccurs="0" name="city" type="xs:string" />
+      <xs:element minOccurs="0" name="stateProvinceCode" type="xs:string" />
+      <xs:element minOccurs="0" name="countryCode" type="xs:string" />
+      <xs:element minOccurs="0" name="postalCode" type="xs:string" />
+      <xs:element name="isPrimary" type="xs:boolean" />
+      <xs:element name="type" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HotelConfirmation">
+    <xs:sequence>
+      <xs:element name="supplierId" type="xs:long" />
+      <xs:element minOccurs="0" name="chainCode" type="xs:string" />
+      <xs:element minOccurs="0" name="creditCardType" type="xs:string" />
+      <xs:element minOccurs="0" name="arrivalDate" type="xs:string" />
+      <xs:element minOccurs="0" name="departureDate" type="xs:string" />
+      <xs:element minOccurs="0" name="confirmationNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="cancellationNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="RateInfo" type="tns:HotelRateInfo" />
+      <xs:element minOccurs="0" name="RateInfos" type="tns:RateInfos" />
+      <xs:element name="numberOfAdults" type="xs:int" />
+      <xs:element name="numberOfChildren" type="xs:int" />
+      <xs:element minOccurs="0" name="cancellationPolicy" type="xs:string" />
+      <xs:element minOccurs="0" name="affiliateConfirmationId" type="xs:string" />
+      <xs:element minOccurs="0" name="smokingPreference" type="xs:string" />
+      <xs:element minOccurs="0" name="supplierPropertyId" type="xs:string" />
+      <xs:element minOccurs="0" name="roomTypeCode" type="xs:string" />
+      <xs:element minOccurs="0" name="roomType" type="xs:string" />
+      <xs:element minOccurs="0" name="rateCode" type="xs:string" />
+      <xs:element minOccurs="0" name="rateType" type="xs:string" />
+      <xs:element minOccurs="0" name="rateDescription" type="xs:string" />
+      <xs:element minOccurs="0" name="roomDescription" type="xs:string" />
+      <xs:element minOccurs="0" name="status" type="xs:string" />
+      <xs:element minOccurs="0" name="nonRefundable" type="xs:boolean" />
+      <xs:element minOccurs="0" name="locale" type="xs:string" />
+      <xs:element minOccurs="0" name="CouponInformation" type="tns:CouponInformation" />
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ReservationGuest" type="tns:ReservationGuest" />
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="Hotel" type="tns:Hotel" />
+      <xs:element minOccurs="0" name="ConfirmationExtras" type="tns:ConfirmationExtras" />
+      <xs:element minOccurs="0" name="nights" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CouponInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="couponCode" type="xs:string" />
+      <xs:element minOccurs="0" name="couponDiscount" type="xs:string" />
+      <xs:element minOccurs="0" name="couponEmail" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReservationGuest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="firstName" type="xs:string" />
+      <xs:element minOccurs="0" name="lastName" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Hotel">
+    <xs:sequence>
+      <xs:element name="hotelId" type="xs:long" />
+      <xs:element minOccurs="0" name="statusCode" type="xs:string" />
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+      <xs:element minOccurs="0" name="address1" type="xs:string" />
+      <xs:element minOccurs="0" name="address2" type="xs:string" />
+      <xs:element minOccurs="0" name="address3" type="xs:string" />
+      <xs:element minOccurs="0" name="city" type="xs:string" />
+      <xs:element minOccurs="0" name="stateProvinceCode" type="xs:string" />
+      <xs:element minOccurs="0" name="countryCode" type="xs:string" />
+      <xs:element minOccurs="0" name="postalCode" type="xs:string" />
+      <xs:element minOccurs="0" name="phone" type="xs:string" />
+      <xs:element minOccurs="0" name="fax" type="xs:string" />
+      <xs:element name="latitude" type="xs:float" />
+      <xs:element name="longitude" type="xs:float" />
+      <xs:element minOccurs="0" name="coordinateAccuracyCode" type="xs:string" />
+      <xs:element name="lowRate" type="xs:float" />
+      <xs:element name="highRate" type="xs:float" />
+      <xs:element name="confidence" type="xs:long" />
+      <xs:element minOccurs="0" name="hotelRating" type="xs:float" />
+      <xs:element minOccurs="0" name="tripAdvisorRating" type="xs:float" />
+      <xs:element minOccurs="0" name="market" type="xs:string" />
+      <xs:element minOccurs="0" name="region" type="xs:string" />
+      <xs:element minOccurs="0" name="superRegion" type="xs:string" />
+      <xs:element minOccurs="0" name="theme" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ConfirmationExtras">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ConfirmationExtra" type="tns:ConfirmationExtra" />
+    </xs:sequence>
+    <xs:attribute name="size" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="ConfirmationExtra">
+    <xs:sequence />
+    <xs:attribute name="name" type="xs:string" />
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="HotelPaymentRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:HotelBaseRequest">
+        <xs:all />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="v3.HotelPaymentRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:HotelPaymentRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="hotelId" type="xs:long" />
+          <xs:element minOccurs="0" name="supplierType" type="tns:SupplierType" />
+          <xs:element minOccurs="0" name="rateType" type="tns:RatePlanType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="HotelPaymentResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="PaymentType" type="tns:PaymentType" />
+        </xs:sequence>
+        <xs:attribute name="size" type="xs:int" use="required" />
+        <xs:attribute name="currencyCode" type="xs:string" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PaymentType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="code" type="xs:string" />
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PingRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:HotelBaseRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="echo" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PingResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="echo" type="xs:string" />
+          <xs:element minOccurs="0" name="ServerInfo" type="tns:ServerInfo" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="HotelInformationRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:HotelBaseRequest">
+        <xs:sequence>
+          <xs:element name="hotelId" type="xs:long" />
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="options" type="tns:hotelInfoOption" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="HotelInformationResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="HotelSummary" type="tns:HotelSummary" />
+          <xs:element minOccurs="0" name="HotelDetails" type="tns:HotelDetails" />
+          <xs:element minOccurs="0" name="Suppliers" type="tns:Suppliers" />
+          <xs:element minOccurs="0" name="RoomTypes" type="tns:RoomTypes" />
+          <xs:element minOccurs="0" name="PropertyAmenities" type="tns:PropertyAmenities" />
+          <xs:element minOccurs="0" name="HotelImages" type="tns:HotelImages" />
+        </xs:sequence>
+        <xs:attribute name="hotelId" type="xs:long" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Suppliers">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="Supplier" type="tns:Supplier" />
+    </xs:sequence>
+    <xs:attribute name="size" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="Supplier">
+    <xs:sequence />
+    <xs:attribute name="id" type="xs:int" use="required" />
+    <xs:attribute name="chainCode" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="RoomTypes">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="RoomType" type="tns:RoomType" />
+    </xs:sequence>
+    <xs:attribute name="size" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="LocaleType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="en_US" />
+      <xs:enumeration value="en_GB" />
+      <xs:enumeration value="ar_SA" />
+      <xs:enumeration value="cz_CS" />
+      <xs:enumeration value="da_DK" />
+      <xs:enumeration value="de_DE" />
+      <xs:enumeration value="el_GR" />
+      <xs:enumeration value="es_ES" />
+      <xs:enumeration value="et_EE" />
+      <xs:enumeration value="fi_FI" />
+      <xs:enumeration value="fr_FR" />
+      <xs:enumeration value="fr_CA" />
+      <xs:enumeration value="hu_HU" />
+      <xs:enumeration value="hr_HR" />
+      <xs:enumeration value="in_ID" />
+      <xs:enumeration value="is_IS" />
+      <xs:enumeration value="it_IT" />
+      <xs:enumeration value="ja_JP" />
+      <xs:enumeration value="ko_KR" />
+      <xs:enumeration value="ms_MY" />
+      <xs:enumeration value="lv_LV" />
+      <xs:enumeration value="lt_LT" />
+      <xs:enumeration value="nl_NL" />
+      <xs:enumeration value="no_NO" />
+      <xs:enumeration value="pl_PL" />
+      <xs:enumeration value="pt_BR" />
+      <xs:enumeration value="pt_PT" />
+      <xs:enumeration value="ru_RU" />
+      <xs:enumeration value="sv_SE" />
+      <xs:enumeration value="sk_SK" />
+      <xs:enumeration value="th_TH" />
+      <xs:enumeration value="tr_TR" />
+      <xs:enumeration value="uk_UA" />
+      <xs:enumeration value="vi_VN" />
+      <xs:enumeration value="zh_TW" />
+      <xs:enumeration value="zh_CN" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="HotelMinorRevType">
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="5" />
+      <xs:enumeration value="6" />
+      <xs:enumeration value="7" />
+      <xs:enumeration value="8" />
+      <xs:enumeration value="9" />
+      <xs:enumeration value="10" />
+      <xs:enumeration value="11" />
+      <xs:enumeration value="12" />
+      <xs:enumeration value="13" />
+      <xs:enumeration value="14" />
+      <xs:enumeration value="15" />
+      <xs:enumeration value="16" />
+      <xs:enumeration value="17" />
+      <xs:enumeration value="18" />
+      <xs:enumeration value="19" />
+      <xs:enumeration value="20" />
+      <xs:enumeration value="21" />
+      <xs:enumeration value="22" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="errorHandling">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="UNKNOWN" />
+      <xs:enumeration value="RECOVERABLE" />
+      <xs:enumeration value="UNRECOVERABLE" />
+      <xs:enumeration value="AGENT_ATTENTION" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="errorCategory">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="UNKNOWN" />
+      <xs:enumeration value="EXCEPTION" />
+      <xs:enumeration value="CREDITCARD" />
+      <xs:enumeration value="DATA_VALIDATION" />
+      <xs:enumeration value="AUTHENTICATION" />
+      <xs:enumeration value="UNABLE_TO_PROCESS_REQUEST" />
+      <xs:enumeration value="INVALID_PROPERTY_ID" />
+      <xs:enumeration value="RESULT_NULL" />
+      <xs:enumeration value="PROCESS_FAIL" />
+      <xs:enumeration value="SOLD_OUT" />
+      <xs:enumeration value="RESTRICTED_CHECKIN" />
+      <xs:enumeration value="ONEROOM" />
+      <xs:enumeration value="SUPPLIER_COMMUNICATION" />
+      <xs:enumeration value="DATA_PARSE_RESULT" />
+      <xs:enumeration value="CORPORATE_RATE" />
+      <xs:enumeration value="RES_NOT_FOUND" />
+      <xs:enumeration value="RES_CANCELLED" />
+      <xs:enumeration value="HRN_QUOTE_KEY_FAILURE" />
+      <xs:enumeration value="HRN_QUOTE_KEY_INVALID" />
+      <xs:enumeration value="SYS_OFFLINE" />
+      <xs:enumeration value="SUPPLIER_INITITIALIZATION" />
+      <xs:enumeration value="SUPPLIER_ROUTER_EXCEPTION" />
+      <xs:enumeration value="EJB_CREATE_EXCEPTION" />
+      <xs:enumeration value="FINDER_EXCEPTION" />
+      <xs:enumeration value="BML_FAIL" />
+      <xs:enumeration value="PRICE_MISMATCH" />
+      <xs:enumeration value="CSV_FAIL" />
+      <xs:enumeration value="PAYER_AUTH_REQUIRED" />
+      <xs:enumeration value="PAYER_AUTH_FAILED" />
+      <xs:enumeration value="ITINERARY_ALREADY_BOOKED" />
+      <xs:enumeration value="FRAUD" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="errorAttribute">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CC_TRANSACTIONSTATUS" />
+      <xs:enumeration value="TRANSACTIONSTATUSMSG" />
+      <xs:enumeration value="PA_TRANSACTIONSTATUS" />
+      <xs:enumeration value="XID" />
+      <xs:enumeration value="ACS_URL" />
+      <xs:enumeration value="PA_REQ" />
+      <xs:enumeration value="AUTH_CODE" />
+      <xs:enumeration value="PAS_TRANSACTION_ID" />
+      <xs:enumeration value="SUPPLIER_ERROR_CODE" />
+      <xs:enumeration value="MULTI_ROOMTYPE_CONFIRMATIONS" />
+      <xs:enumeration value="RATE_CHANGE" />
+      <xs:enumeration value="RATE_KEY" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SearchRadiusUnitType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MI" />
+      <xs:enumeration value="KM" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SortType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NO_SORT" />
+      <xs:enumeration value="DEFAULT" />
+      <xs:enumeration value="CITY_VALUE" />
+      <xs:enumeration value="OVERALL_VALUE" />
+      <xs:enumeration value="PRICE" />
+      <xs:enumeration value="QUALITY" />
+      <xs:enumeration value="ALPHA" />
+      <xs:enumeration value="SPECIAL_VALUE" />
+      <xs:enumeration value="PROXIMITY" />
+      <xs:enumeration value="POSTAL_CODE" />
+      <xs:enumeration value="PROMO" />
+      <xs:enumeration value="PRICE_AVERAGE" />
+      <xs:enumeration value="TRIP_ADVISOR" />
+      <xs:enumeration value="PRICE_REVERSE" />
+      <xs:enumeration value="QUALITY_REVERSE" />
+      <xs:enumeration value="CONFIDENCE" />
+      <xs:enumeration value="MARKETING_CONFIDENCE" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PropertyCategory">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="0" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="5" />
+      <xs:enumeration value="6" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SmokingPreference">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="S" />
+      <xs:enumeration value="NS" />
+      <xs:enumeration value="E" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RatePlanType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MerchantStandard" />
+      <xs:enumeration value="MerchantPackage" />
+      <xs:enumeration value="MerchantCorporate" />
+      <xs:enumeration value="DirectAgency" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="hotelListOption">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DEFAULT" />
+      <xs:enumeration value="HOTEL_SUMMARY" />
+      <xs:enumeration value="ROOM_RATE_DETAILS" />
+      <xs:enumeration value="DEEP_LINKS" />
+      <xs:enumeration value="REQUEST_ONLY" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MultiRoomAvailType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NOT_SUPPPORTED" />
+      <xs:enumeration value="BASIC" />
+      <xs:enumeration value="STRICT" />
+      <xs:enumeration value="RELAXED" />
+      <xs:enumeration value="ENHANCED" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SupplierCacheTolerance">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NOT_SUPPORTED" />
+      <xs:enumeration value="MIN" />
+      <xs:enumeration value="MIN_ENHANCED" />
+      <xs:enumeration value="MED" />
+      <xs:enumeration value="MED_ENHANCED" />
+      <xs:enumeration value="MAX" />
+      <xs:enumeration value="MAX_ENHANCED" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SupplierType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="E" />
+      <xs:enumeration value="S" />
+      <xs:enumeration value="W" />
+      <xs:enumeration value="V" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DiscountType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Unknown" />
+      <xs:enumeration value="CouponDiscount" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SurchargeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Unknown" />
+      <xs:enumeration value="Tax" />
+      <xs:enumeration value="ServiceFee" />
+      <xs:enumeration value="ExtraPersonFee" />
+      <xs:enumeration value="SalesTax" />
+      <xs:enumeration value="HotelOccupancyTax" />
+      <xs:enumeration value="TaxAndServiceFee" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PromoType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Standard" />
+      <xs:enumeration value="Mobile" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="hotelAvailOption">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DEFAULT" />
+      <xs:enumeration value="HOTEL_DETAILS" />
+      <xs:enumeration value="ROOM_TYPES" />
+      <xs:enumeration value="ROOM_AMENITIES" />
+      <xs:enumeration value="PROPERTY_AMENITIES" />
+      <xs:enumeration value="HOTEL_IMAGES" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LocationInfoType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="0" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="5" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MultiRoomResType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NOT_SUPPPORTED" />
+      <xs:enumeration value="SERIAL" />
+      <xs:enumeration value="PARALLEL" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="hotelInfoOption">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DEFAULT" />
+      <xs:enumeration value="HOTEL_SUMMARY" />
+      <xs:enumeration value="HOTEL_DETAILS" />
+      <xs:enumeration value="SUPPLIERS" />
+      <xs:enumeration value="ROOM_TYPES" />
+      <xs:enumeration value="ROOM_AMENITIES" />
+      <xs:enumeration value="PROPERTY_AMENITIES" />
+      <xs:enumeration value="HOTEL_IMAGES" />
+      <xs:enumeration value="SUPPLIERS_CHAIN_CODE" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="getRoomImage" type="tns:getRoomImage" />
+  <xs:complexType name="getRoomImage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelRoomImageRequest" type="tns:HotelRoomImageRequest" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getRoomImageResponse" type="tns:getRoomImageResponse" />
+  <xs:complexType name="getRoomImageResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelRoomImageResponse" type="tns:HotelRoomImageResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getList" type="tns:getList" />
+  <xs:complexType name="getList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelListRequest" type="tns:HotelListRequest" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getListResponse" type="tns:getListResponse" />
+  <xs:complexType name="getListResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelListResponse" type="tns:HotelListResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getCancellation" type="tns:getCancellation" />
+  <xs:complexType name="getCancellation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelRoomCancellationRequest" type="tns:HotelRoomCancellationRequest" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getCancellationResponse" type="tns:getCancellationResponse" />
+  <xs:complexType name="getCancellationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelRoomCancellationResponse" type="tns:HotelRoomCancellationResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getAvailability" type="tns:getAvailability" />
+  <xs:complexType name="getAvailability">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelRoomAvailabilityRequest" type="tns:HotelRoomAvailabilityRequest" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getAvailabilityResponse" type="tns:getAvailabilityResponse" />
+  <xs:complexType name="getAvailabilityResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelRoomAvailabilityResponse" type="tns:HotelRoomAvailabilityResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getGeoLocation" type="tns:getGeoLocation" />
+  <xs:complexType name="getGeoLocation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="LocationInfoRequest" type="tns:LocationInfoRequest" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getGeoLocationResponse" type="tns:getGeoLocationResponse" />
+  <xs:complexType name="getGeoLocationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="LocationInfoResponse" type="tns:LocationInfoResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getAlternateProperties" type="tns:getAlternateProperties" />
+  <xs:complexType name="getAlternateProperties">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AlternatePropertyListRequest" type="tns:AlternatePropertyListRequest" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getAlternatePropertiesResponse" type="tns:getAlternatePropertiesResponse" />
+  <xs:complexType name="getAlternatePropertiesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AlternatePropertyListResponse" type="tns:AlternatePropertyListResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getReservation" type="tns:getReservation" />
+  <xs:complexType name="getReservation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelRoomReservationRequest" type="tns:HotelRoomReservationRequest" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getReservationResponse" type="tns:getReservationResponse" />
+  <xs:complexType name="getReservationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelRoomReservationResponse" type="tns:HotelRoomReservationResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getRateRules" type="tns:getRateRules" />
+  <xs:complexType name="getRateRules">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelRateRulesRequest" type="tns:HotelRateRulesRequest" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getRateRulesResponse" type="tns:getRateRulesResponse" />
+  <xs:complexType name="getRateRulesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelRateRulesResponse" type="tns:HotelRateRulesResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getItinerary" type="tns:getItinerary" />
+  <xs:complexType name="getItinerary">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelItineraryRequest" type="tns:HotelItineraryRequest" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getItineraryResponse" type="tns:getItineraryResponse" />
+  <xs:complexType name="getItineraryResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelItineraryResponse" type="tns:HotelItineraryResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getPaymentInfo" type="tns:getPaymentInfo" />
+  <xs:complexType name="getPaymentInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelPaymentRequest" type="tns:v3.HotelPaymentRequest" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getPaymentInfoResponse" type="tns:getPaymentInfoResponse" />
+  <xs:complexType name="getPaymentInfoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelPaymentResponse" type="tns:HotelPaymentResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getPing" type="tns:getPing" />
+  <xs:complexType name="getPing">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PingRequest" type="tns:PingRequest" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getPingResponse" type="tns:getPingResponse" />
+  <xs:complexType name="getPingResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PingResponse" type="tns:PingResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getInformation" type="tns:getInformation" />
+  <xs:complexType name="getInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelInformationRequest" type="tns:HotelInformationRequest" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getInformationResponse" type="tns:getInformationResponse" />
+  <xs:complexType name="getInformationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HotelInformationResponse" type="tns:HotelInformationResponse" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getInformation">
+    <wsdl:part element="tns:getInformation" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getListResponse">
+    <wsdl:part element="tns:getListResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAvailability">
+    <wsdl:part element="tns:getAvailability" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getItinerary">
+    <wsdl:part element="tns:getItinerary" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getGeoLocation">
+    <wsdl:part element="tns:getGeoLocation" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getReservationResponse">
+    <wsdl:part element="tns:getReservationResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAvailabilityResponse">
+    <wsdl:part element="tns:getAvailabilityResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getRateRules">
+    <wsdl:part element="tns:getRateRules" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCancellationResponse">
+    <wsdl:part element="tns:getCancellationResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAlternatePropertiesResponse">
+    <wsdl:part element="tns:getAlternatePropertiesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getInformationResponse">
+    <wsdl:part element="tns:getInformationResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPaymentInfoResponse">
+    <wsdl:part element="tns:getPaymentInfoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getRoomImage">
+    <wsdl:part element="tns:getRoomImage" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getGeoLocationResponse">
+    <wsdl:part element="tns:getGeoLocationResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getList">
+    <wsdl:part element="tns:getList" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getItineraryResponse">
+    <wsdl:part element="tns:getItineraryResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getReservation">
+    <wsdl:part element="tns:getReservation" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPingResponse">
+    <wsdl:part element="tns:getPingResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPing">
+    <wsdl:part element="tns:getPing" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getRateRulesResponse">
+    <wsdl:part element="tns:getRateRulesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAlternateProperties">
+    <wsdl:part element="tns:getAlternateProperties" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPaymentInfo">
+    <wsdl:part element="tns:getPaymentInfo" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getRoomImageResponse">
+    <wsdl:part element="tns:getRoomImageResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCancellation">
+    <wsdl:part element="tns:getCancellation" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="HotelServices">
+    <wsdl:operation name="getRoomImage">
+      <wsdl:input message="tns:getRoomImage" name="getRoomImage">
+    </wsdl:input>
+      <wsdl:output message="tns:getRoomImageResponse" name="getRoomImageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getList">
+      <wsdl:input message="tns:getList" name="getList">
+    </wsdl:input>
+      <wsdl:output message="tns:getListResponse" name="getListResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCancellation">
+      <wsdl:input message="tns:getCancellation" name="getCancellation">
+    </wsdl:input>
+      <wsdl:output message="tns:getCancellationResponse" name="getCancellationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAvailability">
+      <wsdl:input message="tns:getAvailability" name="getAvailability">
+    </wsdl:input>
+      <wsdl:output message="tns:getAvailabilityResponse" name="getAvailabilityResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getGeoLocation">
+      <wsdl:input message="tns:getGeoLocation" name="getGeoLocation">
+    </wsdl:input>
+      <wsdl:output message="tns:getGeoLocationResponse" name="getGeoLocationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAlternateProperties">
+      <wsdl:input message="tns:getAlternateProperties" name="getAlternateProperties">
+    </wsdl:input>
+      <wsdl:output message="tns:getAlternatePropertiesResponse" name="getAlternatePropertiesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getReservation">
+      <wsdl:input message="tns:getReservation" name="getReservation">
+    </wsdl:input>
+      <wsdl:output message="tns:getReservationResponse" name="getReservationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRateRules">
+      <wsdl:input message="tns:getRateRules" name="getRateRules">
+    </wsdl:input>
+      <wsdl:output message="tns:getRateRulesResponse" name="getRateRulesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getItinerary">
+      <wsdl:input message="tns:getItinerary" name="getItinerary">
+    </wsdl:input>
+      <wsdl:output message="tns:getItineraryResponse" name="getItineraryResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPaymentInfo">
+      <wsdl:input message="tns:getPaymentInfo" name="getPaymentInfo">
+    </wsdl:input>
+      <wsdl:output message="tns:getPaymentInfoResponse" name="getPaymentInfoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPing">
+      <wsdl:input message="tns:getPing" name="getPing">
+    </wsdl:input>
+      <wsdl:output message="tns:getPingResponse" name="getPingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getInformation">
+      <wsdl:input message="tns:getInformation" name="getInformation">
+    </wsdl:input>
+      <wsdl:output message="tns:getInformationResponse" name="getInformationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HotelServicesImplServiceSoapBinding" type="tns:HotelServices">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getRoomImage">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getRoomImage">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getRoomImageResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getList">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getList">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getListResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAvailability">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getAvailability">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getAvailabilityResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCancellation">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getCancellation">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getCancellationResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getGeoLocation">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getGeoLocation">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getGeoLocationResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAlternateProperties">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getAlternateProperties">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getAlternatePropertiesResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getReservation">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getReservation">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getReservationResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getItinerary">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getItinerary">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getItineraryResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRateRules">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getRateRules">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getRateRulesResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPaymentInfo">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getPaymentInfo">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getPaymentInfoResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPing">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getPing">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getPingResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getInformation">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getInformation">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getInformationResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HotelServicesImplService">
+    <wsdl:port binding="tns:HotelServicesImplServiceSoapBinding" name="HotelServicesImplPort">
+      <soap:address location="http://api.ean.com/ean-services/ws/hotel/v3" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
