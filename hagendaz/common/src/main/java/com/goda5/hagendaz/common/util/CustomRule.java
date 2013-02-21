@@ -83,12 +83,12 @@ public class CustomRule extends AbstractJavaRule {
 		
 		System.out.println("Num of children " + node.jjtGetNumChildren());
 		
-		System.out.println("11111111aaaaaaa§" + node.jjtGetChild(0).getClass());
-		System.out.println("11111111aaaaaaa§" + ((ASTResultType) node.jjtGetChild(0)).getImage());
-		System.out.println("11111111aaaaaaa§" + node.jjtGetChild(1).getClass());
-		System.out.println("11111111aaaaaaa§" + ((ASTMethodDeclarator) node.jjtGetChild(1)).getImage());
-		System.out.println("11111111aaaaaaa§" + node.jjtGetChild(2).getClass());
-		System.out.println("11111111aaaaaaa§" + ((ASTBlock) node.jjtGetChild(2)).getImage());
+		System.out.println("11111111aaaaaaa" + node.jjtGetChild(0).getClass());
+		System.out.println("11111111aaaaaaa" + ((ASTResultType) node.jjtGetChild(0)).getImage());
+		System.out.println("11111111aaaaaaa" + node.jjtGetChild(1).getClass());
+		System.out.println("11111111aaaaaaa" + ((ASTMethodDeclarator) node.jjtGetChild(1)).getImage());
+		System.out.println("11111111aaaaaaa" + node.jjtGetChild(2).getClass());
+		System.out.println("11111111aaaaaaa" + ((ASTBlock) node.jjtGetChild(2)).getImage());
 		
 		System.out.println("iiiiiiiiiii" + ((ASTBlock) node.jjtGetChild(2)).jjtGetChild(0).getClass());
 		System.out.println("iiiiiiiiiii" + ((ASTBlock) node.jjtGetChild(2)).jjtGetChild(1).getClass());

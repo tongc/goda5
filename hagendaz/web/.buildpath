@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry external="true" kind="lib" path="/Users/tonchen/git/goda5/hagendaz/web/target/tools-1.7.jar"/>
+	<buildpathentry external="true" kind="lib" path="/Users/tonchen/.m2/repository/org/testng/testng/6.5.2/testng-6.5.2.jar"/>
+</buildpath>
