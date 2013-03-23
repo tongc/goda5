@@ -9,12 +9,19 @@ import org.springframework.transaction.annotation.Transactional;
 import com.goda5.hagendaz.data.dao.AccountDao;
 
 @Service
-public class AccountService {
+public class AccountService implements PostProcessorAware {
+	
+	
 	@Inject
 	private AccountDao dao;
 	
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRES_NEW)
 	public void transfer() {
 	
+	}
+
+	@Override
+	public void setValue(String value) {
+		System.out.println("Value is " + value);
 	}
 }
