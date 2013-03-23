@@ -4,20 +4,14 @@ import javax.inject.Inject;
 
 import org.joda.time.LocalDateTime;
 import org.springframework.stereotype.Controller;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.ModelAttribute;
-=======
 import org.springframework.web.bind.annotation.PathVariable;
->>>>>>> master
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-<<<<<<< HEAD
 import com.goda5.hagendaz.common.domain.Account;
-=======
 import com.goda5.hagendaz.common.domain.User;
->>>>>>> master
 import com.goda5.hagendaz.service.UserService;
 
 @Controller
@@ -32,7 +26,6 @@ public class HomeController extends BaseController {
 		mv.addObject("userCount", userService.getUserCount());
 		return mv;
 	}
-<<<<<<< HEAD
 	
 	@ModelAttribute("account")
 	public Account getAccount() {
@@ -57,8 +50,8 @@ public class HomeController extends BaseController {
 	public void submitAccount(@ModelAttribute("account") Account account) {
 		System.out.println("POST MEMORY ADD: " + System.identityHashCode(account));
 		System.out.println("POSTED data: " + account.getName() + " balance: " + account.getId());
-=======
-
+	}
+	
 	@RequestMapping("/addUser/{username}")
 	public ModelAndView addUser(@PathVariable final String username) {
 		final User user = new User();
@@ -80,6 +73,5 @@ public class HomeController extends BaseController {
 		final ModelAndView mv = new ModelAndView("userStatus");
 		mv.addObject("userId", userService.findUser(userid).getId());
 		return mv;
->>>>>>> master
 	}
 }
