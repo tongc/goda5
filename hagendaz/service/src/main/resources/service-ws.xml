@@ -1,14 +1,21 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:jaxws="http://cxf.apache.org/jaxws"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+	http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
 
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
-	<jaxws:endpoint 
-	  id="helloWorld" 
-	  implementor="com.goda5.hagendaz.service.ws.UserStatusReporterImpl" 
-	  address="/userStatusReport" />
+	<jaxws:endpoint id="userStatusReporter" implementor="#userStatusReporterImpl"
+		address="/userStatusReport" />
+
+	<jaxrs:server id="restContainer" address="/rest">
+		<jaxrs:serviceBeans>
+			<ref bean="userStatusReporterImpl" />
+		</jaxrs:serviceBeans>
+	</jaxrs:server>
 </beans>

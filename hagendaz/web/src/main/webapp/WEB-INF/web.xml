@@ -8,21 +8,41 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath*:META-INF/spring/web.xml</param-value>
 	</context-param>
-	
+
 	<context-param>
-	    <param-name>contextInitializerClasses</param-name>
-	    <param-value>com.goda5.hagendaz.common.util.ProfilesInitializer</param-value>
+		<param-name>contextInitializerClasses</param-name>
+		<param-value>com.goda5.hagendaz.common.util.ProfilesInitializer</param-value>
 	</context-param>
-	
+
 	<filter>
 		<filter-name>RequestContextFilter</filter-name>
-		<filter-class>org.springframework.web.filter.RequestContextFilter
-		</filter-class>
+		<filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
 	</filter>
+
+	<filter>
+		<filter-name>etagFilter</filter-name>
+		<filter-class>org.springframework.web.filter.ShallowEtagHeaderFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>etagFilter</filter-name>
+		<servlet-name>goda5</servlet-name>
+	</filter-mapping>
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+
+	<servlet>
+		<servlet-name>CXFServlet</servlet-name>
+		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CXFServlet</servlet-name>
+		<url-pattern>/ws/*</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>goda5</servlet-name>
@@ -36,6 +56,6 @@
 
 	<servlet-mapping>
 		<servlet-name>goda5</servlet-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 </web-app>
