@@ -30,14 +30,11 @@ public class ConfigurationBean {
 	
 	@Bean
 	public EntityManagerFactory emf() {
-		EntityManagerFactory emf = Mockito.mock(EntityManagerFactory.class);
-		Mockito.when(emf.createEntityManager()).thenReturn(em());
-		return emf;
+		return Mockito.mock(EntityManagerFactory.class);
 	}
 	
 	@Bean(name = "em")
 	public EntityManager em() {
-		EntityManager em = Mockito.mock(EntityManager.class);
-		return em;
+		return Mockito.mock(EntityManager.class);
 	}
 }
