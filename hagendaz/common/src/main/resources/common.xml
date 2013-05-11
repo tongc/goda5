@@ -24,7 +24,7 @@
 		<property name="queueCapacity" value="10"/>
 	</bean>
 	
-	<bean id="metrics" class="com.yammer.metrics.core.MetricRegistry" />
+	<bean id="metrics" class="com.yammer.metrics.core.MetricsRegistry" />
 
 	<aop:aspectj-autoproxy />
 
