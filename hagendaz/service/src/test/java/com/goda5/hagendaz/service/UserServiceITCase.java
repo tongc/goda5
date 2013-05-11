@@ -57,4 +57,9 @@ public class UserServiceITCase extends IntegrationTestBaseService {
 		//org.objectweb.asm.AnnotationVisitor  av = new org.objectweb.asm.AnnotationVisitor();
 	}
 
+	@Test
+	public void test() throws InterruptedException {
+		service.test();
+		System.out.println(" test  " + Thread.currentThread());
+	}
 }

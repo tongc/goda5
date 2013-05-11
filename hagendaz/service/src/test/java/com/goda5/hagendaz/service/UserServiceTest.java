@@ -33,4 +33,10 @@ public class UserServiceTest extends TestBaseService {
 		logger.info("-----------cache invalidated------------");
 		Assert.assertEquals(userService.getUserCount(), 200l);
 	}
+	
+	@Test
+	public void test() throws InterruptedException {
+		userService.test();
+		System.out.println(" test  " + Thread.currentThread());
+	}
 }

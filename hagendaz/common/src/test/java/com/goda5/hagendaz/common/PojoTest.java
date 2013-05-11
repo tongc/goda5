@@ -2,6 +2,7 @@ package com.goda5.hagendaz.common;
 
 import java.util.List;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -58,5 +59,36 @@ public class PojoTest {
         for (final PojoClass pojoClass : pojoClasses) {
             pojoValidator.runValidation(pojoClass);
         }
+    }
+    
+    @Test
+    public void test() {
+    	int i = 0;
+    	Assert.assertEquals(i+++(++i), 2);
+    }
+    
+    @Test
+    public void test1() {
+    	int j = 0;
+    	Assert.assertEquals(j+++(j++), 1);
+    }
+    
+    @Test
+    public void test2() {
+    	int i = 0;
+    	int j = 0;
+    	Assert.assertEquals(i+++(j++), 0);
+    }
+    
+    @Test
+    public void test3() {
+    	int j = 0;
+    	Assert.assertEquals(j+++(j++)+j++, 3);
+    }
+    
+    @Test
+    public void test4() {
+    	int j = 0;
+    	Assert.assertEquals(j+++(j++)+j+++(++j), 7);
     }
 }

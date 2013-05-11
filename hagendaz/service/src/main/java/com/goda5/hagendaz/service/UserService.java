@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,5 +32,11 @@ public class UserService {
 	@Transactional(readOnly=true)
 	public User findUser(final Long userId) {
 		return dao.find(userId);
+	}
+	
+	@Async
+	public void test() throws InterruptedException {
+		Thread.sleep(5000);
+		System.out.println(" I Will be formatting html mail and sending it  " + Thread.currentThread());
 	}
 }
