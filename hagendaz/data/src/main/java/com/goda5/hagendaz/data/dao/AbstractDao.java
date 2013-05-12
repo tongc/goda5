@@ -4,6 +4,8 @@ import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.goda5.hagendaz.common.domain.BaseEntity;
@@ -11,8 +13,10 @@ import com.yammer.metrics.core.Counter;
 import com.yammer.metrics.core.MetricsRegistry;
 
 public abstract class AbstractDao <T extends BaseEntity> {
+	private static Logger LOGGER = LoggerFactory.getLogger(AbstractDao.class);
+	
 	@Autowired
-	private MetricsRegistry metrics;
+	private MetricsRegistry metricsRegistry;
 	
 	@PersistenceContext
 	protected EntityManager em;
@@ -21,12 +25,14 @@ public abstract class AbstractDao <T extends BaseEntity> {
 	
 	@PostConstruct
 	public void initCounter() {
-		savedObjects = metrics.newCounter(AbstractDao.class, "saved-objects");
+		savedObjects = metricsRegistry.newCounter(AbstractDao.class, "saved-objects");
+		LOGGER.trace("Yammer metrics counter inited");
 	}
 	
 	public void save(T object) {
 		em.persist(object);
 		savedObjects.inc();
+		LOGGER.debug("Object saved " + object);
 	}
 	
 	public T find(long id) {

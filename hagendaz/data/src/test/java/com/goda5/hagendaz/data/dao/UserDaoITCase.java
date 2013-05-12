@@ -4,15 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketAddress;
 import java.net.UnknownHostException;
 
 import javax.inject.Inject;
 
 import org.joda.time.LocalDateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -23,10 +22,15 @@ import scala.actors.threadpool.Executors;
 
 import com.goda5.hagendaz.common.domain.User;
 import com.goda5.hagendaz.data.IntegrationTestBaseDao;
+import com.yammer.metrics.core.MetricsRegistry;
+import com.yammer.metrics.reporting.JmxReporter;
 
 public class UserDaoITCase extends IntegrationTestBaseDao {
 	@Inject
 	private UserDao dao;
+	
+	@Autowired
+	private MetricsRegistry metricsRegistry;
 
 	private static final LocalDateTime DATETIME = new LocalDateTime();
 	private static final String USER_NAME = "TEST";
@@ -50,8 +54,15 @@ public class UserDaoITCase extends IntegrationTestBaseDao {
 		dao.save(user);
 		Assert.assertNotNull(user.getId());
 	}
+	
+	@Test(enabled=false)
+	public void testSaveUserHaltForJmxConnectionTest() throws InterruptedException {
+		testSaveUser();
+		JmxReporter.startDefault(metricsRegistry);
+		Thread.sleep(100000);
+	}
 
-	@Test
+	@Test(enabled=false)
 	public void testNetwork() throws UnknownHostException, IOException, InterruptedException {
 		ExecutorService es = Executors.newFixedThreadPool(1);
 		es.execute(new Runnable() {
