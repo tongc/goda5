@@ -6,7 +6,7 @@
 	<display-name>goda5</display-name>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath*:META-INF/spring/web.xml</param-value>
+		<param-value>classpath*:web.xml</param-value>
 	</context-param>
 
 	<context-param>

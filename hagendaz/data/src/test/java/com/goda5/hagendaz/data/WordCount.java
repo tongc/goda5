@@ -53,6 +53,7 @@ public class WordCount {
 		Configuration conf = new Configuration();
 		String[] otherArgs = new GenericOptionsParser(conf, args)
 				.getRemainingArgs();
+		otherArgs = new String[]{"/Users/tonchen/dev/temp/Les Miserables.txt", "/Users/tonchen/dev/temp/results"};
 		if (otherArgs.length != 2) {
 			System.err.println("Usage: wordcount <in> <out>");
 			System.exit(2);
