@@ -1,0 +1,12 @@
+#locations {
+	width:500px;
+	margin:0 auto;
+}
+.locationLabel {
+	font-size: 30px;
+	display:block;
+	float:left;
+}
+.location {
+	font-size: 30px;
+}
