@@ -42,9 +42,35 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
+		<scala.version>2.10.0</scala.version>
+		<scalatest.version>2.0.M5b</scalatest.version>
+		<scalamock.version>3.0.1</scalamock.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>${scala.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.scalatest</groupId>
+			<artifactId>scalatest_2.10</artifactId>
+			<version>${scalatest.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.scalamock</groupId>
+			<artifactId>scalamock-core_2.10</artifactId>
+			<version>${scalamock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.scalamock</groupId>
+			<artifactId>scalamock-scalatest-support_2.10</artifactId>
+			<version>${scalamock.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>com.yammer.metrics</groupId>
 			<artifactId>metrics-core</artifactId>
@@ -514,6 +540,95 @@
 	<build>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+					<groupId>org.scala-tools</groupId>
+					<artifactId>maven-scala-plugin</artifactId>
+					<version>2.15.2</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>testCompile</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<sourceDir>src/test/scala</sourceDir>
+						<jvmArgs>
+							<jvmArg>-Xms64m</jvmArg>
+							<jvmArg>-Xmx1024m</jvmArg>
+						</jvmArgs>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.scalatest</groupId>
+					<artifactId>scalatest-maven-plugin</artifactId>
+					<version>1.0-M4-SNAP1</version>
+					<executions>
+						<execution>
+							<id>test</id>
+							<configuration>
+								<reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+								<junitxml>.</junitxml>
+								<filereports>TestSuite.txt</filereports>
+								<stdout></stdout>
+								<tagsToInclude>
+									com.expedia.copilot.Unit,
+									com.expedia.copilot.IntegrationMock
+							    </tagsToInclude>
+								<tagsToExclude>
+							   		com.expedia.copilot.Acceptance,
+							   		com.expedia.copilot.IntegrationLive
+							    </tagsToExclude>
+							</configuration>
+							<goals>
+								<goal>test</goal>
+							</goals>
+						</execution>
+						
+						<execution>
+							<id>integration-test</id>
+							<configuration>
+								<reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+								<junitxml>.</junitxml>
+								<filereports>TestSuite.txt</filereports>
+								<stdout></stdout>
+								<tagsToInclude>
+									com.expedia.copilot.IntegrationLive
+							    </tagsToInclude>
+								<tagsToExclude>
+									com.expedia.copilot.Unit,
+									com.expedia.copilot.IntegrationMock,
+							   		com.expedia.copilot.Acceptance
+							    </tagsToExclude>
+							</configuration>
+							<phase>integration-test</phase>
+							<goals>
+								<goal>test</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>verify</id>
+							<configuration>
+								<reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+								<junitxml>.</junitxml>
+								<filereports>TestSuite.txt</filereports>
+								<stdout></stdout>
+								<tagsToInclude>
+									com.expedia.copilot.Acceptance
+							    </tagsToInclude>
+								<tagsToExclude>
+									com.expedia.copilot.Unit,
+							   		com.expedia.copilot.IntegrationLive,
+							   		com.expedia.copilot.IntegrationMock
+							    </tagsToExclude>
+							</configuration>
+							<phase>verify</phase>
+							<goals>
+								<goal>test</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
