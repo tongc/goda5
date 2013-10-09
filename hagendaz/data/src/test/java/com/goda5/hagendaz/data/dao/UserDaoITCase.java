@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
@@ -16,9 +18,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import scala.actors.threadpool.ExecutorService;
-import scala.actors.threadpool.Executors;
 
 import com.goda5.hagendaz.common.domain.User;
 import com.goda5.hagendaz.data.IntegrationTestBaseDao;
