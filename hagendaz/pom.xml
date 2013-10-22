@@ -16,9 +16,13 @@
 
 	<repositories>
 		<repository>
-			<id>akka.repository</id>
-			<name>Akka Maven Repository</name>
-			<url>http://repo.akka.io/releases/</url>
+			<id>central</id>
+			<name>Central Repository</name>
+			<url>http://repo.maven.apache.org/maven2</url>
+			<layout>default</layout>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
 		</repository>
 		<repository>
 			<id>codehaus</id>
@@ -29,6 +33,11 @@
 			<id>spring-milestone</id>
 			<name>Spring Maven SNAPSHOT Repository</name>
 			<url>http://repo.springframework.org/milestone</url>
+		</repository>
+		<repository>
+			<id>akka.repository</id>
+			<name>Akka Maven Repository</name>
+			<url>http://repo.akka.io/releases/</url>
 		</repository>
 	</repositories>
 
@@ -78,7 +87,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.yammer.metrics</groupId>
-			<artifactId>metrics-servlets</artifactId>
+			<artifactId>metrics-servlet</artifactId>
 			<version>${metrics.version}</version>
 		</dependency>
 		<dependency>
@@ -574,17 +583,17 @@
 								<tagsToInclude>
 									com.expedia.copilot.Unit,
 									com.expedia.copilot.IntegrationMock
-							    </tagsToInclude>
+								</tagsToInclude>
 								<tagsToExclude>
-							   		com.expedia.copilot.Acceptance,
-							   		com.expedia.copilot.IntegrationLive
-							    </tagsToExclude>
+									com.expedia.copilot.Acceptance,
+									com.expedia.copilot.IntegrationLive
+								</tagsToExclude>
 							</configuration>
 							<goals>
 								<goal>test</goal>
 							</goals>
 						</execution>
-						
+
 						<execution>
 							<id>integration-test</id>
 							<configuration>
@@ -594,12 +603,12 @@
 								<stdout></stdout>
 								<tagsToInclude>
 									com.expedia.copilot.IntegrationLive
-							    </tagsToInclude>
+								</tagsToInclude>
 								<tagsToExclude>
 									com.expedia.copilot.Unit,
 									com.expedia.copilot.IntegrationMock,
-							   		com.expedia.copilot.Acceptance
-							    </tagsToExclude>
+									com.expedia.copilot.Acceptance
+								</tagsToExclude>
 							</configuration>
 							<phase>integration-test</phase>
 							<goals>
@@ -615,12 +624,12 @@
 								<stdout></stdout>
 								<tagsToInclude>
 									com.expedia.copilot.Acceptance
-							    </tagsToInclude>
+								</tagsToInclude>
 								<tagsToExclude>
 									com.expedia.copilot.Unit,
-							   		com.expedia.copilot.IntegrationLive,
-							   		com.expedia.copilot.IntegrationMock
-							    </tagsToExclude>
+									com.expedia.copilot.IntegrationLive,
+									com.expedia.copilot.IntegrationMock
+								</tagsToExclude>
 							</configuration>
 							<phase>verify</phase>
 							<goals>

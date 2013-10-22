@@ -8,7 +8,6 @@
 		<relativePath>..</relativePath>
 	</parent>
 	<artifactId>common</artifactId>
-fsddfsdfdsffds
 	<build>
 		<plugins>
 			<plugin>

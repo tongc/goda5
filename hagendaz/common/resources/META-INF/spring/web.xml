@@ -24,6 +24,15 @@
 		Also registers default Formatters and Validators for use across all @Controllers -->
 	<mvc:annotation-driven />
 
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	    <property name = "messageConverters">
+	        <list>
+	            <bean class = "org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+	            </bean>
+	        </list>
+	    </property>
+	</bean>
+
 	<mvc:interceptors>
 		<bean class="org.springframework.web.servlet.mvc.WebContentInterceptor"
 			p:cacheSeconds="0" p:alwaysUseFullPath="true">

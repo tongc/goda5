@@ -3,11 +3,13 @@ package com.goda5.hagendaz.web.controller;
 import javax.inject.Inject;
 
 import org.joda.time.LocalDateTime;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.goda5.hagendaz.common.domain.Account;
@@ -73,5 +75,17 @@ public class HomeController extends BaseController {
 		final ModelAndView mv = new ModelAndView("userStatus");
 		mv.addObject("userId", userService.findUser(userid).getId());
 		return mv;
+	}
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET, produces=MediaType.TEXT_HTML_VALUE)
+	@ResponseBody
+	public String test() {
+		return "test";
+	}
+	
+	//302 spring redirect
+	@RequestMapping(value = "/test2", method = RequestMethod.GET)
+	public String test2() {
+		return "redirect:google.com";
 	}
 }
