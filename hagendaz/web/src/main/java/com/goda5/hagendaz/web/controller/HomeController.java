@@ -88,4 +88,10 @@ public class HomeController extends BaseController {
 	public String test2() {
 		return "redirect:google.com";
 	}
+	
+	@RequestMapping(value = "/test3", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public String test3() {
+		return "test3";
+	}
 }

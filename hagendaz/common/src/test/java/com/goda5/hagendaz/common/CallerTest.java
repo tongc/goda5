@@ -27,12 +27,21 @@ public class CallerTest {
 		b.call();
 		
 		for(int j=0;j<10;j++) {
-		for(int i = 0;i<10;i++) {
-			if(i==5) {
-				break;
+			for(int i = 0;i<10;i++) {
+				if(i==5) {
+					break;
+				}
+				System.out.println(j + " " + i);
 			}
-			System.out.println(j + " " + i);
 		}
+		
+		for(int j=0;j<10;j++) {
+			for(int i = 0;i<10;i++) {
+				if(i==5) {
+					continue;
+				}
+				System.out.println(j + " " + i);
+			}
 		}
 	}
 }
