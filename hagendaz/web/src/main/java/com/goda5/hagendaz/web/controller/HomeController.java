@@ -1,6 +1,7 @@
 package com.goda5.hagendaz.web.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.joda.time.LocalDateTime;
 import org.springframework.http.MediaType;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.http.HttpStatus;
 
 import com.goda5.hagendaz.common.domain.Account;
 import com.goda5.hagendaz.common.domain.User;
@@ -109,8 +112,11 @@ public class HomeController extends BaseController {
 		return new TestObject("test");
 	}
 	
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(Exception.class)
-	public @ResponseBody Exception handleException(Exception ex) {
-	    return ex;
+	@ResponseBody
+	public com.goda5.hagendaz.common.domain.other.Error handleException(HttpServletRequest req, Exception ex) {
+	    return new com.goda5.hagendaz.common.domain.other.Error(ex.getMessage());
 	}
+	
 }
