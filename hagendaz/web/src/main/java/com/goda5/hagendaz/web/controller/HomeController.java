@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.joda.time.LocalDateTime;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.goda5.hagendaz.common.domain.Account;
 import com.goda5.hagendaz.common.domain.User;
+import com.goda5.hagendaz.common.domain.other.TestObject;
 import com.goda5.hagendaz.service.UserService;
 
 @Controller
@@ -93,5 +95,22 @@ public class HomeController extends BaseController {
 	@ResponseBody
 	public String test3() {
 		return "test3";
+	}
+	
+	@RequestMapping(value = "/test4", method = RequestMethod.GET)
+	@ResponseBody
+	public String test4() {
+		throw new RuntimeException("test4");
+	}
+
+	@RequestMapping(value = "/test5", method = RequestMethod.GET)
+	@ResponseBody
+	public TestObject test5() {
+		return new TestObject("test");
+	}
+	
+	@ExceptionHandler(Exception.class)
+	public @ResponseBody Exception handleException(Exception ex) {
+	    return ex;
 	}
 }
