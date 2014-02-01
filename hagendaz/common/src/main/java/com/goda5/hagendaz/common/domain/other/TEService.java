@@ -1,7 +1,7 @@
 package com.goda5.hagendaz.common.domain.other;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.backportconcurrent.ThreadPoolTaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -18,7 +18,7 @@
             http://www.springframework.org/schema/jdbc
             http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd">
 	
-	<bean id="te" class="org.springframework.scheduling.backportconcurrent.ThreadPoolTaskExecutor">
+	<bean id="te" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
 		<property name="corePoolSize" value="5"/>
 		<property name="maxPoolSize" value="10"/>
 		<property name="queueCapacity" value="10"/>
