@@ -112,11 +112,10 @@ public class HomeController extends BaseController {
 		return new TestObject("test");
 	}
 	
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
 	@ExceptionHandler(Exception.class)
 	@ResponseBody
 	public com.goda5.hagendaz.common.domain.other.Error handleException(HttpServletRequest req, Exception ex) {
 	    return new com.goda5.hagendaz.common.domain.other.Error(ex.getMessage());
 	}
-	
 }

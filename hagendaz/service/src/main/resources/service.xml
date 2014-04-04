@@ -25,6 +25,14 @@
 	<bean id="ehcache"
 		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
 		p:config-location="classpath:ehcache.xml" />
+	<bean id="testBean"
+	    class="com.goda5.hagendaz.service.TestBean">
+		<property name="values">
+	        <array>
+	            <value>5</value>
+	        </array>
+    	</property>
+	</bean>
 
 	<task:annotation-driven executor="taskExecutor" />
 	<task:executor id="taskExecutor" pool-size="7" />
