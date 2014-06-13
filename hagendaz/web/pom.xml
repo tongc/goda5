@@ -14,7 +14,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<jetty.version>7.0.2.v20100331</jetty.version>
+		<jetty.version>9.1.5.v20140505</jetty.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -29,7 +29,12 @@
 			<version>${jetty.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-security</artifactId>
+			<version>${jetty.version}</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>goda5.com</groupId>
 			<artifactId>service</artifactId>
