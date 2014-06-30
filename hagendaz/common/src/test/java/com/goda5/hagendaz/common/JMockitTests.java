@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import mockit.Injectable;
 import mockit.NonStrictExpectations;
 import mockit.Tested;
+import mockit.Verifications;
 
 class TestSubject {
 	private TestDependency d;
@@ -22,6 +23,10 @@ class TestDependency {
 	public boolean run() {
 		a.add("");
 		return false;
+	}
+	
+	public boolean run2() {
+		return true;
 	}
 }
 
@@ -40,5 +45,11 @@ public class JMockitTests {
 		
 		Assert.assertNotNull(t);
 		Assert.assertNotNull(t.runSomething());
+		t.runSomething().run();
+		t.runSomething().run2();
+		
+		new Verifications() {{
+			t.runSomething().run2(); times = 1;
+		}};
 	}
 }
