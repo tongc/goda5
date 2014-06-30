@@ -16,11 +16,6 @@
 
 	<repositories>
 		<repository>
-			<id>akka.repository</id>
-			<name>Akka Maven Repository</name>
-			<url>http://repo.akka.io/releases/</url>
-		</repository>
-		<repository>
 			<id>codehaus</id>
 			<name>Codehaus Release Repo</name>
 			<url>http://dist.codehaus.org/</url>
@@ -35,13 +30,13 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
+		<!-- dependency>
 			<groupId>com.sun</groupId>
 			<artifactId>tools</artifactId>
 			<version>1.7</version>
 			<scope>system</scope>
 			<systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
-		</dependency>
+		</dependency-->
 		<dependency>
 			<groupId>com.google.code.findbugs</groupId>
 			<artifactId>jsr305</artifactId>
@@ -110,14 +105,14 @@
 
 		<dependency>
 			<groupId>com.typesafe.akka</groupId>
-			<artifactId>akka-actor</artifactId>
-			<version>2.0.2</version>
+			<artifactId>akka-actor_2.10</artifactId>
+			<version>2.3.3</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.typesafe.akka</groupId>
-			<artifactId>akka-zeromq</artifactId>
-			<version>2.0.2</version>
+			<artifactId>akka-zeromq_2.10</artifactId>
+			<version>2.3.3</version>
 		</dependency>
 
 		<dependency>
@@ -185,6 +180,12 @@
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
 			<version>1.9.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.jmockit</groupId>
+			<artifactId>jmockit</artifactId>
+			<version>1.7</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -418,7 +419,6 @@
 				<plugin>
 					<groupId>org.jacoco</groupId>
 					<artifactId>jacoco-maven-plugin</artifactId>
-					<version>0.5.7.201204190339</version>
 				</plugin>
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
 					only. It has no influence on the Maven build itself. -->
@@ -523,6 +523,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
