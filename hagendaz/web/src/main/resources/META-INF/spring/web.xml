@@ -24,6 +24,8 @@
 		Also registers default Formatters and Validators for use across all @Controllers -->
 	<mvc:annotation-driven />
 
+	<mvc:resources mapping="/scripts/**" location="/scripts/"/>
+
 	<mvc:interceptors>
 		<bean class="org.springframework.web.servlet.mvc.WebContentInterceptor"
 			p:cacheSeconds="0" p:alwaysUseFullPath="true">

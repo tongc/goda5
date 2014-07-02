@@ -46,4 +46,10 @@ public class HomeController extends BaseController {
 		mv.addObject("userId", userService.findUser(userid).getId());
 		return mv;
 	}
+	
+	@RequestMapping("/angular")
+	public ModelAndView angular() {
+		final ModelAndView mv = new ModelAndView("angular");
+		return mv;
+	}
 }
