@@ -14,7 +14,7 @@ public class NioWatchService {
 	public static void watchDirectoryPath(final Path path) {
 		new Thread(new Runnable() {
 			public void run() {
-				System.out.println("Watching path: " + path);
+				System.out.println("Watching path: " + path + " from Thread " + Thread.currentThread().getName());
 				FileSystem fs = path.getFileSystem ();
 				try(WatchService service = fs.newWatchService()) {
 					path.register(service, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_DELETE);
@@ -28,7 +28,7 @@ public class NioWatchService {
 								continue;
 							} else {
 								Path newPath = ((WatchEvent<Path>) watchEvent).context();
-								System.out.println("operation kind " + kind + " path " + newPath);
+								System.out.println("operation kind " + kind + " path " + newPath + " from Thread " + Thread.currentThread().getName());
 							}
 						}
 						if(!key.reset()) {
@@ -46,8 +46,9 @@ public class NioWatchService {
 	}
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
-    	//Path monitorPath = Paths.get("/home/tong/Downloads");
-    	Path monitorPath = Paths.get("c:\\");
+		System.out.println("Started from Thread " + Thread.currentThread().getName());
+    	Path monitorPath = Paths.get("/home/tong/Downloads");
+//    	Path monitorPath = Paths.get("c:\\");
     	watchDirectoryPath(monitorPath);
 //    	try (final WatchService watchService = FileSystems.getDefault().newWatchService()) {
 //	        monitorPath.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE);
