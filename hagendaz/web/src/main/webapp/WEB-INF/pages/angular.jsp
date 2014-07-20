@@ -2,6 +2,7 @@
 <head>
   <script src="scripts/angular.js"></script>
   <script src="scripts/controller.js"></script>
+  <script src="scripts/jasmine.js"></script>
 </head>
 <body ng-controller="PhoneListCtrl">
 

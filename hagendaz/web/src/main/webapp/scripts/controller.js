@@ -1,6 +1,6 @@
 var phonecatApp = angular.module('phonecatApp', []);
 
-phonecatApp.controller('PhoneListCtrl', function ($scope, $q, $http) {
+phonecatApp.controller('PhoneListCtrl', function ($scope, $q, $http, $interval) {
   $scope.phones = [
     {'name': 'Nexus S',
      'snippet': 'Fast just got faster with Nexus S.'},
@@ -16,7 +16,7 @@ phonecatApp.controller('PhoneListCtrl', function ($scope, $q, $http) {
   
   function a() {
 	  var deferred = $q.defer();
-	  x(function() {
+	  (function() {
 		  deferred.resolve("aaabbbccc");
 	  });
 	  return deferred.promise;
