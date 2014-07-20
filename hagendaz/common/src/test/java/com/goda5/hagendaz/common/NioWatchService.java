@@ -11,38 +11,43 @@ import java.nio.file.WatchService;
 import java.nio.file.WatchEvent.Kind;
 
 public class NioWatchService {
-	public static void watchDirectoryPath(Path path) {
-		System.out.println("Watching path: " + path);
-		FileSystem fs = path.getFileSystem ();
-		try(WatchService service = fs.newWatchService()) {
-			path.register(service, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_DELETE);
-			WatchKey key = null;
-			while(true) {
-				key = service.take();
-				Kind<?> kind = null;
-				for(WatchEvent<?> watchEvent : key.pollEvents()) {
-					kind = watchEvent.kind();
-					if (StandardWatchEventKinds.OVERFLOW == kind) {
-						continue;
-					} else {
-						Path newPath = ((WatchEvent<Path>) watchEvent).context();
-						System.out.println("operation kind " + kind + " path " + newPath);
+	public static void watchDirectoryPath(final Path path) {
+		new Thread(new Runnable() {
+			public void run() {
+				System.out.println("Watching path: " + path);
+				FileSystem fs = path.getFileSystem ();
+				try(WatchService service = fs.newWatchService()) {
+					path.register(service, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_DELETE);
+					WatchKey key = null;
+					while(true) {
+						key = service.take();
+						Kind<?> kind = null;
+						for(WatchEvent<?> watchEvent : key.pollEvents()) {
+							kind = watchEvent.kind();
+							if (StandardWatchEventKinds.OVERFLOW == kind) {
+								continue;
+							} else {
+								Path newPath = ((WatchEvent<Path>) watchEvent).context();
+								System.out.println("operation kind " + kind + " path " + newPath);
+							}
+						}
+						if(!key.reset()) {
+							break;
+						}
 					}
-				}
-				if(!key.reset()) {
-					break;
+					
+				} catch(IOException ioe) {
+					ioe.printStackTrace();
+				} catch(InterruptedException ie) {
+					ie.printStackTrace();
 				}
 			}
-			
-		} catch(IOException ioe) {
-			ioe.printStackTrace();
-		} catch(InterruptedException ie) {
-			ie.printStackTrace();
-		}
+		}).start();
 	}
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
-    	Path monitorPath = Paths.get("/home/tong/Downloads");
+    	//Path monitorPath = Paths.get("/home/tong/Downloads");
+    	Path monitorPath = Paths.get("c:\\");
     	watchDirectoryPath(monitorPath);
 //    	try (final WatchService watchService = FileSystems.getDefault().newWatchService()) {
 //	        monitorPath.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE);
