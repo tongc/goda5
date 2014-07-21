@@ -66,13 +66,18 @@ public class JMockit2Test {
 	@Cascading @Injectable
 	private File file2 = null;
 	
+	@Mocked
+	private String s = null;
+	
 	@Test
 	public void test2(@Cascading @Injectable final File file3) {
 		new NonStrictExpectations() {{
-			file.toPath().getFileName().toString(); result = "abcdefghi";
+			file.toPath().getFileName().toString().substring(5); result = "abcdefghi";
+			file.getParentFile().getParentFile().getParentFile().toPath().getFileName().toString().substring(5); result = "abc";
 		}};
 		System.out.println(file3.toPath());
+		System.out.println(file.getParentFile().toPath().getFileName());
 		System.out.println(file.toPath());
-		System.out.println(file.getParentFile().getParentFile().getParentFile().toPath().getFileName().toString().substring(5));
+		System.out.println(file.getParentFile().getParentFile().getParentFile().toPath().getFileName().toString().substring(2));
 	}
 }
