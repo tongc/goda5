@@ -36,13 +36,15 @@ public class NioWatchService {
 			
 			// We register the path to the service
 			// We watch for creation events
-			path.register(service, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_DELETE);
+			path.register(service, StandardWatchEventKinds.ENTRY_MODIFY);
 			
 			// Start the infinite polling loop
 			WatchKey key = null;
 			while(true) {
 				key = service.take();
 				
+				System.out.println("operation on ");
+				Thread.sleep(3000);
 				// Dequeueing events
 				Kind<?> kind = null;
 				for(WatchEvent<?> watchEvent : key.pollEvents()) {
@@ -72,7 +74,7 @@ public class NioWatchService {
 	}
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
-    	Path monitorPath = Paths.get("C:\\Users\\v626284\\Downloads");
+    	Path monitorPath = Paths.get("C:\\Users\\v626284\\Downloads\\test");
     	watchDirectoryPath(monitorPath);
 //    	try (final WatchService watchService = FileSystems.getDefault().newWatchService()) {
 //	        monitorPath.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE);
