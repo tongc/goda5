@@ -81,6 +81,31 @@
                     <useTestClasspath>true</useTestClasspath>
                 </configuration>
 			</plugin>
+            <plugin>
+                <groupId>pl.allegro</groupId>
+                <artifactId>grunt-maven-plugin</artifactId>
+                <version>1.5.0</version>
+                <configuration>
+                    <!-- relative to src/main/webapp/, default: static -->
+                    <jsSourceDirectory>web/</jsSourceDirectory>
+
+                    <!-- example options usage to get verbose output in logs -->
+                    <gruntOptions>
+                        <gruntOption>--verbose</gruntOption>
+                    </gruntOptions>
+
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>create-resources</goal>
+                            <goal>npm</goal>
+                            <!-- or npm-offline if npm failure is not an option -->
+                            <goal>grunt</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
 	</build>
 </project>
