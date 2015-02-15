@@ -1,7 +1,8 @@
 exports.config = {
     seleniumServerJar: 'node_modules/selenium-standalone/.selenium/2.44.0/server.jar',
     chromeDriver: 'node_modules/selenium-standalone/.selenium/2.44.0/chromedriver',
-    baseUrl:'http://localhost:9090/index.html',
+    baseUrl:'http://localhost/',
+    allScriptsTimeout: 30000,
     capabilities: {
         'browserName': 'chrome'
     },

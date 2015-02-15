@@ -30,11 +30,11 @@ module.exports = function(grunt) {
     });
     grunt.registerTask('default', ['jshint']);
 
-    grunt.registerTask('test-e2e', [
-        'protractor:test'
-    ]);
-
-    grunt.registerTask('test-e2e-local', [
-        'protractor:testLocal'
-    ]);
+//    grunt.registerTask('test-e2e', [
+//        'protractor:test'
+//    ]);
+//
+//    grunt.registerTask('test-e2e-local', [
+//        'protractor:testLocal'
+//    ]);
 };
