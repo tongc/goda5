@@ -1,6 +1,6 @@
 exports.config = {
-    seleniumServerJar: 'node_modules/selenium/lib/runner/selenium-server-standalone-2.20.0.jar',
-    chromeDriver: 'node_modules/chromedriver/bin/chromedriver',
+    seleniumServerJar: 'node_modules/selenium-standalone/.selenium/2.44.0/server.jar',
+    chromeDriver: 'node_modules/selenium-standalone/.selenium/2.44.0/chromedriver',
     baseUrl:'http://localhost:9090/index.html',
     capabilities: {
         'browserName': 'chrome'
