@@ -331,6 +331,12 @@
 			<version>${org.springframework.version}</version>
 		</dependency>
 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -423,7 +429,13 @@
             <artifactId>findbugs-maven-plugin</artifactId>
             <version>3.0.0</version>
         </dependency>
-	</dependencies>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jdk8</artifactId>
+            <version>2.4.3</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<pluginManagement>
