@@ -29,9 +29,27 @@
 		<atomikos.version>3.8.0</atomikos.version>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
-	</properties>
+        <vertx.version>2.1.5</vertx.version>
+    </properties>
 
 	<dependencies>
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-core</artifactId>
+            <version>${vertx.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-platform</artifactId>
+            <version>${vertx.version}</version>
+        </dependency>
+
 		<!-- dependency>
 			<groupId>com.sun</groupId>
 			<artifactId>tools</artifactId>
@@ -334,6 +352,12 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-messaging</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
             <version>${org.springframework.version}</version>
         </dependency>
 
