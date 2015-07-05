@@ -2,6 +2,7 @@ package com.goda5.hagendaz.common.util;
 
 import com.google.common.collect.Sets;
 
+import java.lang.reflect.Executable;
 import java.util.List;
 import java.util.Map;
 import java.util.function.ToIntFunction;
@@ -22,7 +23,7 @@ public class Java8Collection {
         ToIntFunction<String> b = x -> 5*6;
 
         System.out.println(Sets.<String>newHashSet("abc", "def", "ccc", "zz", "dss").stream()
-                        .collect(groupingBy(x -> "abc", Collectors.summarizingInt(a))));
+                .collect(groupingBy(x -> "abc", Collectors.summarizingInt(a))));
     }
 
     public static <E> E[] appendToArray(E[] array, E item) {
