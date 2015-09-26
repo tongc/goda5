@@ -1,5 +1,10 @@
 package com.goda5.hagendaz.common.util;
 
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Maps;
+import org.vertx.java.core.Vertx;
+import org.vertx.java.core.VertxFactory;
+
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
@@ -26,6 +31,8 @@ public class ThreadJoin {
     static Runnable r2 = new Runnable() {
         @Override
         public void run() {
+            Vertx v = VertxFactory.newVertx();
+            v.stop();;
             try {
                 Thread.sleep(4000);
                 System.out.printf("r2");

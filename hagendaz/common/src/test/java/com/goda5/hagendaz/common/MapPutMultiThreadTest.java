@@ -19,9 +19,9 @@ public class MapPutMultiThreadTest {
 	public void put() throws InterruptedException {
 		ExecutorService es = Executors.newFixedThreadPool(10);
 		
-		Callable<Object> c = new Callable<Object>() {
+		Callable<MyObject> c = new Callable<MyObject>() {
 			@Override
-			public Object call() throws Exception {
+			public MyObject call() throws Exception {
 				int i = 0;
 				while(i<1000) {
 					Integer random = RandomUtils.nextInt(5);
@@ -34,7 +34,7 @@ public class MapPutMultiThreadTest {
 			}
 		};
 		
-		List<Callable<Object>> calls = new ArrayList<Callable<Object>>();
+		List<Callable<MyObject>> calls = new ArrayList<Callable<MyObject>>();
 		for(int i=0;i<10;i++) {
 			calls.add(c);
 		}

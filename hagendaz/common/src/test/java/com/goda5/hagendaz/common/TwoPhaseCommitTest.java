@@ -55,49 +55,49 @@ public class TwoPhaseCommitTest {
 		final Operation o22 = new Operation(2000);
 		final Operation o33 = new Operation(3000);
 		
-		Callable<Object> c1 = new Callable<Object>() {
+		Callable<MyObject> c1 = new Callable<MyObject>() {
 			@Override
-			public Object call() throws Exception {
+			public MyObject call() throws Exception {
 				p1.run(t, o1);
 				return null;
 			}
 		};
 		
-		Callable<Object> c2 = new Callable<Object>() {
+		Callable<MyObject> c2 = new Callable<MyObject>() {
 			@Override
-			public Object call() throws Exception {
+			public MyObject call() throws Exception {
 				p2.run(t, o2);
 				return null;
 			}
 		};
 		
-		Callable<Object> c3 = new Callable<Object>() {
+		Callable<MyObject> c3 = new Callable<MyObject>() {
 			@Override
-			public Object call() throws Exception {
+			public MyObject call() throws Exception {
 				p3.run(t, o3);
 				return null;
 			}
 		};
 		
-		Callable<Object> c11 = new Callable<Object>() {
+		Callable<MyObject> c11 = new Callable<MyObject>() {
 			@Override
-			public Object call() throws Exception {
+			public MyObject call() throws Exception {
 				p1.run(t1, o11);
 				return null;
 			}
 		};
 		
-		Callable<Object> c22 = new Callable<Object>() {
+		Callable<MyObject> c22 = new Callable<MyObject>() {
 			@Override
-			public Object call() throws Exception {
+			public MyObject call() throws Exception {
 				p2.run(t1, o22);
 				return null;
 			}
 		};
 		
-		Callable<Object> c33 = new Callable<Object>() {
+		Callable<MyObject> c33 = new Callable<MyObject>() {
 			@Override
-			public Object call() throws Exception {
+			public MyObject call() throws Exception {
 				p3.run(t1, o33);
 				return null;
 			}
