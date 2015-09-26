@@ -9,23 +9,23 @@ public class SemaphorTest {
     private static final int MAX_AVAILABLE = 5;
     private final Semaphore available = new Semaphore(MAX_AVAILABLE, true);
 
-    public MyObject getItem() throws InterruptedException {
+    public Object getItem() throws InterruptedException {
         available.acquire();
         System.out.println("get " + available.availablePermits());
         return null;
     }
 
-    public void putItem(MyObject x) {
+    public void putItem(Object x) {
         available.release();
         System.out.println("put " + available.availablePermits());
     }
 
     // Not a particularly efficient data structure; just for demo
 
-    protected MyObject[] items = new MyObject[]{new MyObject(), new MyObject(), new MyObject(), new MyObject(), new MyObject()};
+    protected Object[] items = new Object[]{new Object(), new Object(), new Object(), new Object(), new Object()};
     protected boolean[] used = new boolean[MAX_AVAILABLE];
 
-    protected synchronized MyObject getNextAvailableItem() {
+    protected synchronized Object getNextAvailableItem() {
         for (int i = 0; i < MAX_AVAILABLE; ++i) {
             if (!used[i]) {
                 used[i] = true;
@@ -35,7 +35,7 @@ public class SemaphorTest {
         return null; // not reached
     }
 
-    protected synchronized boolean markAsUnused(MyObject item) {
+    protected synchronized boolean markAsUnused(Object item) {
         return true;
     }
 
@@ -67,13 +67,13 @@ public class SemaphorTest {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                t.putItem(new MyObject());
-                t.putItem(new MyObject());
-                t.putItem(new MyObject());
-                t.putItem(new MyObject());
-                t.putItem(new MyObject());
-                t.putItem(new MyObject());
-                t.putItem(new MyObject());
+                t.putItem(new Object());
+                t.putItem(new Object());
+                t.putItem(new Object());
+                t.putItem(new Object());
+                t.putItem(new Object());
+                t.putItem(new Object());
+                t.putItem(new Object());
             }
         }).start();
     }

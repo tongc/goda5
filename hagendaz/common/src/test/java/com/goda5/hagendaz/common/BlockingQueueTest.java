@@ -7,9 +7,9 @@ import java.util.concurrent.BlockingQueue;
  * Created by tong on 01/06/2015.
  */
 public class BlockingQueueTest {
-    private final BlockingQueue<MyObject> queue = new ArrayBlockingQueue(1);
+    private final BlockingQueue<Object> queue = new ArrayBlockingQueue(1);
 
-    public void putItem(MyObject obj) {
+    public void putItem(Object obj) {
         try {
             queue.put(obj);
             System.out.println("put " + queue.size());
@@ -50,18 +50,18 @@ public class BlockingQueueTest {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                t.putItem(new MyObject());
-                t.putItem(new MyObject());
-                t.putItem(new MyObject());
-                t.putItem(new MyObject());
-                t.putItem(new MyObject());
-                t.putItem(new MyObject());
-                t.putItem(new MyObject());
-                t.putItem(new MyObject());
-                t.putItem(new MyObject());
-                t.putItem(new MyObject());
-                t.putItem(new MyObject());
-                t.putItem(new MyObject());
+                t.putItem(new Object());
+                t.putItem(new Object());
+                t.putItem(new Object());
+                t.putItem(new Object());
+                t.putItem(new Object());
+                t.putItem(new Object());
+                t.putItem(new Object());
+                t.putItem(new Object());
+                t.putItem(new Object());
+                t.putItem(new Object());
+                t.putItem(new Object());
+                t.putItem(new Object());
             }
         }).start();
     }
