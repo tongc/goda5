@@ -32,13 +32,13 @@ public class ClassWeakHashMap {
 
         // Attempt to claim a suggested reference.
         ClassWeakHashMap.collect();
-        System.out.println("Still has metadata entry? " + (metadata.size() == 1));
+        System.out.println("Still has metadata entry? " + (metadata.size() >= 1));
         System.out.println("Removing reference");
         // The object may be collected.
         strong = null;
         ClassWeakHashMap.collect();
 
-        System.out.println("Still has metadata entry? " + (metadata.size() == 1));
+        System.out.println("Still has metadata entry? " + (metadata.size() >= 1));
 
         System.out.println("Done");
     }
