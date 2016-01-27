@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)http://gridster.net/demos/expandable-widgets.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Demo » Expandable widgets » gridster.js</title>
+  <link rel="stylesheet" type="text/css" href="./Demo » Expandable widgets » gridster.js_files/jquery.gridster.css">
+  <link rel="stylesheet" type="text/css" href="./Demo » Expandable widgets » gridster.js_files/demo.css">
+<script src="./Demo » Expandable widgets » gridster.js_files/webfont.js" type="text/javascript" async=""></script><style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+.en-markup-crop-options {
+    top: 18px !important;
+    left: 50% !important;
+    margin-left: -100px !important;
+    width: 200px !important;
+    border: 2px rgba(255,255,255,.38) solid !important;
+    border-radius: 4px !important;
+}
+
+.en-markup-crop-options div div:first-of-type {
+    margin-left: 0px !important;
+}
+</style><style type="text/css"> [data-col="21"] { left:2205px; }
+ [data-col="20"] { left:2095px; }
+ [data-col="19"] { left:1985px; }
+ [data-col="18"] { left:1875px; }
+ [data-col="17"] { left:1765px; }
+ [data-col="16"] { left:1655px; }
+ [data-col="15"] { left:1545px; }
+ [data-col="14"] { left:1435px; }
+ [data-col="13"] { left:1325px; }
+ [data-col="12"] { left:1215px; }
+ [data-col="11"] { left:1105px; }
+ [data-col="10"] { left:995px; }
+ [data-col="9"] { left:885px; }
+ [data-col="8"] { left:775px; }
+ [data-col="7"] { left:665px; }
+ [data-col="6"] { left:555px; }
+ [data-col="5"] { left:445px; }
+ [data-col="4"] { left:335px; }
+ [data-col="3"] { left:225px; }
+ [data-col="2"] { left:115px; }
+ [data-col="1"] { left:5px; }
+ [data-row="18"] { top:1875px; }
+ [data-row="17"] { top:1765px; }
+ [data-row="16"] { top:1655px; }
+ [data-row="15"] { top:1545px; }
+ [data-row="14"] { top:1435px; }
+ [data-row="13"] { top:1325px; }
+ [data-row="12"] { top:1215px; }
+ [data-row="11"] { top:1105px; }
+ [data-row="10"] { top:995px; }
+ [data-row="9"] { top:885px; }
+ [data-row="8"] { top:775px; }
+ [data-row="7"] { top:665px; }
+ [data-row="6"] { top:555px; }
+ [data-row="5"] { top:445px; }
+ [data-row="4"] { top:335px; }
+ [data-row="3"] { top:225px; }
+ [data-row="2"] { top:115px; }
+ [data-row="1"] { top:5px; }
+ [data-sizey="1"] { height:100px; }
+ [data-sizey="2"] { height:210px; }
+ [data-sizey="3"] { height:320px; }
+ [data-sizey="4"] { height:430px; }
+ [data-sizey="5"] { height:540px; }
+ [data-sizey="6"] { height:650px; }
+ [data-sizey="7"] { height:760px; }
+ [data-sizey="8"] { height:870px; }
+ [data-sizey="9"] { height:980px; }
+ [data-sizey="10"] { height:1090px; }
+ [data-sizey="11"] { height:1200px; }
+ [data-sizey="12"] { height:1310px; }
+ [data-sizey="13"] { height:1420px; }
+ [data-sizey="14"] { height:1530px; }
+ [data-sizey="15"] { height:1640px; }
+ [data-sizey="16"] { height:1750px; }
+ [data-sizey="17"] { height:1860px; }
+ [data-sizex="1"] { width:100px; }
+ [data-sizex="2"] { width:210px; }
+ [data-sizex="3"] { width:320px; }
+ [data-sizex="4"] { width:430px; }
+ [data-sizex="5"] { width:540px; }
+ [data-sizex="6"] { width:650px; }
+ [data-sizex="7"] { width:760px; }
+ [data-sizex="8"] { width:870px; }
+ [data-sizex="9"] { width:980px; }
+ [data-sizex="10"] { width:1090px; }
+ [data-sizex="11"] { width:1200px; }
+ [data-sizex="12"] { width:1310px; }
+ [data-sizex="13"] { width:1420px; }
+ [data-sizex="14"] { width:1530px; }
+ [data-sizex="15"] { width:1640px; }
+ [data-sizex="16"] { width:1750px; }
+ [data-sizex="17"] { width:1860px; }
+ [data-sizex="18"] { width:1970px; }
+ [data-sizex="19"] { width:2080px; }
+ [data-sizex="20"] { width:2190px; }
+</style></head>
+
+<body>
+
+  <h1>Expandable widgets</h1>
+
+  <p>Expand widgets when hover on them using <code>resize_widget</code> method.</p>
+
+
+  <div class="gridster ready">
+    <ul style="height: 330px; width: 550px; position: relative;">
+      <li data-row="1" data-col="1" data-sizex="4" data-sizey="4" class="gs-w">0</li>
+      <li data-row="1" data-col="2" data-sizex="4" data-sizey="4" class="gs-w">1</li>
+      <li data-row="1" data-col="3" data-sizex="4" data-sizey="4" class="gs-w">2</li>
+      <li data-row="1" data-col="4" data-sizex="4" data-sizey="4" class="gs-w">3</li>
+      <li data-row="2" data-col="1" data-sizex="4" data-sizey="4" class="gs-w">4</li>
+    </ul>
+  </div>
+
+    <script type="text/javascript" src="./Demo » Expandable widgets » gridster.js_files/jquery.js"></script>
+    <script src="./Demo » Expandable widgets » gridster.js_files/jquery.gridster.js" type="text/javascript" charset="utf-8"></script>
+
+    <script type="text/javascript">
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+    </script>
+
+    <script type="text/javascript">
+      var gridster;
+
+      $(function(){
+
+        gridster = $(".gridster ul").gridster({
+          widget_base_dimensions: [25, 25],
+          widget_margins: [5, 5],
+          helper: 'clone'
+        }).data('gridster');
+
+
+        // resize widgets on hover
+        gridster.$el
+          .on('mouseenter', '> li', function() {
+              gridster.resize_widget($(this),4, 4);
+          })
+          .on('mouseleave', '> li', function() {
+              gridster.resize_widget($(this), 4, 4);
+          });
+
+      });
+    </script>
+
+
+</body></html>
