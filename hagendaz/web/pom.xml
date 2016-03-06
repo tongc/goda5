@@ -14,7 +14,8 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<jetty.version>7.0.2.v20100331</jetty.version>
+        <kotlin.version>1.0.0</kotlin.version>
+        <jetty.version>7.0.2.v20100331</jetty.version>
 	</properties>
 	<dependencies>
         <dependency>
@@ -83,7 +84,12 @@
 			<scope>test</scope>
 			<type>test-jar</type>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+    </dependencies>
 	<build>
 		<finalName>goda5</finalName>
         <pluginManagement>
@@ -174,6 +180,37 @@
                     </execution>
                 </executions>
             </plugin>
-		</plugins>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${kotlin.version}</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <source>src/main/java</source>
+                            </sourceDirs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <phase>process-test-sources</phase>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <source>src/test/java</source>
+                            </sourceDirs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
 	</build>
 </project>
