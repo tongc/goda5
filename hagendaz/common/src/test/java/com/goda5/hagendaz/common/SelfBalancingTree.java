@@ -28,6 +28,8 @@ public class SelfBalancingTree {
         leftleft.setRight(leftleftright);
         leftleftright.setLeft(new Node(5));
 
+        System.out.println(root);
+
         List<Node> result = Lists.newArrayList();
         calculateLeafNodes(root, result);
         System.out.println(result);
@@ -41,6 +43,9 @@ public class SelfBalancingTree {
         System.out.println(height(result.get(1)));
 
         System.out.println(needRebalance(root));
+
+        System.out.println("after left rotation " + rotateByOne(root, true));
+        System.out.println("after right rotation " + rotateByOne(root, false));
     }
 
     private boolean needRebalance(Node node) {
@@ -61,10 +66,16 @@ public class SelfBalancingTree {
         Node newRoot;
         if(rotateToLeft) {
             newRoot = root.getRight();
+            root.setRight(null);
+            Node newRootLeft = newRoot.getLeft();
             newRoot.setLeft(root);
+//            newRoot.add(newRootLeft);
         } else {
             newRoot = root.getLeft();
+            root.setLeft(null);
+            Node newRootRight = newRoot.getRight();
             newRoot.setRight(root);
+//            newRoot.add(newRootRight);
         }
         return newRoot;
     }
@@ -140,7 +151,9 @@ class Node {
 
     public void setLeft(Node left) {
         this.left = left;
-        left.setParent(this);
+        if(left != null) {
+            left.setParent(this);
+        }
     }
 
     public Node getRight() {
@@ -149,7 +162,9 @@ class Node {
 
     public void setRight(Node right) {
         this.right = right;
-        right.setParent(this);
+        if(right != null) {
+            right.setParent(this);
+        }
     }
 
     @Override
