@@ -57,6 +57,18 @@ public class SelfBalancingTree {
 
     }
 
+    private Node rotateByOne(Node root, boolean rotateToLeft) {
+        Node newRoot;
+        if(rotateToLeft) {
+            newRoot = root.getRight();
+            newRoot.setLeft(root);
+        } else {
+            newRoot = root.getLeft();
+            newRoot.setRight(root);
+        }
+        return newRoot;
+    }
+
     private List<Node> calculateLeafNodes(Node node, List<Node> leafNodes) {
         if(node.getLeft() == null && node.getRight() == null) {
             leafNodes.add(node);
