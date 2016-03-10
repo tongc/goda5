@@ -88,4 +88,74 @@ public class CacheLineTest {
         System.out.println(l2 - l1);
         System.out.println(l4 - l3);
     }
+
+    @Test
+    public void falseCacheSharing() throws InterruptedException {
+        s_counter = new int[1024];
+        long l1 = System.nanoTime();
+        Thread a = new Thread(() -> {
+            updateCounter(0);
+        });
+        Thread b = new Thread(() -> {
+            updateCounter(1);
+        });
+        Thread c = new Thread(() -> {
+            updateCounter(2);
+        });
+        Thread d = new Thread(() -> {
+            updateCounter(3);
+        });
+
+        a.start();
+        b.start();
+        c.start();
+        d.start();
+        a.join();
+        b.join();
+        c.join();
+        d.join();
+
+        long l2 = System.nanoTime();
+
+        System.out.println(l2 - l1);
+    }
+
+    @Test
+    public void falseCacheSharing1() throws InterruptedException {
+        s_counter = new int[1024];
+        long l1 = System.nanoTime();
+        Thread a = new Thread(() -> {
+            updateCounter(16);
+        });
+        Thread b = new Thread(() -> {
+            updateCounter(32);
+        });
+        Thread c = new Thread(() -> {
+            updateCounter(48);
+        });
+        Thread d = new Thread(() -> {
+            updateCounter(64);
+        });
+
+        a.start();
+        b.start();
+        c.start();
+        d.start();
+        a.join();
+        b.join();
+        c.join();
+        d.join();
+
+        long l2 = System.nanoTime();
+
+        System.out.println(l2 - l1);
+    }
+
+    int[] s_counter = null;
+    void updateCounter(int position) {
+        for (int j = 0; j < 100000000; j++)
+        {
+            s_counter[position] = s_counter[position] + 3;
+        }
+    }
 }
