@@ -71,4 +71,21 @@ public class CacheLineTest {
         System.out.println(l7 - l6);
         System.out.println(l9 - l8);
     }
+
+    @Test
+    public void instructionLevelParallel() {
+        int steps = 256 * 1024 * 1024;
+        int[] a = new int[2];
+
+        long l1 = System.nanoTime();
+        for (int i=0; i<steps; i++) { a[0]++; a[0]++; }
+        long l2 = System.nanoTime();
+
+        long l3 = System.nanoTime();
+        for (int i=0; i<steps; i++) { a[0]++; a[1]++; }
+        long l4 = System.nanoTime();
+
+        System.out.println(l2 - l1);
+        System.out.println(l4 - l3);
+    }
 }
