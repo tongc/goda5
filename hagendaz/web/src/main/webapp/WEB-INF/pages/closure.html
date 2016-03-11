@@ -1,0 +1,25 @@
+<script>
+    var data = "data1";
+    var data2 = "data2";
+    var handlers = [];
+    window.onresize = function() {
+        for(var i=0;i<handlers.length;i++) {
+            handlers[i]();
+        }
+    };
+
+    var registerHandler = function(handler) {
+        handlers.push(handler);
+    };
+
+    registerHandler(function() {
+        alert(data);
+        data2 = "data2 updated";
+    });
+
+    data = "data1 updated";
+
+    registerHandler(function() {
+        alert(data2);
+    });
+</script>
