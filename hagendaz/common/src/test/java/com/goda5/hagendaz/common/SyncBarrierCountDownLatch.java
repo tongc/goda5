@@ -7,7 +7,7 @@ import java.util.concurrent.CountDownLatch;
  * Created by tong on 13/03/2016.
  */
 public class SyncBarrierCountDownLatch {
-    static CountDownLatch barrier = new CountDownLatch(10);
+    static volatile CountDownLatch barrier = new CountDownLatch(10);
     public static void main(String[] args) throws InterruptedException {
         for(int i=0;i<10;i++) {
             new Thread(new SyncBarrierCountDownLatch().new Task()).start();
