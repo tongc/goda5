@@ -6,7 +6,7 @@ import java.util.concurrent.CyclicBarrier;
 /**
  * Created by tong on 13/03/2016.
  */
-public class SyncBarrier {
+public class SyncBarrierCyclic {
     static CyclicBarrier barrier;
     public static void main(String[] args) {
         barrier = new CyclicBarrier(10, new AfterProcessing());
@@ -37,7 +37,7 @@ class Task implements Runnable {
     public void run() {
         System.out.println(Thread.currentThread() + " processed");
         try {
-            SyncBarrier.barrier.await();
+            SyncBarrierCyclic.barrier.await();
         } catch (InterruptedException | BrokenBarrierException e) {
             e.printStackTrace();
         }
