@@ -10,7 +10,7 @@ import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
 /**
- * Created by tong on 20/03/2016.
+ * accepts {@link Proposal} and send back {@link Promise}
  */
 public class Acceptor {
     private final int id;

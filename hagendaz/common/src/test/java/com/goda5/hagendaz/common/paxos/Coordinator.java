@@ -7,7 +7,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by tong on 20/03/2016.
+ * To coordinate everything in Paxos process.
+ * Paxos is basically a protocol to get consensus from all interconnected nodes in order to let every node sets the same value.
  */
 public class Coordinator {
     public static void main(String[] args) throws InterruptedException {

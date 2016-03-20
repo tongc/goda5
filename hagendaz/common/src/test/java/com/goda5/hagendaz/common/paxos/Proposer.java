@@ -6,7 +6,7 @@ import org.apache.commons.lang.math.RandomUtils;
 import java.util.List;
 
 /**
- * Created by tong on 20/03/2016.
+ * who starts the Paxos process by sending a {@link Proposal} to a Quorum of {@link Acceptor}s
  */
 public class Proposer {
     private final EventBus eventBus = new EventBus();

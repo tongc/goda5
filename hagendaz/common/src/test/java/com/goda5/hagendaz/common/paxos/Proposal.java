@@ -1,7 +1,7 @@
 package com.goda5.hagendaz.common.paxos;
 
 /**
- * Created by tong on 20/03/2016.
+ * {@link Proposer} starts the Paxos process by sending {@link Proposal} to a Quorum of {@link Acceptor}s
  */
 public class Proposal {
     private final long version;
