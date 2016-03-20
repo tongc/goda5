@@ -38,12 +38,12 @@ public class Acceptor {
         Optional<Proposal> anyLarger = proposals.stream().filter(existingProposal -> existingProposal.getVersion() > proposal.getVersion()).findAny();
         if(!anyLarger.isPresent()) {
             if(accepted.size() != 0) {
-                eventBus.post(new Promise(proposal, Lists.newArrayList(accepted)));
+                eventBus.post(new Promise(accepted.poll()));
             } else {
-                eventBus.post(new Promise(proposal, Collections.<Proposal>emptyList()));
+                eventBus.post(new Promise(proposal));
             }
         } else {
-            eventBus.post(new Promise(anyLarger.get(), Collections.<Proposal>emptyList()));
+            eventBus.post(new Promise(anyLarger.get()));
         }
         proposals.remove(proposal);
     }

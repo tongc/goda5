@@ -7,11 +7,9 @@ import java.util.List;
  * the {@link Proposal} the {@link Proposer} sent.
  */
 public class Promise {
-    private final Proposal current;
-    private final List<Proposal> previous;
+    private final Proposal accepted;
 
-    public Promise(Proposal current, List<Proposal> previous) {
-        this.current = current;
-        this.previous = previous;
+    public Promise(Proposal accepted) {
+        this.accepted = accepted;
     }
 }
