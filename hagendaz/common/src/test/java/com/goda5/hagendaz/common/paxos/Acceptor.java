@@ -30,9 +30,11 @@ public class Acceptor {
     public void prepare(Proposal proposal) {
         System.out.printf("%s received %s \n", id, proposal);
         proposals.add(proposal);
+        accept(proposal);
     }
 
     public void accept(Proposal proposal) {
+        System.out.printf("existing %s \n", proposals.size());
         Optional<Proposal> anyLarger = proposals.stream().filter(existingProposal -> existingProposal.getVersion() > proposal.getVersion()).findAny();
         if(!anyLarger.isPresent()) {
             if(accepted.size() != 0) {
@@ -41,5 +43,6 @@ public class Acceptor {
                 eventBus.post(new Promise(proposal, Collections.emptyList()));
             }
         }
+        proposals.remove(proposal);
     }
 }

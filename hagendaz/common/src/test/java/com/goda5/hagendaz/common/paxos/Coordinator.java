@@ -17,7 +17,7 @@ public class Coordinator {
         acceptors.add(new Acceptor(3));
 
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-        for(int i=0;i<100;i++) {
+        for(int i=0;i<30;i++) {
             executorService.execute(generateRunnable(i, acceptors));
         }
         executorService.shutdown();
