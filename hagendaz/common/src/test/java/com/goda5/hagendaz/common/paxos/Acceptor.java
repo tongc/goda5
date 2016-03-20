@@ -40,8 +40,10 @@ public class Acceptor {
             if(accepted.size() != 0) {
                 eventBus.post(new Promise(proposal, Lists.newArrayList(accepted)));
             } else {
-                eventBus.post(new Promise(proposal, Collections.emptyList()));
+                eventBus.post(new Promise(proposal, Collections.<Proposal>emptyList()));
             }
+        } else {
+            eventBus.post(new Promise(anyLarger.get(), Collections.<Proposal>emptyList()));
         }
         proposals.remove(proposal);
     }
