@@ -14,14 +14,14 @@ import java.util.concurrent.TimeUnit;
  Basic Paxos
 
  Client   Proposer      Acceptor     Learner
- |         |          |  |  |       |  |
- X-------->|          |  |  |       |  |  Request
- |         X--------->|->|->|       |  |  Prepare(1)
- |         |<---------X--X--X       |  |  Promise(1,{Va,Vb,Vc})
- |         X--------->|->|->|       |  |  Accept!(1,Vn)
- |         |<---------X--X--X------>|->|  Accepted(1,Vn)
- |<---------------------------------X--X  Response
- |         |          |  |  |       |  |
+ |           |           |  |  |       |  |
+ X---------->|           |  |  |       |  |  Request
+ |           X---------->|->|->|       |  |  Prepare(1)
+ |           |<----------X--X--X       |  |  Promise(1,{Va,Vb,Vc})
+ |           X---------->|->|->|       |  |  Accept!(1,Vn)
+ |           |<----------X--X--X------>|->|  Accepted(1,Vn)
+ |<------------------------------------X--X  Response
+ |           |           |  |  |       |  |
  </pre>
  */
 public class Coordinator {
