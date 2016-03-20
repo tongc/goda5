@@ -9,6 +9,20 @@ import java.util.concurrent.TimeUnit;
 /**
  * To coordinate everything in Paxos process.
  * Paxos is basically a protocol to get consensus from all interconnected nodes in order to let every node sets the same value.
+ * for more info @see <a href="https://en.wikipedia.org/wiki/Paxos_(computer_science)#Basic_Paxos">Paxos</a>
+ <pre>
+ Basic Paxos
+
+ Client   Proposer      Acceptor     Learner
+ |         |          |  |  |       |  |
+ X-------->|          |  |  |       |  |  Request
+ |         X--------->|->|->|       |  |  Prepare(1)
+ |         |<---------X--X--X       |  |  Promise(1,{Va,Vb,Vc})
+ |         X--------->|->|->|       |  |  Accept!(1,Vn)
+ |         |<---------X--X--X------>|->|  Accepted(1,Vn)
+ |<---------------------------------X--X  Response
+ |         |          |  |  |       |  |
+ </pre>
  */
 public class Coordinator {
     public static void main(String[] args) throws InterruptedException {
