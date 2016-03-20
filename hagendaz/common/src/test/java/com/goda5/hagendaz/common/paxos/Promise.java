@@ -9,7 +9,7 @@ import java.util.List;
 public class Promise {
     private final Proposal accepted;
 
-    public Promise(Proposal accepted) {
+    Promise(Proposal accepted) {
         this.accepted = accepted;
     }
 }
