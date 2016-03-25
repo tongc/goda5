@@ -3,6 +3,8 @@ package com.goda5.hagendaz.common;
 import org.junit.Test;
 import rx.functions.Func1;
 
+import java.util.Objects;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -29,12 +31,24 @@ public class SuperpositionFunctionTest {
         }
         return isLinear;
     }
+
+    private boolean isSuperpositionStr(Func1<String, String> func1) {
+        boolean isLinear = true;
+        if(!Objects.equals(func1.call("abc") + func1.call("cde"), func1.call("abccde"))) {
+            isLinear = false;
+        }
+
+        return isLinear;
+    }
+
+
     @Test
     public void isSuperposition() {
         assertTrue(isSuperposition((a) -> a + a));
         assertFalse(isSuperposition((a) -> a + 5));
         assertFalse(isSuperposition((a) -> a ^ 2));
         assertTrue(isSuperposition((a) -> a * 10));
+        assertTrue(isSuperpositionStr(""::concat));
     }
 
 
