@@ -23,10 +23,10 @@ public class Database {
         }
     }
 
-    public void delete(String key, Object data) {
+    public void delete(String key) {
         synchronized (this) {
             snapshot.remove(key);
-            logs.add(new Operation(Operation.Action.DELETE, Pair.of(key, data)));
+            logs.add(new Operation(Operation.Action.DELETE, Pair.of(key, snapshot.get(key))));
         }
     }
 }
