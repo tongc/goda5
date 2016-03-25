@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * who starts the Paxos process by sending a {@link Proposal} to a Quorum of {@link Acceptor}s
  */
-class Proposer {
+class Proposer implements Coordinator {
     private final EventBus eventBus = new EventBus();
     private final List<Acceptor> acceptors;
     private final int id;

@@ -10,7 +10,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 /**
  * accepts {@link Proposal} and send back {@link Promise}
  */
-class Acceptor {
+class Acceptor implements Coordinator {
     private final int id;
     private final EventBus eventBus = new EventBus();
     private final Queue<Proposal> proposals = new ArrayBlockingQueue<>(100);
