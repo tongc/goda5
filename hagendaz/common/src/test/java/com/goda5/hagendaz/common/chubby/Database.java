@@ -17,11 +17,16 @@ public class Database {
     private Queue<Operation> logs = Queues.newArrayBlockingQueue(LOGS_CAPACITY);
 
     public void save(String key, Object data) {
-        snapshot.put(key, data);
-        logs.add(new Operation(Operation.Action.UPDATE, Pair.of(key, data)));
+        synchronized (this) {
+            snapshot.put(key, data);
+            logs.add(new Operation(Operation.Action.UPDATE, Pair.of(key, data)));
+        }
     }
 
     public void delete(String key, Object data) {
-        logs.add(new Operation(Operation.Action.DELETE, Pair.of(key, data)));
+        synchronized (this) {
+            snapshot.remove(key);
+            logs.add(new Operation(Operation.Action.DELETE, Pair.of(key, data)));
+        }
     }
 }
