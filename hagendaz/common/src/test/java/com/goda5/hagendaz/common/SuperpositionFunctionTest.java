@@ -23,6 +23,10 @@ public class SuperpositionFunctionTest {
         if(func1.call(12345) + func1.call(23456) != func1.call(35801)) {
             isLinear = false;
         }
+
+        if(func1.call(123 * 10) != 123 * func1.call(10)) {
+            isLinear = false;
+        }
         return isLinear;
     }
     @Test
