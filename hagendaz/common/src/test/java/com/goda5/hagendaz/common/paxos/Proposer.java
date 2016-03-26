@@ -1,6 +1,7 @@
 package com.goda5.hagendaz.common.paxos;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import org.apache.commons.lang.math.RandomUtils;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 /**
  * who starts the Paxos process by sending a {@link Proposal} to a Quorum of {@link Acceptor}s
  */
-class Proposer implements Coordinator {
+class Proposer implements Node, Coordinator {
     private final EventBus eventBus = new EventBus();
     private final List<Acceptor> acceptors;
     private final int id;
@@ -19,8 +20,13 @@ class Proposer implements Coordinator {
         this.acceptors.forEach(eventBus::register);
     }
 
-    void propose() {
+    void prepare() {
         eventBus.post(new Proposal(this, System.nanoTime(), RandomUtils.nextInt(10000)));
+    }
+
+    @Subscribe
+    public void receivePromise(Promise promise) {
+
     }
 
     @Override

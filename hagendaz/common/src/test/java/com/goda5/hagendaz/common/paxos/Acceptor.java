@@ -3,18 +3,13 @@ package com.goda5.hagendaz.common.paxos;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
-import java.util.Optional;
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
-
 /**
  * accepts {@link Proposal} and send back {@link Promise}
  */
-class Acceptor implements Coordinator {
+class Acceptor implements Node {
     private final int id;
     private final EventBus eventBus = new EventBus();
-    private final Queue<Proposal> proposals = new ArrayBlockingQueue<>(100);
-    private final Queue<Proposal> accepted = new ArrayBlockingQueue<>(50);
+    private volatile Proposal accepted = null;
 
     Acceptor(int id) {
         this.id = id;
@@ -25,24 +20,19 @@ class Acceptor implements Coordinator {
     }
 
     @Subscribe
-    public void prepare(Proposal proposal) {
+    public void receivePrepare(Proposal proposal) {
         System.out.printf("%s received %s \n", id, proposal);
-        proposals.add(proposal);
-        accept(proposal);
+        promise(proposal);
     }
 
-    private void accept(Proposal proposal) {
-        System.out.printf("existing %s \n", proposals.size());
-        Optional<Proposal> anyLarger = proposals.stream().filter(existingProposal -> existingProposal.getVersion() > proposal.getVersion()).findAny();
-        if(!anyLarger.isPresent()) {
-            if(accepted.size() != 0) {
-                eventBus.post(new Promise(accepted.poll()));
-            } else {
-                eventBus.post(new Promise(proposal));
+    private void promise(Proposal proposal) {
+        if(accepted != null) {
+            if(accepted.getVersion() < proposal.getVersion()) {
+                eventBus.post(new Promise(accepted));
             }
         } else {
-            eventBus.post(new Promise(anyLarger.get()));
+            accepted = proposal;
+            eventBus.post(new Promise(proposal));
         }
-        proposals.remove(proposal);
     }
 }

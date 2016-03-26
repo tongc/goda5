@@ -43,7 +43,7 @@ public class Director {
         return () -> {
             Proposer proposer = new Proposer(id, acceptors);
             acceptors.forEach(eachAcceptor -> eachAcceptor.registerQuorum(proposer));
-            proposer.propose();
+            proposer.prepare();
         };
     }
 }
