@@ -21,7 +21,8 @@ class Proposer implements Node, Coordinator {
     }
 
     void prepare() {
-        eventBus.post(new Proposal(this, System.nanoTime(), RandomUtils.nextInt(10000)));
+        //System.nanoTime() + RandomUtils.nextInt(1000) to simulate the bad version (old version) being received
+        eventBus.post(new Proposal(this, System.nanoTime() + RandomUtils.nextInt(1000), RandomUtils.nextInt(10000)));
     }
 
     @Subscribe
