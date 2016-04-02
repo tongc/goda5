@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 class Acceptor implements Node {
     private final int id;
     private final EventBus eventBus = new EventBus();
-    private volatile Proposal previouslyAccepted = null;
+    private volatile Proposal previouslyAcceptedProposal = null;
 
     Acceptor(int id) {
         this.id = id;
@@ -29,10 +29,10 @@ class Acceptor implements Node {
     private void promise(Proposal newProposal) {
         if(alreadyAcceptedPreviousProposal()) {
             if(previousProposalsVersionIsEarlier(newProposal)) {
-                replyNewProposerWith(promiseOf(previouslyAccepted));
+                replyNewProposerWith(promiseOf(previouslyAcceptedProposal));
             }
         } else {
-            previouslyAccepted = newProposal;
+            previouslyAcceptedProposal = newProposal;
             replyNewProposerWith(promiseOf(newProposal));
         }
     }
@@ -47,10 +47,10 @@ class Acceptor implements Node {
     }
 
     private boolean previousProposalsVersionIsEarlier(Proposal proposal) {
-        return previouslyAccepted.getVersion() < proposal.getVersion();
+        return previouslyAcceptedProposal.getVersion() < proposal.getVersion();
     }
 
     private boolean alreadyAcceptedPreviousProposal() {
-        return previouslyAccepted != null;
+        return previouslyAcceptedProposal != null;
     }
 }
