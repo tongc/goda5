@@ -52,11 +52,11 @@ class Proposer implements Node, Coordinator {
     private boolean isMajorityAcceptorsHaveSentPromisesBack() {
         if(receivedPromises.size() >= acceptors.size()/2 + 1) {
             Map<Proposal, List<Promise>> collect = receivedPromises.stream().collect(groupingBy(Promise::getProposal));
-            if(collect.size() > 1) {
-                return false;
+            if(collect.size() == 1) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public int getId() {
