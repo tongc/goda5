@@ -2,6 +2,7 @@ package com.goda5.hagendaz.common.paxos;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * accepts {@link Proposal} and send back {@link Promise}
@@ -9,7 +10,7 @@ import com.google.common.eventbus.Subscribe;
 class Acceptor implements Node {
     private final int id;
     private final EventBus eventBus = new EventBus();
-    private volatile Proposal accepted = null;
+    private volatile Proposal previouslyAccepted = null;
 
     Acceptor(int id) {
         this.id = id;
@@ -26,13 +27,30 @@ class Acceptor implements Node {
     }
 
     private void promise(Proposal proposal) {
-        if(accepted != null) {
-            if(accepted.getVersion() < proposal.getVersion()) {
-                eventBus.post(new Promise(accepted));
+        if(alreadyAcceptedPreviousProposal()) {
+            if(previousProposalsVersionIsEarlier(proposal)) {
+                replyNewProposerWith(promiseOf(previouslyAccepted));
             }
         } else {
-            accepted = proposal;
-            eventBus.post(new Promise(proposal));
+            previouslyAccepted = proposal;
+            replyNewProposerWith(promiseOf(proposal));
         }
+    }
+
+    @NotNull
+    private Promise promiseOf(Proposal accepted) {
+        return new Promise(accepted);
+    }
+
+    private void replyNewProposerWith(Promise event) {
+        eventBus.post(event);
+    }
+
+    private boolean previousProposalsVersionIsEarlier(Proposal proposal) {
+        return previouslyAccepted.getVersion() < proposal.getVersion();
+    }
+
+    private boolean alreadyAcceptedPreviousProposal() {
+        return previouslyAccepted != null;
     }
 }
