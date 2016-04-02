@@ -29,13 +29,15 @@ class Acceptor implements Node {
     private synchronized void sendPromise(Proposal newProposal) {
         if(alreadyAcceptedPreviousProposal()) {
             if(previousProposalsVersionIsEarlier(newProposal)) {
-                replyNewProposerWith(promiseOf(previouslyAcceptedProposal));
-                System.out.printf("replied promise using previously accepted proposal\n");
+                replyNewProposerWith(promiseOf(previouslyAcceptedProposal), newProposal.getProposer());
+                System.out.printf("Acceptor %s replied promise using previously accepted proposal\n\n", id);
+            } else {
+                System.out.printf("dropped invalid version\n");
             }
         } else {
             previouslyAcceptedProposal = newProposal;
-            replyNewProposerWith(promiseOf(newProposal));
-            System.out.printf("replied promise using new proposal\n");
+            replyNewProposerWith(promiseOf(newProposal), newProposal.getProposer());
+            System.out.printf("Acceptor %s replied promise using new proposal\n\n", id);
         }
     }
 
@@ -44,8 +46,8 @@ class Acceptor implements Node {
         return new Promise(accepted, this);
     }
 
-    private void replyNewProposerWith(Promise event) {
-        eventBus.post(event);
+    private void replyNewProposerWith(Promise promise, Proposer proposer) {
+        proposer.receivePromise(promise);
     }
 
     private boolean previousProposalsVersionIsEarlier(Proposal proposal) {
