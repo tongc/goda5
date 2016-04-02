@@ -5,8 +5,11 @@ import com.google.common.eventbus.Subscribe;
 import org.apache.commons.lang.math.RandomUtils;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 /**
  * who starts the Paxos process by sending a {@link Proposal} to a Quorum of {@link Acceptor}s
@@ -47,7 +50,13 @@ class Proposer implements Node, Coordinator {
     }
 
     private boolean isMajorityAcceptorsHaveSentPromisesBack() {
-        return receivedPromises.size() >= acceptors.size()/2 + 1;
+        if(receivedPromises.size() >= acceptors.size()/2 + 1) {
+            Map<Proposal, List<Promise>> collect = receivedPromises.stream().collect(groupingBy(Promise::getProposal));
+            if(collect.size() > 1) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public int getId() {
