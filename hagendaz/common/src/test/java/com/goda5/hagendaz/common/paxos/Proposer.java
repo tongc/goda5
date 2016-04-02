@@ -21,13 +21,13 @@ class Proposer implements Node, Coordinator {
     }
 
     void prepare() {
-        //System.nanoTime() + RandomUtils.nextInt(1000) to simulate the bad version (old version) being received
-        eventBus.post(new Proposal(this, System.nanoTime() + RandomUtils.nextInt(1000), RandomUtils.nextInt(10000)));
+        //System.nanoTime() + RandomUtils.nextInt(100000000) to simulate the bad version (old version) being received
+        eventBus.post(new Proposal(this, System.nanoTime() + RandomUtils.nextInt(100000000), RandomUtils.nextInt(10000)));
     }
 
     @Subscribe
     public void receivePromise(Promise promise) {
-        System.out.printf("received promise from %s\n", promise.getAcceptor().getId());
+        System.out.printf("Proposer %s received promise version %s from %s\n", id, promise.getProposal().getVersion(), promise.getAcceptor().getId());
     }
 
     public int getId() {

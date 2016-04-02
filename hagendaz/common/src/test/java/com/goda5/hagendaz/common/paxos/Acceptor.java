@@ -22,11 +22,11 @@ class Acceptor implements Node {
 
     @Subscribe
     public void receivePrepare(Proposal proposal) {
-        System.out.printf("Acceptor %s received proposal from Proposer %s \n", id, proposal.getProposer().getId());
+        System.out.printf("Acceptor %s received proposal from Proposer %s with version %s\n", id, proposal.getProposer().getId(), proposal.getVersion());
         sendPromise(proposal);
     }
 
-    private void sendPromise(Proposal newProposal) {
+    private synchronized void sendPromise(Proposal newProposal) {
         if(alreadyAcceptedPreviousProposal()) {
             if(previousProposalsVersionIsEarlier(newProposal)) {
                 replyNewProposerWith(promiseOf(previouslyAcceptedProposal));
