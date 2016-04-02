@@ -22,24 +22,26 @@ class Acceptor implements Node {
 
     @Subscribe
     public void receivePrepare(Proposal proposal) {
-        System.out.printf("%s received %s \n", id, proposal);
-        promise(proposal);
+        System.out.printf("Acceptor %s received proposal from Proposer %s \n", id, proposal.getProposer().getId());
+        sendPromise(proposal);
     }
 
-    private void promise(Proposal newProposal) {
+    private void sendPromise(Proposal newProposal) {
         if(alreadyAcceptedPreviousProposal()) {
             if(previousProposalsVersionIsEarlier(newProposal)) {
                 replyNewProposerWith(promiseOf(previouslyAcceptedProposal));
+                System.out.printf("replied promise using previously accepted proposal\n");
             }
         } else {
             previouslyAcceptedProposal = newProposal;
             replyNewProposerWith(promiseOf(newProposal));
+            System.out.printf("replied promise using new proposal\n");
         }
     }
 
     @NotNull
     private Promise promiseOf(Proposal accepted) {
-        return new Promise(accepted);
+        return new Promise(accepted, this);
     }
 
     private void replyNewProposerWith(Promise event) {
@@ -52,5 +54,18 @@ class Acceptor implements Node {
 
     private boolean alreadyAcceptedPreviousProposal() {
         return previouslyAcceptedProposal != null;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Acceptor{" +
+                "id=" + id +
+                ", eventBus=" + eventBus +
+                ", previouslyAcceptedProposal=" + previouslyAcceptedProposal +
+                '}';
     }
 }

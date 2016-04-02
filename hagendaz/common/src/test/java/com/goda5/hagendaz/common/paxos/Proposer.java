@@ -27,7 +27,11 @@ class Proposer implements Node, Coordinator {
 
     @Subscribe
     public void receivePromise(Promise promise) {
+        System.out.printf("received promise from %s\n", promise.getAcceptor().getId());
+    }
 
+    public int getId() {
+        return id;
     }
 
     @Override
