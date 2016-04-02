@@ -1,6 +1,5 @@
 package com.goda5.hagendaz.common.paxos;
 
-import com.beust.jcommander.internal.Lists;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import org.apache.commons.lang.math.RandomUtils;
@@ -32,7 +31,7 @@ class Proposer implements Node, Coordinator {
 
     @Subscribe
     public void receivePromise(Promise promise) {
-        if(receivedPromises.size() >= acceptors.size()/2 + 1) {
+        if(isMajorityAcceptorsHaveSentPromisesBack()) {
             System.out.printf("Consensus formed from %s\n",
                     receivedPromises
                             .stream()
@@ -45,6 +44,10 @@ class Proposer implements Node, Coordinator {
             receivedPromises.add(promise);
         }
         System.out.printf("Proposer %s received promise version %s from Acceptor %s\n", id, promise.getProposal().getVersion(), promise.getAcceptor().getId());
+    }
+
+    private boolean isMajorityAcceptorsHaveSentPromisesBack() {
+        return receivedPromises.size() >= acceptors.size()/2 + 1;
     }
 
     public int getId() {
