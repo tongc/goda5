@@ -26,14 +26,14 @@ class Acceptor implements Node {
         promise(proposal);
     }
 
-    private void promise(Proposal proposal) {
+    private void promise(Proposal newProposal) {
         if(alreadyAcceptedPreviousProposal()) {
-            if(previousProposalsVersionIsEarlier(proposal)) {
+            if(previousProposalsVersionIsEarlier(newProposal)) {
                 replyNewProposerWith(promiseOf(previouslyAccepted));
             }
         } else {
-            previouslyAccepted = proposal;
-            replyNewProposerWith(promiseOf(proposal));
+            previouslyAccepted = newProposal;
+            replyNewProposerWith(promiseOf(newProposal));
         }
     }
 
