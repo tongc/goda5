@@ -1,12 +1,16 @@
 package com.goda5.hagendaz.common;
 
+import com.google.common.base.*;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.google.common.collect.Maps;
 import org.junit.Test;
 
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Function;
 
 /**
  * Created by tong on 12/04/2016.
@@ -14,7 +18,24 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GuavaCache {
     @Test
     public void testNormalCache() {
+        NormalCache cache = new NormalCache();
+        Function<Integer, Object> expensiveOperation = this::expensiveOperation;
+        benchmark(o -> cache.execute(expensiveOperation, 1), 1);
+        benchmark(o -> cache.execute(expensiveOperation, 1), 1);
+        benchmark(o -> cache.execute(expensiveOperation, 1), 1);
+    }
 
+    private class NormalCache {
+        ConcurrentMap<Integer, Object> cacheHolder = Maps.newConcurrentMap();
+        Object execute(Function<Integer, Object> func1, Integer key) {
+            if(!cacheHolder.containsKey(key)) {
+                Object result = func1.apply(key);
+                cacheHolder.put(key, result);
+                return result;
+            } else {
+                return cacheHolder.get(key);
+            }
+        }
     }
 
     @Test
