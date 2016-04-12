@@ -7,6 +7,7 @@ import org.apache.commons.lang.math.RandomUtils;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
@@ -28,7 +29,7 @@ class Proposer implements Node, Coordinator {
 
     void prepare() {
         //System.nanoTime() + RandomUtils.nextInt(100000000) to simulate the bad version (old version) being received
-        Proposal proposal = new Proposal(this, System.nanoTime() + RandomUtils.nextInt(100000000), RandomUtils.nextInt(10000));
+        Proposal proposal = new Proposal(this, System.nanoTime() + ThreadLocalRandom.current().nextInt(100000000), RandomUtils.nextInt(10000));
         acceptors.stream().forEach(eachAcceptor -> eachAcceptor.receivePrepare(proposal));
     }
 
