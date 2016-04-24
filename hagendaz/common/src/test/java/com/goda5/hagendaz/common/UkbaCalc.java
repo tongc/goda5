@@ -1,9 +1,13 @@
 package com.goda5.hagendaz.common;
 
+import com.beust.jcommander.internal.Lists;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Interval;
 import org.joda.time.LocalDate;
+
+import java.util.List;
 
 /**
  * Created by tong on 24/04/2016.
@@ -11,9 +15,7 @@ import org.joda.time.LocalDate;
  */
 public class UkbaCalc {
     public static void main(String[] args) throws IllegalAccessException {
-        Interval interval = new Interval(DateTime.parse("2015-05-11"), DateTime.parse("2015-10-15"));
-        Interval interval2 = new Interval(DateTime.parse("2016-05-07"), DateTime.parse("2016-07-07"));
-        Interval interval3 = new Interval(DateTime.parse("2016-09-07"), DateTime.parse("2016-12-07"));
+        List<Interval> intervals = setupDaysSpendInTheUK();
 
         for(int j=0;j<getDaysBetween("2015-01-01", "2018-01-01");j++) {
             long counter = 0;
@@ -22,20 +24,26 @@ public class UkbaCalc {
 
             Interval checkingPeriod = new Interval(start, end);
 
-            if(checkingPeriod.overlaps(interval)) {
-                counter += checkingPeriod.overlap(interval).toDuration().getStandardDays();
+            for(Interval interval:intervals) {
+                if(checkingPeriod.overlaps(interval)) {
+                    counter += checkingPeriod.overlap(interval).toDuration().getStandardDays();
+                }
             }
-            if(checkingPeriod.overlaps(interval2)) {
-                counter += checkingPeriod.overlap(interval2).toDuration().getStandardDays();
-            }
-            if(checkingPeriod.overlaps(interval3)) {
-                counter += checkingPeriod.overlap(interval3).toDuration().getStandardDays();
-            }
-            System.out.println(counter);
+
+            System.out.printf("%s days stayed during 365 days period of %s\n", counter, checkingPeriod);
             if(counter > 180) {
                 throw new IllegalAccessException("UKBA not happy" + checkingPeriod);
             }
         }
+    }
+
+    @NotNull
+    private static List<Interval> setupDaysSpendInTheUK() {
+        List<Interval> intervals = Lists.newArrayList();
+        intervals.add(new Interval(DateTime.parse("2015-05-11"), DateTime.parse("2015-10-15")));
+        intervals.add(new Interval(DateTime.parse("2016-05-07"), DateTime.parse("2016-08-01")));
+        intervals.add(new Interval(DateTime.parse("2016-09-07"), DateTime.parse("2016-12-07")));
+        return intervals;
     }
 
     private static int getDaysBetween(String date1, String date2) {
