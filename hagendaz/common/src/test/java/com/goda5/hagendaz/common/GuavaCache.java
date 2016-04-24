@@ -51,6 +51,7 @@ public class GuavaCache {
         benchmark(o -> graphs.getUnchecked((Integer)o), 1);
         benchmark(o -> graphs.getUnchecked((Integer)o), 1);
         benchmark(o -> graphs.getUnchecked((Integer)o), 1);
+        benchmark(o -> graphs.getUnchecked((Integer)o), 1);
     }
 
     private void benchmark(java.util.function.Consumer<Object> consumer, Object parameter) {
