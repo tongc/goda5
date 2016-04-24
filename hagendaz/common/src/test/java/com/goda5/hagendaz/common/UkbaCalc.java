@@ -14,13 +14,19 @@ import java.util.List;
  * @see <a href="https://www.gov.uk/government/publications/entry-clearance-visas-by-length/entry-clearance-visas-by-length">UKBA 180 days rule</a>
  */
 public class UkbaCalc {
+    private static final String CHECKING_PERIOD_START = "2015-01-01";
+    private static final String CHECKING_PERIOD_END = "2018-01-01";
+    private static final int UKBA_DAYS_CHECKING_PERIOD = 365;
+    private static final int UKBA_DAYS_LIMIT = 180;
+
+
     public static void main(String[] args) throws IllegalAccessException {
         List<Interval> intervals = setupDaysSpendInTheUK();
 
-        for(int j=0;j<getDaysBetween("2015-01-01", "2018-01-01");j++) {
+        for(int j = 0; j<getDaysBetween(CHECKING_PERIOD_START, CHECKING_PERIOD_END); j++) {
             long counter = 0;
-            DateTime start = DateTime.parse("2015-01-01").plusDays(j);
-            DateTime end = start.plusDays(365);
+            DateTime start = DateTime.parse(CHECKING_PERIOD_START).plusDays(j);
+            DateTime end = start.plusDays(UKBA_DAYS_CHECKING_PERIOD);
 
             Interval checkingPeriod = new Interval(start, end);
 
@@ -31,7 +37,7 @@ public class UkbaCalc {
             }
 
             System.out.printf("%s days stayed during 365 days period of %s\n", counter, checkingPeriod);
-            if(counter > 180) {
+            if(counter > UKBA_DAYS_LIMIT) {
                 throw new IllegalAccessException("UKBA not happy" + checkingPeriod);
             }
         }
