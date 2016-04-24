@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class UkbaCalc {
     private static final String CHECKING_PERIOD_START = "2015-01-01";
-    private static final String CHECKING_PERIOD_END = "2018-01-01";
+    private static final String CHECKING_PERIOD_END = "2025-01-01";
     private static final int UKBA_DAYS_CHECKING_PERIOD = 365;
     private static final int UKBA_DAYS_LIMIT = 180;
 
@@ -36,9 +36,9 @@ public class UkbaCalc {
                 }
             }
 
-            System.out.printf("%s days stayed during 365 days period of %s\n", counter, checkingPeriod);
+//            System.out.printf("%s days stayed during 365 days period of %s\n", counter, checkingPeriod);
             if(counter > UKBA_DAYS_LIMIT) {
-                throw new IllegalAccessException("UKBA not happy" + checkingPeriod);
+                throw new IllegalAccessException("UKBA not happy " + checkingPeriod);
             }
         }
     }
@@ -47,8 +47,10 @@ public class UkbaCalc {
     private static List<Interval> setupDaysSpendInTheUK() {
         List<Interval> intervals = Lists.newArrayList();
         intervals.add(new Interval(DateTime.parse("2015-05-11"), DateTime.parse("2015-10-15")));
-        intervals.add(new Interval(DateTime.parse("2016-05-07"), DateTime.parse("2016-08-01")));
-        intervals.add(new Interval(DateTime.parse("2016-09-07"), DateTime.parse("2016-12-07")));
+        intervals.add(new Interval(DateTime.parse("2016-05-07"), DateTime.parse("2016-08-07")));
+        intervals.add(new Interval(DateTime.parse("2016-12-31"), DateTime.parse("2017-03-30")));
+        intervals.add(new Interval(DateTime.parse("2017-09-30"), DateTime.parse("2018-01-30")));
+
         return intervals;
     }
 
