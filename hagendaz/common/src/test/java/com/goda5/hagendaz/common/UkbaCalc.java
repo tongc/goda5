@@ -7,6 +7,7 @@ import org.joda.time.LocalDate;
 
 /**
  * Created by tong on 24/04/2016.
+ * @see <a href="https://www.gov.uk/government/publications/entry-clearance-visas-by-length/entry-clearance-visas-by-length">UKBA 180 days rule</a>
  */
 public class UkbaCalc {
     public static void main(String[] args) throws IllegalAccessException {
