@@ -47,9 +47,9 @@ public class UkbaCalc {
     private static List<Interval> setupDaysSpendInTheUK() {
         List<Interval> intervals = Lists.newArrayList();
         intervals.add(new Interval(DateTime.parse("2015-05-11"), DateTime.parse("2015-10-15")));
-        intervals.add(new Interval(DateTime.parse("2016-05-07"), DateTime.parse("2016-08-07")));
-        intervals.add(new Interval(DateTime.parse("2016-12-31"), DateTime.parse("2017-03-30")));
-        intervals.add(new Interval(DateTime.parse("2017-09-30"), DateTime.parse("2018-01-30")));
+        intervals.add(new Interval(DateTime.parse("2016-05-07"), DateTime.parse("2016-07-07")));
+        intervals.add(new Interval(DateTime.parse("2016-12-31"), DateTime.parse("2017-04-30")));
+//        intervals.add(new Interval(DateTime.parse("2017-09-30"), DateTime.parse("2018-03-25")));
 
         return intervals;
     }
