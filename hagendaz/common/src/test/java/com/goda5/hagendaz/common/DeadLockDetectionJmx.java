@@ -36,7 +36,6 @@ public class DeadLockDetectionJmx {
         for(long id:ManagementFactory.getThreadMXBean().findDeadlockedThreads()) {
             System.out.printf("deadlock thread: %s\n", ManagementFactory.getThreadMXBean().getThreadInfo(id));
         }
-        System.out.printf("%s", ManagementFactory.getThreadMXBean().getThreadCount());
         for(long id:ManagementFactory.getThreadMXBean().getAllThreadIds()) {
             System.out.printf("%s\n", ManagementFactory.getThreadMXBean().getThreadInfo(id));
         }
