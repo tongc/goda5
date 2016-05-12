@@ -25,20 +25,20 @@ public class StringConstantPool {
         }
 
         reportMemoryUsage();
-        System.out.println(ReflectionTestUtils.getField(b, "value"));
-        System.out.println(ReflectionTestUtils.getField(a, "value"));
+        System.out.println("000" + ReflectionTestUtils.getField(b, "value"));
+        System.out.println("111" + ReflectionTestUtils.getField(a, "value"));
 
         a = a.intern();
         b = b.intern();
 
         reportMemoryUsage();
-        System.out.println(ReflectionTestUtils.getField(b, "value"));
-        System.out.println(ReflectionTestUtils.getField(a, "value"));
+        System.out.println("222" + ReflectionTestUtils.getField(b, "value"));
+        System.out.println("333" + ReflectionTestUtils.getField(a, "value"));
 
         a = "abcde";
         b = new String("abcde");
-        System.out.println(ReflectionTestUtils.getField(b, "value"));
-        System.out.println(ReflectionTestUtils.getField(a, "value"));
+        System.out.println("444" + ReflectionTestUtils.getField(b, "value"));
+        System.out.println("555" + ReflectionTestUtils.getField(a, "value"));
     }
 
     private static void reportMemoryUsage() {
