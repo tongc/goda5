@@ -29,7 +29,7 @@ public class CompletableFutureTest {
             }
             return "completed 2";}, executorService);
 //        System.out.println(completableFuture.get());
-        completableFuture.thenApply((Function<Object, Object>) o -> "applied");
+        CompletableFuture<Object> anotherFuture = completableFuture.thenApply((Function<Object, Object>) o -> "applied");
         boolean complete = completableFuture.complete("NOT completed");
         System.out.println(complete);
         boolean complete1 = completableFuture1.complete("NOT complete");
