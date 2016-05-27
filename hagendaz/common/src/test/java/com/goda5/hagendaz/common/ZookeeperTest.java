@@ -16,6 +16,7 @@ public class ZookeeperTest {
             System.out.println(zooKeeper.getState());
             System.out.println(zooKeeper.getSessionId());
             System.out.println(zooKeeper.getSessionTimeout());
+            zooKeeper.getData("/mycluster1/mytopic1", false, null);
             zooKeeper.create("/abc", "".getBytes(), Lists.newArrayList(new ACL(1, new Id("a", "b"))), CreateMode.PERSISTENT);
         } catch (Exception e) {
             e.printStackTrace();
