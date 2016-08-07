@@ -3,3 +3,8 @@
 .project
 .settings
 test-output
+node/
+node_modules/
+target-grunt/
+coverage-report/
+transaction.log
