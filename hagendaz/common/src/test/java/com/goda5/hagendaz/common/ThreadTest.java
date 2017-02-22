@@ -2,6 +2,8 @@ package com.goda5.hagendaz.common;
 
 import org.junit.Test;
 
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
 
@@ -27,5 +29,47 @@ public class ThreadTest {
         t.start();
         Thread.sleep(1000);
         System.out.println(t.getState());
+    }
+
+    @Test
+    public void barrier() throws InterruptedException {
+        final CyclicBarrier cb = new CyclicBarrier(3, () -> System.out.println("test"));
+
+        Thread t1 = new Thread(() -> {
+            System.out.println("before" + Thread.currentThread().getName());
+            try {
+                Thread.sleep(500);
+                cb.await();
+            } catch (InterruptedException | BrokenBarrierException e) {
+                e.printStackTrace();
+            }
+            System.out.println("after" + Thread.currentThread().getName());
+        });
+        Thread t2 = new Thread(() -> {
+            System.out.println("before" + Thread.currentThread().getName());
+            try {
+                Thread.sleep(1500);
+                cb.await();
+            } catch (InterruptedException | BrokenBarrierException e) {
+                e.printStackTrace();
+            }
+            System.out.println("after" + Thread.currentThread().getName());
+        });
+        Thread t3 = new Thread(() -> {
+            System.out.println("before" + Thread.currentThread().getName());
+            try {
+                Thread.sleep(2500);
+                cb.await();
+            } catch (InterruptedException | BrokenBarrierException e) {
+                e.printStackTrace();
+            }
+            System.out.println("after" + Thread.currentThread().getName());
+        });
+
+        t1.start();
+        t2.start();
+        t3.start();
+
+        Thread.sleep(5000);
     }
 }
