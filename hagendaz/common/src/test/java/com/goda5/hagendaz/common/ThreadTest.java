@@ -13,6 +13,7 @@ import java.util.function.Supplier;
 public class ThreadTest {
     ThreadLocal t = ThreadLocal.withInitial((Supplier<Object>) () -> "test");
     ThreadLocalRandom r = ThreadLocalRandom.current();
+
     @Test
     public void test() throws InterruptedException {
         Thread t = new Thread(() -> {
@@ -71,5 +72,64 @@ public class ThreadTest {
         t3.start();
 
         Thread.sleep(5000);
+
+        Thread t4 = new Thread(() -> {
+            System.out.println("before" + Thread.currentThread().getName());
+            try {
+                Thread.sleep(500);
+                cb.await();
+            } catch (InterruptedException | BrokenBarrierException e) {
+                e.printStackTrace();
+            }
+            System.out.println("after" + Thread.currentThread().getName());
+        });
+        Thread t5 = new Thread(() -> {
+            System.out.println("before" + Thread.currentThread().getName());
+            try {
+                Thread.sleep(1500);
+                cb.await();
+            } catch (InterruptedException | BrokenBarrierException e) {
+                e.printStackTrace();
+            }
+            System.out.println("after" + Thread.currentThread().getName());
+        });
+        Thread t6 = new Thread(() -> {
+            System.out.println("before" + Thread.currentThread().getName());
+            try {
+                Thread.sleep(2500);
+                cb.await();
+            } catch (InterruptedException | BrokenBarrierException e) {
+                e.printStackTrace();
+            }
+            System.out.println("after" + Thread.currentThread().getName());
+        });
+        t4.start();
+        t5.start();
+        t6.start();
+
+        Thread.sleep(5000);
+    }
+
+    @Test
+    public void interrupt() throws InterruptedException {
+        Thread a = new Thread(() -> {
+            //simulate long operation
+            while (true) {
+                if (Thread.interrupted()) {
+                    System.out.println("interrupted");
+                }
+            }
+        });
+        a.start();
+        a.interrupt();
+        Thread.sleep(100);
+        System.out.println(a.getState());
+        a.interrupt();
+        Thread.sleep(100);
+        System.out.println(a.getState());
+        a.interrupt();
+        Thread.sleep(100);
+        System.out.println(a.getState());
+        Thread.sleep(1000);
     }
 }
