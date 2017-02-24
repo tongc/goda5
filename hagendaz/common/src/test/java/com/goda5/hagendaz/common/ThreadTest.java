@@ -11,7 +11,8 @@ import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.function.Supplier;
+import java.util.function.*;
+import java.util.function.Consumer;
 
 /**
  * Created by tong on 22/02/2017.
@@ -139,6 +140,40 @@ public class ThreadTest {
         Thread.sleep(1000);
     }
 
+    volatile int i = 0;
+
+    @Test
+    public void deadlock2() throws InterruptedException {
+        Lock a = new ReentrantLock();
+        Lock b = new ReentrantLock();
+
+        Thread ta = new Thread(() -> {
+            a.lock();
+            System.out.println("a locked 1");
+            ++i;
+            while(i!=2) {
+
+            }
+            b.lock();
+            System.out.println("b locked 1");
+        });
+
+        Thread tb = new Thread(() -> {
+            b.lock();
+            System.out.println("b locked 2");
+            ++i;
+            while(i!=2) {
+
+            }
+            a.lock();
+            System.out.println("b locked 2");
+        });
+
+        ta.start();
+        tb.start();
+        Thread.sleep(5000);
+    }
+
     @Test
     public void deadlock() throws InterruptedException {
         Lock c = new ReentrantLock();
@@ -176,7 +211,7 @@ public class ThreadTest {
         Thread bb = new Thread(new Runnable() {
             @Override
             public void run() {
-                while(true) {
+                while (true) {
                     b.lock();
                     try {
                         Thread.sleep(500);
@@ -201,15 +236,47 @@ public class ThreadTest {
 
         ThreadMXBean bean = ManagementFactory.getThreadMXBean();
         ThreadInfo[] ti = bean.getThreadInfo(bean.getAllThreadIds(), true, true);
-        for (ThreadInfo threadInfo:ti) {
+        for (ThreadInfo threadInfo : ti) {
             System.out.println("lock name " + threadInfo.getLockName());
-            for(MonitorInfo monitorInfo:threadInfo.getLockedMonitors()) {
-                System.out.println("line number " +  monitorInfo.getLockedStackFrame().getLineNumber());
+            for (MonitorInfo monitorInfo : threadInfo.getLockedMonitors()) {
+                System.out.println("line number " + monitorInfo.getLockedStackFrame().getLineNumber());
             }
         }
 
-        Thread.sleep(5000);
+        Thread.sleep(3000);
         System.out.println(a);
         System.out.println(b);
+
+        long[] threadIds = bean.findDeadlockedThreads(); // Returns null if no threads are deadlocked.
+
+        if (threadIds != null) {
+            ThreadInfo[] infos = bean.getThreadInfo(threadIds);
+
+            for (ThreadInfo info : infos) {
+                System.out.println("deadlock : " + info.getLockInfo());
+                System.out.println("deadlock : " + info.getLockName());
+                System.out.println("deadlock : " + info.getThreadName());
+                System.out.println("deadlock : " + info.getBlockedCount());
+                System.out.println("deadlock : " + info.getBlockedTime());
+                StackTraceElement[] stack = info.getStackTrace();
+                for(StackTraceElement ste:stack) {
+                    System.out.println(ste.getLineNumber());
+                }
+            }
+        }
+    }
+
+    @Test
+    public void closure() {
+        int a = 5;
+        consume(new Consumer() {
+            @Override
+            public void accept(Object o) {
+                System.out.println(a);
+            }
+        });
+    }
+
+    private void consume(java.util.function.Consumer consumer) {
     }
 }
