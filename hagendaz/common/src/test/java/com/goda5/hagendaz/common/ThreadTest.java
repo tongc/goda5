@@ -14,6 +14,8 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.*;
 import java.util.function.Consumer;
 
+import static org.junit.Assert.assertTrue;
+
 /**
  * Created by tong on 22/02/2017.
  */
@@ -141,6 +143,24 @@ public class ThreadTest {
     }
 
     volatile int i = 0;
+
+    @Test
+    public void isPrimeTest() {
+        assertTrue(isPrime(1));
+        assertTrue(isPrime(2));
+        assertTrue(isPrime(7));
+        assertTrue(isPrime(13));
+        assertTrue(isPrime(17));
+    }
+
+    public boolean isPrime(int num) {
+        for(int i=2;i<num-1;i++) {
+            if(num%2 == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     @Test
     public void deadlock2() throws InterruptedException {
