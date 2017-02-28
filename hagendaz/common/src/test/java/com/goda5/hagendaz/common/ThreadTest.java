@@ -306,7 +306,7 @@ public class ThreadTest {
 
     @Test
     public void linkedHashMap() {
-        LinkedHashMap map = new LinkedHashMap(100, 0.75F, true);
+        Map<String, String> map = new LinkedHashMap<>(100, 0.75F, true);
         map.put("a", "a1");
         map.put("b", "b1");
         map.put("c", "c1");
@@ -326,5 +326,26 @@ public class ThreadTest {
         assertThat(map.toString(), is("{c=c1, e=e1, g=g1, f=f1, b=b1, a=a1}"));
         map.put("d", "d1");
         assertThat(map.toString(), is("{c=c1, e=e1, g=g1, f=f1, b=b1, a=a1, d=d1}"));
+
+        Map<String, String> map2 = new LinkedHashMap<>(100, 0.75F, false);
+        map2.put("a", "a1");
+        map2.put("b", "b1");
+        map2.put("c", "c1");
+        map2.put("d", "d1");
+        map2.put("e", "e1");
+        map2.put("f", "f1");
+        map2.put("g", "g1");
+
+        assertThat(map2.toString(), is("{a=a1, b=b1, c=c1, d=d1, e=e1, f=f1, g=g1}"));
+        map2.get("f");
+        assertThat(map2.toString(), is("{a=a1, b=b1, c=c1, d=d1, e=e1, f=f1, g=g1}"));
+        map2.get("b");
+        assertThat(map2.toString(), is("{a=a1, b=b1, c=c1, d=d1, e=e1, f=f1, g=g1}"));
+        map2.get("a");
+        assertThat(map2.toString(), is("{a=a1, b=b1, c=c1, d=d1, e=e1, f=f1, g=g1}"));
+        map2.remove("d");
+        assertThat(map2.toString(), is("{a=a1, b=b1, c=c1, e=e1, f=f1, g=g1}"));
+        map2.put("d", "d1");
+        assertThat(map2.toString(), is("{a=a1, b=b1, c=c1, e=e1, f=f1, g=g1, d=d1}"));
     }
 }
