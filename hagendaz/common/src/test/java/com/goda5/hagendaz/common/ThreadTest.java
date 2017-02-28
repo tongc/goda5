@@ -6,6 +6,8 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.MonitorInfo;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ThreadLocalRandom;
@@ -14,6 +16,8 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.*;
 import java.util.function.Consumer;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -298,5 +302,29 @@ public class ThreadTest {
     }
 
     private void consume(java.util.function.Consumer consumer) {
+    }
+
+    @Test
+    public void linkedHashMap() {
+        LinkedHashMap map = new LinkedHashMap(100, 0.75F, true);
+        map.put("a", "a1");
+        map.put("b", "b1");
+        map.put("c", "c1");
+        map.put("d", "d1");
+        map.put("e", "e1");
+        map.put("f", "f1");
+        map.put("g", "g1");
+
+        assertThat(map.toString(), is("{a=a1, b=b1, c=c1, d=d1, e=e1, f=f1, g=g1}"));
+        map.get("f");
+        assertThat(map.toString(), is("{a=a1, b=b1, c=c1, d=d1, e=e1, g=g1, f=f1}"));
+        map.get("b");
+        assertThat(map.toString(), is("{a=a1, c=c1, d=d1, e=e1, g=g1, f=f1, b=b1}"));
+        map.get("a");
+        assertThat(map.toString(), is("{c=c1, d=d1, e=e1, g=g1, f=f1, b=b1, a=a1}"));
+        map.remove("d");
+        assertThat(map.toString(), is("{c=c1, e=e1, g=g1, f=f1, b=b1, a=a1}"));
+        map.put("d", "d1");
+        assertThat(map.toString(), is("{c=c1, e=e1, g=g1, f=f1, b=b1, a=a1, d=d1}"));
     }
 }
