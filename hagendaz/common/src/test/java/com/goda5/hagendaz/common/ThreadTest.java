@@ -348,4 +348,9 @@ public class ThreadTest {
         map2.put("d", "d1");
         assertThat(map2.toString(), is("{a=a1, b=b1, c=c1, e=e1, f=f1, g=g1, d=d1}"));
     }
+
+    @Test
+    public void phaser() {
+
+    }
 }
