@@ -6,6 +6,8 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.MonitorInfo;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.BrokenBarrierException;
@@ -352,5 +354,24 @@ public class ThreadTest {
     @Test
     public void phaser() {
 
+    }
+
+    @Test
+    public void testDouble() {
+        double a = 123.45D;
+        double b = 1.11D;
+        double c = 1.13D;
+        System.out.println(a);
+        System.out.println(a + 5);
+        System.out.println(a + 0.5);
+        System.out.println(a + 0.54);
+        System.out.println(b * 5);
+        System.out.println(c * 5);
+        System.out.println(c / 5);
+        double d = c / 5;
+        System.out.println(d * 5);
+        System.out.println(0.22599999999999998D * 5);
+
+        System.out.println(new BigDecimal(d, MathContext.DECIMAL32));
     }
 }
