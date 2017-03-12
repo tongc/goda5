@@ -373,20 +373,16 @@ public class ThreadTest {
         System.out.println(0.22599999999999998D * 5);
 
         System.out.println(new BigDecimal(d, MathContext.DECIMAL32));
-//bit 31   30 - 23   22 - 0
-//     0   01111111  00000000000000000000000 //positive number so the sign bit is 0
-        System.out.println(Integer.toBinaryString(Float.floatToRawIntBits(1F)));
-//bit 31   30 - 23   22 - 0
-//     1   01111111  00000000000000000000000 //negative number so the sign bit is set to 1
-        System.out.println(Integer.toBinaryString(Float.floatToRawIntBits(-1F)));
-//bit 31   30 - 23   22 - 0
-//     0   10000000  00000000000000000000000
-        System.out.println(Integer.toBinaryString(Float.floatToRawIntBits(2F)));
-//bit 31   30 - 23   22 - 0
-//     1   10000000  00000000000000000000000
-        System.out.println(Integer.toBinaryString(Float.floatToRawIntBits(-2F)));
-        System.out.println(Integer.toBinaryString(2));
-        System.out.println(Integer.toBinaryString(Float.floatToRawIntBits(0F)));
-        System.out.println(Long.toBinaryString(Double.doubleToRawLongBits(1D)));
+
+        System.out.println("---------------------------------");
+        System.out.println(0b11 & 0b101 & 0b111);
+        System.out.println(0x5&0b101&0x15);
+
+        //0 01111011 01011100001010001111011
+        System.out.println(Integer.toBinaryString(Float.floatToRawIntBits(0.085F)));
+        System.out.println(Integer.toBinaryString(Float.floatToRawIntBits(0.5F)));
+        System.out.println(Integer.toBinaryString(Float.floatToRawIntBits(0.25F)));
+        System.out.println(Integer.toBinaryString(Float.floatToRawIntBits(0.125F)));
+        System.out.println(Integer.toBinaryString(Float.floatToRawIntBits(0.1F)));
     }
 }
