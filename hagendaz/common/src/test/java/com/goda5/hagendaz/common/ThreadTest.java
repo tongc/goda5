@@ -374,10 +374,10 @@ public class ThreadTest {
 
         System.out.println(new BigDecimal(d, MathContext.DECIMAL32));
 //bit 31   30 - 23   22 - 0
-//     0   01111111  00000000000000000000000 //positive number so the sign bit is not specified
+//     0   01111111  00000000000000000000000 //positive number so the sign bit is 0
         System.out.println(Integer.toBinaryString(Float.floatToRawIntBits(1F)));
 //bit 31   30 - 23   22 - 0
-//     1   01111111  00000000000000000000000 //negative number so the sign bit is set to 10
+//     1   01111111  00000000000000000000000 //negative number so the sign bit is set to 1
         System.out.println(Integer.toBinaryString(Float.floatToRawIntBits(-1F)));
 //bit 31   30 - 23   22 - 0
 //     0   10000000  00000000000000000000000
