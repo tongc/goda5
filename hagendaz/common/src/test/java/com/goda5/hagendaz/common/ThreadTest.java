@@ -386,5 +386,6 @@ public class ThreadTest {
         System.out.println(Integer.toBinaryString(Float.floatToRawIntBits(0.1F)));
         System.out.println(Long.toBinaryString(Double.doubleToRawLongBits(0.1D)));
         System.out.println(Integer.toBinaryString(Float.floatToRawIntBits(-0.11111F)));
+        System.out.println(Integer.toBinaryString(Float.floatToRawIntBits(0.15625F)));
     }
 }
