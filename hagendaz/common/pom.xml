@@ -36,9 +36,15 @@
 			<version>2.4.3</version>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-test</artifactId>
+            <version>${kotlin.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 	<properties>
-		<kotlin.version>1.0.0-beta-3595</kotlin.version>
+		<kotlin.version>1.0.7</kotlin.version>
 	</properties>
 	<parent>
 		<artifactId>hagendaz</artifactId>
@@ -106,31 +112,46 @@
 				<executions>
 					<execution>
 						<id>compile</id>
-						<phase>process-sources</phase>
+						<phase>compile</phase>
 						<goals>
 							<goal>compile</goal>
 						</goals>
 						<configuration>
-							<sourceDirs>
-								<source>target/generated-sources/java</source>
-								<source>src/main/java</source>
-							</sourceDirs>
+                            <sourceDirs>
+                                <source>src/main/java</source>
+                                <source>target/generated-sources/java</source>
+                            </sourceDirs>
 						</configuration>
 					</execution>
 					<execution>
 						<id>test-compile</id>
-						<phase>process-test-sources</phase>
+						<phase>test-compile</phase>
 						<goals>
 							<goal>test-compile</goal>
 						</goals>
-						<configuration>
-							<sourceDirs>
-								<source>src/test/java</source>
-							</sourceDirs>
-						</configuration>
-					</execution>
+                    </execution>
 				</executions>
 			</plugin>
-		</plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>testCompile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
 	</build>
 </project>
