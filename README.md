@@ -19,6 +19,12 @@ delete all merged branches
   git branch --merged | grep -v * | xargs git branch -D  
 delete untracked files, -fd to force clean
   git clean -d  or git clean -fd
+change history commit message
+  git rebase -i -p HEAD~1
+  change pick to edit
+  git commit --amend -m "New commit message" or git commit --amend
+  git rebase --continue
+  git push --force origin master
 ~~~~
 dos
 ~~~~
