@@ -43,12 +43,9 @@ public class CompletableFutureTest {
         executorService.awaitTermination(3000, TimeUnit.SECONDS);
 
 
-        CompletableFuture<String> something = CompletableFuture.supplyAsync(new Supplier<String>() {
-            @Override
-            public String get() {
-                System.out.println("ccc");
-                throw new RuntimeException("xxx");
-            }
+        CompletableFuture<String> something = CompletableFuture.supplyAsync(() -> {
+            System.out.println("ccc");
+            throw new RuntimeException("xxx");
         });
 //        something.completeExceptionally(new RuntimeException("aaa"));
 //        System.out.println(something.get());
@@ -66,12 +63,9 @@ public class CompletableFutureTest {
     }
 
     private static CompletableFuture<String> get1() {
-        return CompletableFuture.supplyAsync(new Supplier<String>() {
-            @Override
-            public String get() {
-                System.out.println(Thread.currentThread().getName());
-                throw new RuntimeException("xxx");
-            }
+        return CompletableFuture.supplyAsync(() -> {
+            System.out.println(Thread.currentThread().getName());
+            throw new RuntimeException("xxx");
         });
     }
 }
