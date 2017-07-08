@@ -1,8 +1,13 @@
 package com.goda5.hagendaz.common;
 
+import com.google.common.collect.Lists;
+
+import java.util.List;
 import java.util.concurrent.*;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
+import java.util.function.Consumer;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by tong on 05/05/2016.
@@ -36,5 +41,37 @@ public class CompletableFutureTest {
         System.out.println(complete1);
         executorService.shutdown();
         executorService.awaitTermination(3000, TimeUnit.SECONDS);
+
+
+        CompletableFuture<String> something = CompletableFuture.supplyAsync(new Supplier<String>() {
+            @Override
+            public String get() {
+                System.out.println("ccc");
+                throw new RuntimeException("xxx");
+            }
+        });
+//        something.completeExceptionally(new RuntimeException("aaa"));
+//        System.out.println(something.get());
+
+
+        List<CompletableFuture<String>> results = Lists.newArrayList(get1(), get1(), get1());
+        List<String> collect = results.stream().map(stringCompletableFuture -> {
+            try {
+                return stringCompletableFuture.get();
+            } catch (Exception ex) {
+                return ex.getMessage() + "vvvvv";
+            }
+        }).collect(toList());
+        System.out.println(collect);
+    }
+
+    private static CompletableFuture<String> get1() {
+        return CompletableFuture.supplyAsync(new Supplier<String>() {
+            @Override
+            public String get() {
+                System.out.println(Thread.currentThread().getName());
+                throw new RuntimeException("xxx");
+            }
+        });
     }
 }
