@@ -1,7 +1,11 @@
 package com.goda5.hagendaz.common;
 
 import com.google.common.collect.Lists;
+import net.jodah.failsafe.Failsafe;
+import net.jodah.failsafe.RetryPolicy;
+import net.jodah.failsafe.function.CheckedConsumer;
 
+import java.net.ConnectException;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.function.*;
@@ -60,12 +64,26 @@ public class CompletableFutureTest {
             }
         }).collect(toList());
         System.out.println(collect);
+
+        List<CompletableFuture<String>> results2 = Lists.newArrayList(get1(), get1(), get1());
+        System.out.println("start==========");
+        List<String> collect2 = results2.stream().map(stringCompletableFuture -> Failsafe.with(retryPolicy).withFallback("fallllbackkkkk").onFailure(throwable -> System.out.println("11111" + throwable.getMessage())).get(stringCompletableFuture::get)).collect(toList());
+        System.out.println("collect2" + collect2);
     }
 
     private static CompletableFuture<String> get1() {
+        new CompletableFuture.AsynchronousCompletionTask() {
+
+        };
         return CompletableFuture.supplyAsync(() -> {
             System.out.println(Thread.currentThread().getName());
+            Object testtest = Failsafe.with(retryPolicy).get((Callable<Object>) () -> new RuntimeException("testtestxxx"));
+            System.out.println("vvvvv" + testtest);
             throw new RuntimeException("xxx");
         });
     }
+
+    static RetryPolicy retryPolicy = new RetryPolicy()
+            .retryOn(RuntimeException.class)
+            .withMaxRetries(3);
 }
