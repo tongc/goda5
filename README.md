@@ -1,3 +1,5 @@
+http://gemfirexd.docs.pivotal.io/latest/data_management/adapting-existing-schema.html
+
 git
 ~~~~
 sync from original to forked branch
