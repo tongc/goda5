@@ -2,6 +2,8 @@ http://gemfirexd.docs.pivotal.io/latest/data_management/adapting-existing-schema
 
 https://coderbyte.com/challenges
 
+https://www.gotrip.hk/category/itineraryguide/japan_guide/kyoto_guide/page/6/
+
 git
 ~~~~
 sync from original to forked branch
