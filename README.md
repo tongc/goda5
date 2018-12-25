@@ -1,10 +1,13 @@
-http://gemfirexd.docs.pivotal.io/latest/data_management/adapting-existing-schema.html
 
 https://coderbyte.com/challenges
 
 https://www.gotrip.hk/category/itineraryguide/japan_guide/kyoto_guide/page/6/
 
 https://playcode.io/
+
+https://www.eventbrite.com/d/united-kingdom--guildford/flatiron/?q=flatiron&mode=search&lc=1
+
+
 
 git
 ~~~~
