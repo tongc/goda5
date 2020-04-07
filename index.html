@@ -1,8 +1,24 @@
 <html>
 <body>
+<script>
+  var totalQuestion = 1;
+	function checkAll() {
+		var allGood = true;
+		for(var i=0;i<totalQuestion;i++) {
+			if(!document.getElementById(i+"a_result").src.includes("1200px-Green_tick_pointed.svg.png") || 
+			   !document.getElementById(i+"b_result").src.includes("1200px-Green_tick_pointed.svg.png") || 
+			   !document.getElementById(i+"c_result").src.includes("1200px-Green_tick_pointed.svg.png")) {
+				allGood = false;
+			}
+		}
+		if(allGood) {
+			alert("Well done Emily!!!");
+		}
+	}
+</script>
 <table>
 <script>
-  for(var i=0;i<500;i++) {
+  for(var i=0;i<totalQuestion;i++) {
     var random1 = Math.floor(Math.random()*10) + 1;
     var random2 = Math.floor(Math.random()*10) + 1;
     var random3 = Math.floor(Math.random()*10) + 1;
@@ -12,17 +28,26 @@
   document.write("<tr>");
     document.write("<td><h1>");
         document.write(random1 + " + " + random2 + " = ");
-        document.write("<input type='number'/>")
-    document.write("</h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>");
+        document.write("<input type='number' id='" + i + "a' onfocusout=\"check('" + i + "a'," + random1 + "," + random2 + ")\"/>")
+    document.write("<img width='20px' height='20px' id=\"" + i + "a_result\"/></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>");
     document.write("<td><h1>");
         document.write(random3 + " + " + random4 + " = ");
-        document.write("<input type='number'/>")
-    document.write("</h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>");
+        document.write("<input type='number' id='" + i + "b' onfocusout=\"check('" + i + "b'," + random3 + "," + random4 + ")\"/>")
+    document.write("<img width='20px' height='20px' id=\"" + i + "b_result\"/></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>");
     document.write("<td><h1>");
         document.write(random5 + " + " + random6 + " = ");
-        document.write("<input type='number'/>")
-    document.write("</h1></td>");    
+        document.write("<input type='number' id='" + i + "c' onfocusout=\"check('" + i + "c'," + random5 + "," + random6 + ")\"/>")
+    document.write("<img width='20px' height='20px' id=\"" + i + "c_result\"/></h1></td>");    
   document.write("</tr>");
+}
+function check(element, v1, v2) {
+	var result = parseInt(document.getElementById(element).value) == (v1+v2);
+	if(result) {
+		document.getElementById(element+"_result").src="1200px-Green_tick_pointed.svg.png";
+	} else {
+		document.getElementById(element+"_result").src="red-cross.png";
+	}
+	checkAll();
 }
 </script>
 </table>
