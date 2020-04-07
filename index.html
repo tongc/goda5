@@ -1,7 +1,35 @@
 <html>
 <body>
 <script>
-  var totalQuestion = 10;
+  var url = new URL(window.location.href);
+  var totalQuestion = url.searchParams.get("totalQuestions");
+  var addsubmuldiv = url.searchParams.get("addsubmuldiv");
+  var numberCeiling = url.searchParams.get("numberCeiling");
+  
+  if(totalQuestion == null) {
+	totalQuestion = 30;
+  }
+  if(addsubmuldiv == null) {
+	addsubmuldiv = "add";
+  }
+  if(numberCeiling == null) {
+	numberCeiling = 10;
+  }
+  
+  var symbol = "+";
+  if(addsubmuldiv == "add") {
+	symbol = " + ";
+  }
+  if(addsubmuldiv == "sub") {
+	symbol = " - ";
+  }
+  if(addsubmuldiv == "mul") {
+	symbol = " × ";
+  }
+  if(addsubmuldiv == "div") {
+	symbol = " ÷ ";
+  }
+
 	function checkAll() {
 		var allGood = true;
 		for(var i=0;i<totalQuestion;i++) {
@@ -19,29 +47,41 @@
 <table>
 <script>
   for(var i=0;i<totalQuestion;i++) {
-    var random1 = Math.floor(Math.random()*10) + 1;
-    var random2 = Math.floor(Math.random()*10) + 1;
-    var random3 = Math.floor(Math.random()*10) + 1;
-    var random4 = Math.floor(Math.random()*10) + 1;
-    var random5 = Math.floor(Math.random()*10) + 1;
-    var random6 = Math.floor(Math.random()*10) + 1;
+    var random1 = Math.floor(Math.random()*numberCeiling) + 1;
+    var random2 = Math.floor(Math.random()*numberCeiling) + 1;
+    var random3 = Math.floor(Math.random()*numberCeiling) + 1;
+    var random4 = Math.floor(Math.random()*numberCeiling) + 1;
+    var random5 = Math.floor(Math.random()*numberCeiling) + 1;
+    var random6 = Math.floor(Math.random()*numberCeiling) + 1;
   document.write("<tr>");
     document.write("<td><h1>");
-        document.write(random1 + " + " + random2 + " = ");
+        document.write(random1 + symbol + random2 + " = ");
         document.write("<input type='number' id='" + i + "a' onfocusout=\"check('" + i + "a'," + random1 + "," + random2 + ")\"/>")
     document.write("<img width='20px' height='20px' id=\"" + i + "a_result\"/></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>");
     document.write("<td><h1>");
-        document.write(random3 + " + " + random4 + " = ");
+        document.write(random3 + symbol + random4 + " = ");
         document.write("<input type='number' id='" + i + "b' onfocusout=\"check('" + i + "b'," + random3 + "," + random4 + ")\"/>")
     document.write("<img width='20px' height='20px' id=\"" + i + "b_result\"/></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>");
     document.write("<td><h1>");
-        document.write(random5 + " + " + random6 + " = ");
+        document.write(random5 + symbol + random6 + " = ");
         document.write("<input type='number' id='" + i + "c' onfocusout=\"check('" + i + "c'," + random5 + "," + random6 + ")\"/>")
     document.write("<img width='20px' height='20px' id=\"" + i + "c_result\"/></h1></td>");    
   document.write("</tr>");
 }
 function check(element, v1, v2) {
-	var result = parseInt(document.getElementById(element).value) == (v1+v2);
+	var result = 0;
+	if(addsubmuldiv == "add") {
+		result = parseInt(document.getElementById(element).value) == (v1+v2);
+	}
+	if(addsubmuldiv == "sub") {
+		result = parseInt(document.getElementById(element).value) == (v1-v2);
+	}
+	if(addsubmuldiv == "mul") {
+		result = parseInt(document.getElementById(element).value) == (v1*v2);
+	}
+	if(addsubmuldiv == "div") {
+		result = parseInt(document.getElementById(element).value) == Math.floor(v1/v2);
+	}
 	if(result) {
 		document.getElementById(element+"_result").src="1200px-Green_tick_pointed.svg.png";
 	} else {
