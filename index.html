@@ -1,6 +1,24 @@
 <html>
-<body>
+<body onload="init()" onunload="done()">
 <script>
+  var startedTime = Date.now();
+  var thisQuiz;
+  var records;
+  function init() {
+    records = window.localStorage.getItem('records');
+    if(records == undefined) {
+	  records = new Array();
+    } else {
+	  records = JSON.parse(records);
+	}
+    thisQuiz = {datetime: new Date().toISOString(), value: []};
+  }
+  
+  function done() {
+    records.push(thisQuiz);
+	window.localStorage.setItem('records', JSON.stringify(records));
+  }
+
   var url = new URL(window.location.href);
   var totalQuestion = url.searchParams.get("totalQuestions");
   var addsubmuldiv = url.searchParams.get("addsubmuldiv");
@@ -84,6 +102,9 @@ function check(element, v1, v2) {
 	}
 	if(result) {
 		document.getElementById(element+"_result").src="1200px-Green_tick_pointed.svg.png";
+		var now = Date.now();
+		thisQuiz.value.push(now - startedTime);
+		startedTime = now;
 	} else {
 		document.getElementById(element+"_result").src="red-cross.png";
 	}
@@ -91,5 +112,9 @@ function check(element, v1, v2) {
 }
 </script>
 </table>
+<script>
+var records = window.localStorage.getItem('records');
+console.info(JSON.parse(records));
+</script>
 </body>
 </html>
