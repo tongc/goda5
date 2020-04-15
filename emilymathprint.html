@@ -1,0 +1,129 @@
+<html>
+<body onload="init()" onunload="done()">
+<script>
+  var startedTime = Date.now();
+  var thisQuiz;
+  var records;
+  function init() {
+    records = window.localStorage.getItem('records');
+    if(records == undefined) {
+	  records = new Array();
+    } else {
+	  records = JSON.parse(records);
+	}
+    thisQuiz = {datetime: new Date().toISOString(), value: []};
+  }
+  
+  function done() {
+    records.push(thisQuiz);
+	window.localStorage.setItem('records', JSON.stringify(records));
+  }
+
+  var url = new URL(window.location.href);
+  var totalQuestion = url.searchParams.get("totalQuestions");
+  var addsubmuldiv = url.searchParams.get("addsubmuldiv");
+  var numberCeiling = url.searchParams.get("numberCeiling");
+  
+  if(totalQuestion == null) {
+	totalQuestion = 100;
+  }
+  if(addsubmuldiv == null) {
+	addsubmuldiv = "add";
+  }
+  if(numberCeiling == null) {
+	numberCeiling = 10;
+  }
+  
+  var symbol = "+";
+  if(addsubmuldiv == "add") {
+	symbol = " + ";
+  }
+  if(addsubmuldiv == "sub") {
+	symbol = " - ";
+  }
+  if(addsubmuldiv == "mul") {
+	symbol = " × ";
+  }
+  if(addsubmuldiv == "div") {
+	symbol = " ÷ ";
+  }
+
+	function checkAll() {
+		var allGood = true;
+		for(var i=0;i<totalQuestion;i++) {
+			if(!document.getElementById(i+"a_result").src.includes("1200px-Green_tick_pointed.svg.png") || 
+			   !document.getElementById(i+"b_result").src.includes("1200px-Green_tick_pointed.svg.png") || 
+			   !document.getElementById(i+"c_result").src.includes("1200px-Green_tick_pointed.svg.png")) {
+				allGood = false;
+			}
+		}
+		if(allGood) {
+			alert("Well done Emily!!!");
+		}
+	}
+</script>
+<table>
+<script>
+  for(var i=0;i<totalQuestion;i++) {
+    var random1 = Math.floor(Math.random()*numberCeiling) + 1;
+    var random2 = Math.floor(Math.random()*numberCeiling) + 1;
+    var random3 = Math.floor(Math.random()*numberCeiling) + 1;
+    var random4 = Math.floor(Math.random()*numberCeiling) + 1;
+    var random5 = Math.floor(Math.random()*numberCeiling) + 1;
+    var random6 = Math.floor(Math.random()*numberCeiling) + 1;
+	    var random7 = Math.floor(Math.random()*numberCeiling) + 1;
+    var random8 = Math.floor(Math.random()*numberCeiling) + 1;
+	    var random9 = Math.floor(Math.random()*numberCeiling) + 1;
+    var random10 = Math.floor(Math.random()*numberCeiling) + 1;
+  document.write("<tr>");
+    document.write("<td><h1>");
+        document.write(random1 + symbol + random2 + " = ");
+
+    document.write("<img width='20px' height='20px' id=\"" + i + "a_result\"/></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>");
+    document.write("<td><h1>");
+        document.write(random3 + symbol + random4 + " = ");
+
+    document.write("<img width='20px' height='20px' id=\"" + i + "b_result\"/></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>");
+    document.write("<td><h1>");
+        document.write(random5 + symbol + random6 + " = ");
+    document.write("<img width='20px' height='20px' id=\"" + i + "c_result\"/></h1></td>");    
+    document.write("<td><h1>");
+        document.write(random7 + symbol + random8 + " = ");
+    document.write("<img width='20px' height='20px' id=\"" + i + "c_result\"/></h1></td>");    
+	    document.write("<td><h1>");
+        document.write(random9 + symbol + random10 + " = ");
+    document.write("<img width='20px' height='20px' id=\"" + i + "c_result\"/></h1></td>");    
+  document.write("</tr>");
+}
+function check(element, v1, v2) {
+	var result = 0;
+	if(addsubmuldiv == "add") {
+		result = parseInt(document.getElementById(element).value) == (v1+v2);
+	}
+	if(addsubmuldiv == "sub") {
+		result = parseInt(document.getElementById(element).value) == (v1-v2);
+	}
+	if(addsubmuldiv == "mul") {
+		result = parseInt(document.getElementById(element).value) == (v1*v2);
+	}
+	if(addsubmuldiv == "div") {
+		result = parseInt(document.getElementById(element).value) == Math.floor(v1/v2);
+	}
+	if(result) {
+		document.getElementById(element+"_result").src="1200px-Green_tick_pointed.svg.png";
+		var now = Date.now();
+		thisQuiz.value.push(now - startedTime);
+		startedTime = now;
+	} else {
+		document.getElementById(element+"_result").src="red-cross.png";
+	}
+	checkAll();
+}
+</script>
+</table>
+<script>
+var records = window.localStorage.getItem('records');
+console.info(JSON.parse(records));
+</script>
+</body>
+</html>
