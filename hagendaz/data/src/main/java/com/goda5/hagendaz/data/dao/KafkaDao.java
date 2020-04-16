@@ -39,12 +39,7 @@ public class KafkaDao {
         });
         KTable<String, Long> wordCounts = textLines
                 .flatMapValues(value -> Arrays.asList(value.toLowerCase().split(" ")))
-                .groupBy(new KeyValueMapper<String, String, String>() {
-                    @Override
-                    public String apply(String key, String value) {
-                        return value;
-                    }
-                })
+                .groupBy((key, value) -> value)
                 .count();
 
         KTable<String, String> latestVal = textLines.toTable();
