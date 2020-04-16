@@ -4,23 +4,32 @@ import org.apache.commons.math3.stat.inference.TestUtils;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
+import org.apache.kafka.streams.StoreQueryParameters;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.*;
+import org.apache.kafka.streams.state.KeyValueBytesStoreSupplier;
+import org.apache.kafka.streams.state.QueryableStoreTypes;
+import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
+import org.apache.kafka.streams.state.Stores;
+import sun.security.krb5.internal.tools.Ktab;
 
 import java.util.Arrays;
 import java.util.Properties;
+import java.util.function.Consumer;
 
+/**
+ * .\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic tongtable  --group ee
+ * .\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic tongtable --group a
+ * .\kafka-console-producer.bat --broker-list localhost:9092 --topic tongt1 --property "parse.key=true" --property "key.separator=:"
+ */
 public class KafkaDao {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         final StreamsBuilder builder = new StreamsBuilder();
 
         final Serde<String> stringSerde = Serdes.String();
         final Serde<Long> longSerde = Serdes.Long();
 
-// Construct a `KStream` from the input topic "streams-plaintext-input", where message values
-// represent lines of text (for the sake of this example, we ignore whatever may be stored
-// in the message keys).
         KStream<String, String> textLines = builder.stream("tongt1", Consumed.with(stringSerde, stringSerde));
         textLines.foreach(new ForeachAction<String, String>() {
             @Override
@@ -29,22 +38,45 @@ public class KafkaDao {
             }
         });
         KTable<String, Long> wordCounts = textLines
-                // Split each text line, by whitespace, into words.  The text lines are the message
-                // values, i.e. we can ignore whatever data is in the message keys and thus invoke
-                // `flatMapValues` instead of the more generic `flatMap`.
-                .flatMapValues(value -> Arrays.asList(value.toLowerCase().split("\\W+")))
-                // We use `groupBy` to ensure the words are available as message keys
-                .groupBy((key, value) -> value)
-                // Count the occurrences of each word (message key).
+                .flatMapValues(value -> Arrays.asList(value.toLowerCase().split(" ")))
+                .groupBy(new KeyValueMapper<String, String, String>() {
+                    @Override
+                    public String apply(String key, String value) {
+                        return value;
+                    }
+                })
                 .count();
 
-// Convert the `KTable<String, Long>` into a `KStream<String, Long>` and write to the output topic.
+        KTable<String, String> latestVal = textLines.toTable();
+
         wordCounts.toStream().to("tongt2", Produced.with(stringSerde, longSerde));
+        latestVal.toStream().to("tongtable", Produced.with(stringSerde, stringSerde));
+
+
+        KeyValueBytesStoreSupplier storeSupplier = Stores.inMemoryKeyValueStore("mystore");
+        KTable<String, String> table = builder.table(
+                "tongtable",
+                Materialized.<String, String>as(storeSupplier)
+                        .withKeySerde(Serdes.String())
+                        .withValueSerde(Serdes.String())
+        );
+
 
         final String bootstrapServers = args.length > 0 ? args[0] : "localhost:9092";
         final Properties streamsConfiguration = getStreamsConfiguration(bootstrapServers);
         final KafkaStreams streams = new KafkaStreams(builder.build(), streamsConfiguration);
         streams.start();
+
+
+        Thread.sleep(10000);
+        ReadOnlyKeyValueStore view = streams.store(StoreQueryParameters.fromNameAndType("mystore", QueryableStoreTypes.keyValueStore()));
+        System.out.println(view.get("cc"));
+        view.all().forEachRemaining(new Consumer() {
+            @Override
+            public void accept(Object o) {
+                System.out.println("value: " + o);
+            }
+        });
     }
 
     static Properties getStreamsConfiguration(final String bootstrapServers) {
