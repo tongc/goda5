@@ -1,12 +1,10 @@
 package com.goda5.hagendaz.data.dao;
 
 import org.apache.commons.math3.stat.inference.TestUtils;
-import org.apache.kafka.common.serialization.Serde;
-import org.apache.kafka.common.serialization.Serdes;
-import org.apache.kafka.streams.KafkaStreams;
-import org.apache.kafka.streams.StoreQueryParameters;
-import org.apache.kafka.streams.StreamsBuilder;
-import org.apache.kafka.streams.StreamsConfig;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.serialization.*;
+import org.apache.kafka.streams.*;
 import org.apache.kafka.streams.kstream.*;
 import org.apache.kafka.streams.state.KeyValueBytesStoreSupplier;
 import org.apache.kafka.streams.state.QueryableStoreTypes;
@@ -14,8 +12,8 @@ import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
 import org.apache.kafka.streams.state.Stores;
 import sun.security.krb5.internal.tools.Ktab;
 
-import java.util.Arrays;
-import java.util.Properties;
+import java.time.Duration;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -25,6 +23,41 @@ import java.util.function.Consumer;
  */
 public class KafkaDao {
     public static void main(String[] args) throws InterruptedException {
+        final StreamsBuilder builder = new StreamsBuilder();
+
+        builder.stream("longs-250-1")
+                .groupByKey()
+                .windowedBy(TimeWindows.of(Duration.ofMinutes(30))
+                                .advanceBy(Duration.ofSeconds(30)))
+                .count(Materialized.as("long-counts-str-250-1"))
+                .toStream((k,v) -> k.key())
+                .map(KeyValue::pair)
+                .to("long-counts-all-str-250-1");
+
+        new KafkaStreams(builder.build(), getStreamsConfiguration("localhost:9092")).start();
+
+        KafkaProducer producer =
+                new KafkaProducer<String, Long>(getStreamsConfiguration("localhost:9092"));
+
+        List<String> marketIds = new ArrayList<>();
+        marketIds.add("marketId1");
+        marketIds.add("marketId2");
+        marketIds.add("marketId3");
+        marketIds.add("marketId4");
+        marketIds.add("marketId5");
+        marketIds.add("marketId6");
+
+        Random r = new Random(11111L);
+
+        while(true) {
+            int i = r.nextInt(3);
+            producer.send(new ProducerRecord<String, Long>(
+                    "longs-250-1", marketIds.get(i), 1L));
+            Thread.sleep(1000L);
+        }
+    }
+
+    public static void main2(String[] args) throws InterruptedException {
         final StreamsBuilder builder = new StreamsBuilder();
 
         final Serde<String> stringSerde = Serdes.String();
@@ -84,7 +117,11 @@ public class KafkaDao {
         streamsConfiguration.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         // Specify default (de)serializers for record keys and for record values.
         streamsConfiguration.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
-        streamsConfiguration.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+        streamsConfiguration.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.Long().getClass().getName());
+
+        streamsConfiguration.put("key.serializer", StringSerializer.class.getName());
+        streamsConfiguration.put("value.serializer", LongSerializer.class.getName());
+
         // Records should be flushed every 10 seconds. This is less than the default
         // in order to keep this example interactive.
         streamsConfiguration.put(StreamsConfig.COMMIT_INTERVAL_MS_CONFIG, 10 * 1000);
