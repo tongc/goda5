@@ -10,7 +10,6 @@ import org.apache.kafka.streams.state.KeyValueBytesStoreSupplier;
 import org.apache.kafka.streams.state.QueryableStoreTypes;
 import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
 import org.apache.kafka.streams.state.Stores;
-import sun.security.krb5.internal.tools.Ktab;
 
 import java.time.Duration;
 import java.util.*;
@@ -20,19 +19,21 @@ import java.util.function.Consumer;
  * .\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic tongtable  --group ee
  * .\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic tongtable --group a
  * .\kafka-console-producer.bat --broker-list localhost:9092 --topic tongt1 --property "parse.key=true" --property "key.separator=:"
+ * ./kafka-topics.sh --create --zookeeper localhost:2181 --topic longs-250-3-tc1 --replication-factor 1 --partitions 1 --config "cleanup.policy=compact" --config "delete.retention.ms=1000" --config "segment.ms=1000"
  */
 public class KafkaDao {
     public static void main(String[] args) throws InterruptedException {
         final StreamsBuilder builder = new StreamsBuilder();
 
-        builder.stream("longs-250-1")
+        String suffix = "tc1";
+        builder.stream("longs-250-3" + suffix)
                 .groupByKey()
                 .windowedBy(TimeWindows.of(Duration.ofMinutes(30))
                                 .advanceBy(Duration.ofSeconds(30)))
-                .count(Materialized.as("long-counts-str-250-1"))
+                .count(Materialized.as("long-counts-str-250-3" + suffix))
                 .toStream((k,v) -> k.key())
                 .map(KeyValue::pair)
-                .to("long-counts-all-str-250-1");
+                .to("long-counts-all-str-250-3" + suffix);
 
         new KafkaStreams(builder.build(), getStreamsConfiguration("localhost:9092")).start();
 
@@ -52,7 +53,7 @@ public class KafkaDao {
         while(true) {
             int i = r.nextInt(3);
             producer.send(new ProducerRecord<String, Long>(
-                    "longs-250-1", marketIds.get(i), 1L));
+                    "longs-250-3" + suffix, marketIds.get(i), 1L));
             Thread.sleep(1000L);
         }
     }
