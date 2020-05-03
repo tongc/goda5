@@ -14,6 +14,8 @@ import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
 import org.apache.kafka.streams.state.Stores;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -25,12 +27,13 @@ import java.util.function.Consumer;
 public class KafkaDaoConsumer {
     public static void main(String[] args) throws InterruptedException {
         final KafkaConsumer consumer = new KafkaConsumer<String, Long>(getStreamsConfiguration("localhost:9092"));
-        consumer.subscribe(Collections.singletonList("long-counts-all-str-250"));
+        consumer.subscribe(Collections.singletonList("long-counts-all-str-250-3" + "tc"));
 
         while (true) {
             final ConsumerRecords<Windowed, Long> consumerRecords = consumer.poll(Duration.ofMillis(100));
 
             consumerRecords.forEach(record -> {
+                System.out.println(new Date(record.key().window().start()) + " : " + new Date(record.key().window().end()));
                 System.out.println(new Date(record.timestamp()) + " " + record.value() + " " + record.offset() + " " + record.key().key());
 //                System.out.printf("Consumer Record:(%d, %s, %d, %d)\n",
 //                        record.key(), record.value(),
