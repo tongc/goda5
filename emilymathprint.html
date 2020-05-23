@@ -1,5 +1,11 @@
 <html>
 <body onload="init()" onunload="done()">
+<style>
+	td {
+		padding: 8px;
+		font-size: 12px;
+	}
+</style>
 <script>
   var startedTime = Date.now();
   var thisQuiz;
@@ -23,15 +29,23 @@
   var totalQuestion = url.searchParams.get("totalQuestions");
   var addsubmuldiv = url.searchParams.get("addsubmuldiv");
   var numberCeiling = url.searchParams.get("numberCeiling");
+  var numberCeilingForPlusMinus = url.searchParams.get("numberCeilingForPlusMinus");
+  var totalQuestionsPerRow = url.searchParams.get("totalQuestionsPerRow");
   
   if(totalQuestion == null) {
 	totalQuestion = 100;
   }
   if(addsubmuldiv == null) {
-	addsubmuldiv = "add";
+	addsubmuldiv = "all";
   }
   if(numberCeiling == null) {
-	numberCeiling = 10;
+	numberCeiling = 12;
+  }
+  if(numberCeilingForPlusMinus == null) {
+	numberCeilingForPlusMinus = 500;
+  }
+  if(totalQuestionsPerRow == null) {
+	totalQuestionsPerRow = 4;
   }
   
   var symbol = "+";
@@ -64,35 +78,37 @@
 </script>
 <table>
 <script>
-  for(var i=0;i<totalQuestion;i++) {
-    var random1 = Math.floor(Math.random()*numberCeiling) + 1;
-    var random2 = Math.floor(Math.random()*numberCeiling) + 1;
-    var random3 = Math.floor(Math.random()*numberCeiling) + 1;
-    var random4 = Math.floor(Math.random()*numberCeiling) + 1;
-    var random5 = Math.floor(Math.random()*numberCeiling) + 1;
-    var random6 = Math.floor(Math.random()*numberCeiling) + 1;
-	    var random7 = Math.floor(Math.random()*numberCeiling) + 1;
-    var random8 = Math.floor(Math.random()*numberCeiling) + 1;
-	    var random9 = Math.floor(Math.random()*numberCeiling) + 1;
-    var random10 = Math.floor(Math.random()*numberCeiling) + 1;
+  for(var i=0;i<totalQuestion;i++) {	
   document.write("<tr>");
-    document.write("<td><h1>");
-        document.write(random1 + symbol + random2 + " = ");
-
-    document.write("<img width='20px' height='20px' id=\"" + i + "a_result\"/></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>");
-    document.write("<td><h1>");
-        document.write(random3 + symbol + random4 + " = ");
-
-    document.write("<img width='20px' height='20px' id=\"" + i + "b_result\"/></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>");
-    document.write("<td><h1>");
-        document.write(random5 + symbol + random6 + " = ");
-    document.write("<img width='20px' height='20px' id=\"" + i + "c_result\"/></h1></td>");    
-    document.write("<td><h1>");
-        document.write(random7 + symbol + random8 + " = ");
-    document.write("<img width='20px' height='20px' id=\"" + i + "c_result\"/></h1></td>");    
-	    document.write("<td><h1>");
-        document.write(random9 + symbol + random10 + " = ");
-    document.write("<img width='20px' height='20px' id=\"" + i + "c_result\"/></h1></td>");    
+	for(var j=0;j<totalQuestionsPerRow;j++) {
+		if(addsubmuldiv == "all") {
+			symbolNum = Math.floor(Math.random() * 4) + 1;
+			if(symbolNum == 1) {
+				symbol = " + ";
+			}
+			if(symbolNum == 2) {
+				symbol = " - ";
+			}
+			if(symbolNum == 3) {
+				symbol = " * ";
+			}
+			if(symbolNum == 4) {
+				symbol = " ÷ ";
+			}
+		}
+		var random1 = Math.floor(Math.random()*numberCeiling) + 1;
+		var random2 = Math.floor(Math.random()*numberCeiling) + 1;
+		if(symbolNum == 1 || symbolNum == 2) {
+			random1 = Math.floor(Math.random()*numberCeilingForPlusMinus) + 1;
+			random2 = Math.floor(Math.random()*numberCeilingForPlusMinus) + 1;
+		}
+		if(symbolNum == 4) {
+			random1 = random1 * random2;
+		}
+		document.write("<td><h1>");
+		document.write(random1 + symbol + random2 + " = ");
+		document.write("<img width='20px' height='20px' id=\"" + i + "_" + j + "_result\"/></h1></td>");
+	}
   document.write("</tr>");
 }
 function check(element, v1, v2) {
