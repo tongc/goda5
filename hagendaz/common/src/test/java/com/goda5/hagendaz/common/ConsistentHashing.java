@@ -1,6 +1,9 @@
 package com.goda5.hagendaz.common;
 
 import com.google.common.collect.Maps;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
 
 import java.util.Map;
 
@@ -54,15 +57,14 @@ public class ConsistentHashing {
     }
 
     public int hash(String input) {
-        int hash = 0;
-        for (Character each : input.toCharArray()) {
-            hash += each * 31;
-        }
-        return hash % 8192;
-    }
-
-    public void hash() {
-
+        HashFunction hashFunction = Hashing.md5();
+        HashCode hashCode = hashFunction.hashBytes(input.getBytes());
+        return Hashing.consistentHash(hashCode, 8192);
+        //        int hash = 0;
+//        for (Character each : input.toCharArray()) {
+//            hash += each * 31;
+//        }
+//        return hash % 8192;
     }
 
     public static void main(String[] args) {
