@@ -40,27 +40,32 @@
 	addsubmuldiv = "all";
   }
   if(numberCeiling == null) {
-	numberCeiling = 12;
+	numberCeiling = 100;
   }
   if(numberCeilingForPlusMinus == null) {
 	numberCeilingForPlusMinus = 500;
   }
   if(totalQuestionsPerRow == null) {
-	totalQuestionsPerRow = 4;
+	totalQuestionsPerRow = 6;
   }
   
   var symbol = "+";
+  var symbolNum = 1;
   if(addsubmuldiv == "add") {
 	symbol = " + ";
+	symbolNum = 1;
   }
   if(addsubmuldiv == "sub") {
 	symbol = " - ";
+  	symbolNum = 2;
   }
   if(addsubmuldiv == "mul") {
 	symbol = " × ";
+	symbolNum = 3;
   }
   if(addsubmuldiv == "div") {
 	symbol = " ÷ ";
+	symbolNum = 4;
   }
 
 	function checkAll() {
