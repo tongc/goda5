@@ -44,7 +44,7 @@
         </dependency>
     </dependencies>
 	<properties>
-		<kotlin.version>1.0.7</kotlin.version>
+		<kotlin.version>1.6.0</kotlin.version>
 	</properties>
 	<parent>
 		<artifactId>hagendaz</artifactId>
