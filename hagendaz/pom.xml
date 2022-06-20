@@ -52,7 +52,7 @@
     </pluginRepositories>
 
 	<properties>
-		<kotlin.version>1.0.0</kotlin.version>
+		<kotlin.version>1.6.0</kotlin.version>
 		<org.springframework.version>4.1.5.RELEASE</org.springframework.version>
 		<org.hibernate.version>4.1.4.Final</org.hibernate.version>
 		<cxf.version>2.6.2</cxf.version>
