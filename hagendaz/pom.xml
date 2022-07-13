@@ -55,7 +55,7 @@
 		<kotlin.version>1.0.0</kotlin.version>
 		<org.springframework.version>4.1.5.RELEASE</org.springframework.version>
 		<org.hibernate.version>4.1.4.Final</org.hibernate.version>
-		<cxf.version>2.6.2</cxf.version>
+		<cxf.version>2.6.7</cxf.version>
 		<atomikos.version>3.8.0</atomikos.version>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
