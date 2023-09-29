@@ -1,0 +1,198 @@
+<html>
+<body onload="init()" onunload="done()">
+<style>
+	td {
+		padding: 8px;
+		font-size: 12px;
+		padding-top: 15px;
+	}
+</style>
+<script>
+  var startedTime = Date.now();
+  var thisQuiz;
+  var records;
+  function init() {
+    records = window.localStorage.getItem('records');
+    if(records == undefined) {
+	  records = new Array();
+    } else {
+	  records = JSON.parse(records);
+	}
+    thisQuiz = {datetime: new Date().toISOString(), value: []};
+  }
+  
+  function done() {
+    records.push(thisQuiz);
+	window.localStorage.setItem('records', JSON.stringify(records));
+  }
+
+  var url = new URL(window.location.href);
+  var totalQuestion = url.searchParams.get("totalQuestions");
+  var addsubmuldiv = url.searchParams.get("addsubmuldiv");
+  var numberCeiling = url.searchParams.get("numberCeiling");
+  var numberCeilingForPlusMinus = url.searchParams.get("numberCeilingForPlusMinus");
+  var totalQuestionsPerRow = url.searchParams.get("totalQuestionsPerRow");
+  
+  if(totalQuestion == null) {
+		totalQuestion = 100;
+  }
+  if(addsubmuldiv == null) {
+		addsubmuldiv = "all";
+  }
+  if(numberCeiling == null) {
+		numberCeiling = 100;
+  }
+  if(numberCeilingForPlusMinus == null) {
+		numberCeilingForPlusMinus = 500;
+  }
+  if(totalQuestionsPerRow == null) {
+		totalQuestionsPerRow = 3;
+  }
+  
+  var symbol = "+";
+  var symbolNum = 1;
+  if(addsubmuldiv == "add") {
+		symbol = " + ";
+		symbolNum = 1;
+  }
+  if(addsubmuldiv == "sub") {
+		symbol = " - ";
+  	symbolNum = 2;
+  }
+  if(addsubmuldiv == "mul") {
+		symbol = " × ";
+		symbolNum = 3;
+  }
+  if(addsubmuldiv == "div") {
+		symbol = " ÷ ";
+		symbolNum = 4;
+  }
+
+	function checkAll() {
+		var allGood = true;
+		for(var i=0;i<totalQuestion;i++) {
+			if(!document.getElementById(i+"a_result").src.includes("1200px-Green_tick_pointed.svg.png") || 
+			   !document.getElementById(i+"b_result").src.includes("1200px-Green_tick_pointed.svg.png") || 
+			   !document.getElementById(i+"c_result").src.includes("1200px-Green_tick_pointed.svg.png")) {
+				allGood = false;
+			}
+		}
+		if(allGood) {
+			alert("Well done Emily!!!");
+		}
+	}
+</script>
+<table>
+<script>
+  for(var i=0;i<totalQuestion;i++) {	
+  document.write("<tr>");
+	for(var j=0;j<totalQuestionsPerRow;j++) {
+		if(addsubmuldiv == "all") {
+			var symbolNum = Math.floor(Math.random() * 4) + 1;
+			if(symbolNum == 1) {
+				symbol = " + ";
+			}
+			if(symbolNum == 2) {
+				symbol = " - ";
+			}
+			if(symbolNum == 3) {
+				symbol = " * ";
+			}
+			if(symbolNum == 4) {
+				symbol = " ÷ ";
+			}
+		}
+
+
+		//decimal
+		var numOfDecimals = Math.floor(Math.random()*3) + 1
+
+		var random1 = Math.round((Math.random() + Number.EPSILON) * 100) / 100;
+		//fraction
+		var random2 = Math.round((Math.random() + Number.EPSILON) * 100) / 100;
+		//integer
+		var random3 = Math.floor(Math.random()*numberCeiling) + 1;
+		//integer
+		var random4 = Math.floor(Math.random()*numberCeiling) + 1;
+		//integer
+		var random5 = Math.floor(Math.random()*numberCeiling) + 1;
+		//integer
+		var random6 = Math.floor(Math.random()*numberCeiling) + 1;
+
+		var numType = Math.floor(Math.random()*4);
+		switch(numType) {
+			case 0: 
+				random1 = random1 + "%";
+				break;
+			case 1: 
+				random1 = random3 + "/" + random4;
+				break;
+		}
+		numType = Math.floor(Math.random()*4);
+		switch(numType) {
+			case 0: 
+				random2 = random2 + "%";
+				break;
+			case 1: 
+				random2 = random5 + "/" + random6;
+				break;
+		}
+		var numSign = Math.floor(Math.random()*2);
+		switch(numSign) {
+			case 0: 
+				random1 = "-" + random1;
+				break;
+		}
+		numSign = Math.floor(Math.random()*2);
+		switch(numSign) {
+			case 0: 
+				random2 = "-" + random2;
+				break;
+		}
+
+
+		if(symbolNum == 1 || symbolNum == 2) {
+			//random1 = Math.floor(Math.random()*numberCeilingForPlusMinus) + 1;
+			//random2 = Math.floor(Math.random()*numberCeilingForPlusMinus) + 1;
+		}
+		// if(symbolNum == 4) {
+		// 	random1 = Math.round(random1 * random2 * 100)/100;
+		// }
+		document.write("<td><h1>");
+		document.write(random1 + symbol + random2 + " = ");
+		document.write("<img width='20px' height='20px' id=\"" + i + "_" + j + "_result\"/></h1></td>");
+	}
+  document.write("</tr>");
+}
+function check(element, v1, v2) {
+	var result = 0;
+	if(addsubmuldiv == "add") {
+		result = parseInt(document.getElementById(element).value) == (v1+v2);
+	}
+	if(addsubmuldiv == "sub") {
+		result = parseInt(document.getElementById(element).value) == (v1-v2);
+	}
+	if(addsubmuldiv == "mul") {
+		result = parseInt(document.getElementById(element).value) == (v1*v2);
+	}
+	if(addsubmuldiv == "div") {
+		result = parseInt(document.getElementById(element).value) == Math.floor(v1/v2);
+	}
+	if(result) {
+		document.getElementById(element+"_result").src="1200px-Green_tick_pointed.svg.png";
+		var now = Date.now();
+		thisQuiz.value.push(now - startedTime);
+		startedTime = now;
+	} else {
+		document.getElementById(element+"_result").src="red-cross.png";
+	}
+	checkAll();
+}
+</script>
+</table>
+<script>
+var records = window.localStorage.getItem('records');
+console.info(JSON.parse(records));
+</script>
+</body>
+</html>
